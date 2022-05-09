@@ -7,12 +7,32 @@ const binance = new Binance().options({ APIKEY: "", APISECRET: "" });
 
 app.use(express.static(path.resolve(__dirname, "./build")));
 
-app.get("/trade", async (req, res) => {
-  let data = "";
-  const coin = await binance.prices("BNBBTC", (error, ticker) => {
-    data = ticker.BNBBTC;
-    res.send("Price of BNB: " + data);
-  });
+app.get("/candlestick", async (req, res) => {
+  const candle = binance.candlesticks(
+    "VETUSDT",
+    "5m",
+    (error, ticks, symbol) => {
+      let last_tick = ticks[ticks.length - 1];
+      //console.log(last_tick);
+      let [
+        time,
+        open,
+        high,
+        low,
+        close,
+        volume,
+        closeTime,
+        assetVolume,
+        trades,
+        buyBaseVolume,
+        buyAssetVolume,
+        ignored,
+      ] = last_tick;
+      res.send(last_tick);
+      return last_tick;
+    },
+    { limit: 20 }
+  );
 });
 
 app.listen(3000, () => {
