@@ -1,21 +1,19 @@
 import Chart from "./ApexChart";
-import { useState } from "react";
+import {useState} from "react";
+import React from "react";
 
 const ChartHandler = (props) => {
-  const [getDate, setGetDate] = useState();
-  const callApi = async () => {
-    await fetch("/candlestick")
-      .then((response) => response.json())
-      .then((data) => setGetDate(data[0]));
-    console.log(getDate + "getDate");
-    return getDate;
+  const [getData, setGetData] = useState({});
+
+  const connect = async () => {
+    await fetch("/chart_socket").then((response) => response.json()).then((data) => setGetData(data));
   };
 
-  return (
-    <div>
-      <Chart getDate={callApi} />;
-    </div>
-  );
+  return (<div>
+    <React.StrictMode>
+      <Chart getData={getData} callApi={connect}/>
+    </React.StrictMode>
+  </div>);
 };
 
 export default ChartHandler;

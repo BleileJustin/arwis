@@ -2,22 +2,24 @@ import ReactApexChart from "react-apexcharts";
 import { React, useState } from "react";
 
 const ApexChart = (props) => {
-  const [dateState, setDateState] = useState(new Date());
-  console.log(dateState + "date");
+  const [dataState, setDataState] = useState(props.getData);
+
+  const keys = Object.keys(dataState);
+  const dataArray = [];
+  keys.forEach((key) => {
+    const dataKey = dataState[key];
+    dataArray.push({
+      x: new Date(parseInt(key)),
+      y: [dataKey.open, dataKey.high, dataKey.low, dataKey.close],
+    });
+  });
+  console.log(dataArray[0]);
+  console.log("date");
 
   let data = {
     series: [
       {
-        data: [
-          {
-            x: dateState,
-            y: [6629.81, 6650.5, 6623.04, 6633.33],
-          },
-          {
-            x: new Date(1538780400000),
-            y: [6632.01, 6643.59, 6620, 6630.11],
-          },
-        ],
+        data: dataArray,
       },
     ],
     options: {
@@ -40,8 +42,10 @@ const ApexChart = (props) => {
     },
   };
   const dataHandler = async () => {
-    setDateState(await props.getDate);
-    console.log(dateState + "dateState");
+    await props.callApi();
+    setDataState(props.getData);
+    console.log(dataState);
+    console.log("Data Handled");
   };
 
   return (
@@ -53,7 +57,9 @@ const ApexChart = (props) => {
         height={350}
       />
 
-      <button className="callApiButt" onClick={dataHandler} />
+      <button className="callApiButt" onClick={dataHandler}>
+        DataHandle
+      </button>
     </div>
   );
 };

@@ -7,10 +7,19 @@ const binance = new Binance().options({ APIKEY: "", APISECRET: "" });
 
 app.use(express.static(path.resolve(__dirname, "./build")));
 
+app.get("/chart_socket", async (req, res) => {
+  binance.websockets.chart("BNBBTC", "1m", (symbol, interval, chart) => {
+    let tick = binance.last(chart);
+    const last = chart[tick].close;
+
+    res.send(chart);
+  });
+});
+
 app.get("/candlestick", async (req, res) => {
   const candle = binance.candlesticks(
     "VETUSDT",
-    "5m",
+    "1m",
     (error, ticks, symbol) => {
       let last_tick = ticks[ticks.length - 1];
       //console.log(last_tick);
@@ -28,7 +37,7 @@ app.get("/candlestick", async (req, res) => {
         buyAssetVolume,
         ignored,
       ] = last_tick;
-      res.send(last_tick);
+      res.send(ticks);
       return last_tick;
     },
     { limit: 20 }
