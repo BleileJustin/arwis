@@ -1,6 +1,6 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Arwis
+A Cryptocurrency Trading Bot using React, Express, and MongoDB
+Trades on the Binance.US exchange
 
 ## Available Scripts
 
