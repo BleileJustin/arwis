@@ -1,10 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import Navigation from "./components/Navigation/Navigation";
+import Dashboard from "./components/dashboard/Dashboard";
 
-function App() {
+const App = () => {
   return (
-    <div></div>
+    <div>
+      <Navigation></Navigation>
+      <Dashboard></Dashboard>
+    </div>
   );
-}
+};
 
 export default App;
