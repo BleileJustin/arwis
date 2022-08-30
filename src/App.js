@@ -1,5 +1,5 @@
 import Navigation from "./components/Navigation/Navigation";
-import Dashboard from "./components/dashboard/Dashboard";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 const App = () => {
   return (
