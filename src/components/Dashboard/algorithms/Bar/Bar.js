@@ -1,9 +1,11 @@
 import CurPair from "./CurPair";
 import WalletValue from "./WalletValue";
 
+import css from './Bar.module.css'
+
 const Bar = () => {
   return (
-    <div>
+    <div className={css.bar}>
       <CurPair></CurPair>
       <WalletValue></WalletValue>
     </div>

@@ -1,4 +1,7 @@
 .analytics {
     display: flex;
+    height: 48%;
+    width: 100%;
+    background-color: #1d1e2480;
     
 }

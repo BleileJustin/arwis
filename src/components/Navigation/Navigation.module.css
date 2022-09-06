@@ -1,6 +1,9 @@
 .navigation {
-    position: relative;
-    height: 90vh;
-    width: 14vw;
-    border: solid black;
+    background-color: #1d1e2480;
+    margin: 25px 0 25px 0;
+    z-index: 1;
+    display: flex;
+    height: 95vh;
+    width: 12vw;
+    border-radius: 10px;
 }

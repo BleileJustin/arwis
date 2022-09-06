@@ -1,7 +1,8 @@
 .dashboard {
-    position: relative;
-    height: 90vh;
-    width: 84vw;
+    z-index: 1;
     display: flex;
+    flex-direction: column;
+    height: 95vh;
+    width: 82vw;
     border: solid black;
 }

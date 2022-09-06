@@ -1,5 +1,5 @@
 const PortfolioValue = () => {
-  return <h1>Portfolio Value:</h1>;
+  return <h1> </h1>;
 };
 
 export default PortfolioValue;
