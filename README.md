@@ -1,6 +1,7 @@
 # Arwis
 A Cryptocurrency Trading Bot using React, Express, and MongoDB
 Trades on the Binance.US exchange
+(IN DEVELOPMENT)
 
 ## Available Scripts
 
