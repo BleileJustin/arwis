@@ -4,7 +4,7 @@ import Distribution from "./Distribution/Distribution";
 
 const Analytics = () => {
   return (
-    <div className="analytics">
+    <div>
       <Portfolio></Portfolio>
       <TradeList></TradeList>
       <Distribution></Distribution>

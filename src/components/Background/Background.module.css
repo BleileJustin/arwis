@@ -1,0 +1,30 @@
+.background {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    background-color: rgba(28, 33, 69, .9);
+    height: 100vh;
+    width: 100%;
+}
+
+
+.gradientTL {
+    height: 45vh;
+    width: 45vh;
+    background: radial-gradient(circle, #3b10e962, #3b10e85f 10%, transparent 70%);
+}
+
+.gradientBC {
+    height: 70vh;
+    width: 40rem;
+    background: radial-gradient(circle, #14a1f246, #14a0f13b 10%, #14a0f118 35%, transparent 60%);
+    align-self: center;
+   
+}
+
+.gradientTR {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(210deg, #b728ba28, transparent 50%)
+}

@@ -1,4 +1,7 @@
 .dashboard {
+    position: relative;
+    height: 90vh;
+    width: 84vw;
     display: flex;
-    border: 1px;
+    border: solid black;
 }

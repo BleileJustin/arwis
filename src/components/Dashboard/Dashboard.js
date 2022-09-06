@@ -1,11 +1,13 @@
-import Analytics from "./analytics/Analytics";
-import Bar from "./algorithms/Bar/Bar";
+import Analytics from "./Analytics/Analytics";
+import Algorithms from "./Algorithms/Algorithms";
+
+import css from "./Dashboard.module.css";
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className={css.dashboard}>
       <Analytics></Analytics>
-      <Bar></Bar>
+      <Algorithms></Algorithms>
     </div>
   );
 };
