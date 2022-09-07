@@ -1,0 +1,9 @@
+.algorithms {
+    display: flex;
+}
+
+.add_bar {
+    display: flex;
+    align-self: center;
+    color: aliceblue
+}

@@ -1,13 +1,11 @@
-import CurPair from "./CurPair";
-import WalletValue from "./WalletValue";
-
 import css from './Bar.module.css'
 
 const Bar = () => {
   return (
     <div className={css.bar}>
-      <CurPair></CurPair>
-      <WalletValue></WalletValue>
+      <button className={css.expand_bar}>X</button>
+      <h2 className={css.cur_pair}> </h2>
+      <h3 className={css.wallet_value}> </h3>
     </div>
   );
 };
