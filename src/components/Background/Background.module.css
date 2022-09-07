@@ -27,6 +27,6 @@
 .gradientTR {
     position: absolute;
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     background: linear-gradient(210deg, hsla(299, 65%, 44%, 0.157), transparent 50%);
 }

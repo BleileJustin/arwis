@@ -1,9 +1,17 @@
 .algorithms {
     display: flex;
+    flex-direction: column;
+    height: 48%;
+    margin-top: 1rem;
+
 }
 
 .add_bar {
     display: flex;
     align-self: center;
-    color: aliceblue
+    color: aliceblue;
+    background: url(../../../assets/icons/add_bar_icon/add-50.png);
+    background-size: 6vh;
+    height: 6vh;
+    width: 6vh;
 }
