@@ -6,4 +6,6 @@
     height: 95vh;
     width: 12vw;
     border-radius: 10px;
+    box-shadow: 4px 4px 4px hsla(0, 0%, 0%, 0.25);
+    box-shadow:-4px -4px 4px hsl(240, 25%, 34%);
 }

@@ -11,14 +11,14 @@
 .gradientTL {
     height: 45vh;
     width: 45vh;
-    background: radial-gradient(circle, #3b10e962, #3b10e85f 10%, transparent 70%);
+    background: radial-gradient(circle, hsla(252, 88%, 49%, 45%), hsla(252, 88%, 49%, 35%) 15%, hsla(232, 15%, 20%, 0) 75%);
 }
 
 .gradientBC {
     display: flex;
     height: 70vh;
     width: 40rem;
-    background: radial-gradient(circle, #14a1f246, #14a0f13b 10%, #14a0f118 35%, transparent 60%);
+    background: radial-gradient(circle, hsla(202, 90%, 51%, 0.286), hsla(202, 89%, 51%, 0.222) 10%, hsla(202, 89%, 51%, 0.094) 35%, transparent 60%);
     align-self: center;
     justify-self: flex-end;
    
@@ -28,5 +28,5 @@
     position: absolute;
     height: 100vh;
     width: 100vw;
-    background: linear-gradient(210deg, #b728ba28, transparent 50%);
+    background: linear-gradient(210deg, hsla(299, 65%, 44%, 0.157), transparent 50%);
 }
