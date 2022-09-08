@@ -13,6 +13,7 @@ const Algorithms = () => {
   ]);
   const addBar = () => {
     console.log("ADD_BAR CLICKED");
+    //!!!Open form inside a new bar in DOM!!!
   };
 
   const deleteBarHandler = (barId) => {
