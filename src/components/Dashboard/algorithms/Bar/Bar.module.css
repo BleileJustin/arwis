@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     background-color: hsla(232, 10%, 13%, 0.50);
     border-radius: 10px;
     height: 4.2rem;
@@ -15,7 +16,18 @@
     background-size: 7vh;
     height: 7vh;
     width: 7vh;
+    cursor: pointer;
 }
+
+.delete_bar {
+    background: url(../../../../assets/icons/expand_bar_icon/x-50.png);
+    background-size: 7vh;
+    height: 7vh;
+    width: 7vh;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+
 .cur_pair {
     color: aliceblue;
 } 
