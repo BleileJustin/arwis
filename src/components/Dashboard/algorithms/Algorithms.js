@@ -13,8 +13,12 @@ const Algorithms = () => {
   ]);
   const addBar = () => {
     console.log("ADD_BAR CLICKED");
-    //!!!Open form inside a new bar in DOM!!!
+    //(DESIGN)!!!OPEN FORM INSIDE NEW BAR IN DOM!!!
   };
+
+  const connectWallet = () => {
+    console.log('WALLET CONNECTED')
+  }
 
   const deleteBarHandler = (barId) => {
     setBars((prevBars) => {
