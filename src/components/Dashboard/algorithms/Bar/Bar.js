@@ -18,7 +18,7 @@ const Bar = (props) => {
 
   const onConnect = (curPair) => {
     setBarState(
-      <div>
+      <div className={css.bar}>
         <button className={css.expand_bar} onClick={expandBar}></button>
         <h2 className={css.cur_pair}>{curPair}</h2>
         <h3 className={css.wallet_value}> </h3>
@@ -28,7 +28,7 @@ const Bar = (props) => {
   };
 
   return barState ? (
-    <div className={css.bar}>{barState}</div>
+    barState
   ) : (
     <div className={css.bar}>
       <BarForm onConnect={onConnect}></BarForm>

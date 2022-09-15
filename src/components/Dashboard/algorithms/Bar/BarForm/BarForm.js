@@ -12,7 +12,7 @@ const BarForm = (props) => {
   };
   return (
     //Eventually eliminate hard coded options
-    <form className={css.wallet_form} onSubmit={connect} id="wallet_form">
+    <form className={css.wallet_form} onSubmit={connect}>
       <select
         className={css.cur_pair}
         form="wallet_form"

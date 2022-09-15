@@ -5,14 +5,18 @@ import css from "./Algorithms.module.css";
 
 const Algorithms = () => {
   const [algorithms, setAlgorithms] = useState([]);
+  console.log(algorithms);
+  let content = {};
 
-  const addBarHandler = () => {
+  const addBarHandler = (event) => {
     console.log("ADD_BAR CLICKED");
     setAlgorithms((prevBars) => {
-      prevBars.push({ id: prevBars.length });
-      console.log(...prevBars);
+      console.log(prevBars);
       const prev = [...prevBars];
-      return prev;
+      prev.push({ id: Math.random() });
+      console.log([...prevBars]);
+      console.log(algorithms);
+      return [...prev];
     });
   };
 
@@ -23,18 +27,17 @@ const Algorithms = () => {
       return updatedBars;
     });
   };
-  const content = algorithms.map((bar) => (
+  content = algorithms.map((bar) => (
     <Bar key={bar.id} id={bar.id} onDeleteBar={deleteBarHandler}></Bar>
   ));
   console.log(content);
+  console.log(algorithms);
 
   return (
-    <React.StrictMode>
-      <div className={css.algorithms}>
-        <ul>{content}</ul>
-        <button className={css.add_bar} onClick={addBarHandler} />
-      </div>
-    </React.StrictMode>
+    <div className={css.algorithms}>
+      <ul>{content}</ul>
+      <button className={css.add_bar} onClick={addBarHandler} />
+    </div>
   );
 };
 
