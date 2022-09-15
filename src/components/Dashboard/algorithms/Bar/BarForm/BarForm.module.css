@@ -1,0 +1,12 @@
+.wallet_form {
+    display: flex;
+    height: 80%;
+    width: 100%;
+    justify-content: space-around;
+
+}
+
+.cur_pair, .connect{
+    background-color: transparent;
+    color: aliceblue;
+}
