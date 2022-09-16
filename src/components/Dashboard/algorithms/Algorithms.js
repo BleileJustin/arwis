@@ -18,6 +18,9 @@ const Algorithms = () => {
       console.log(algorithms);
       return [...prev];
     });
+
+    //Validation: "Please Connect before creating a new AlgoBar"
+    //This will rely on the state of the bar
   };
 
   const deleteBarHandler = (barId) => {

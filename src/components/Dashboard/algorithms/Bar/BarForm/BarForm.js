@@ -9,6 +9,7 @@ const BarForm = (props) => {
     event.preventDefault();
     console.log(dropdownState);
     props.onConnect(dropdownState);
+    //Validation: Please choose a Pair before connecting
   };
   return (
     //Eventually eliminate hard coded options
