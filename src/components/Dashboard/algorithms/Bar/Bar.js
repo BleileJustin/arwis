@@ -32,6 +32,7 @@ const Bar = (props) => {
   ) : (
     <div className={css.bar}>
       <BarForm onConnect={onConnect}></BarForm>
+      <button className={css.delete_bar} onClick={deleteBar}></button>
     </div>
   );
 };

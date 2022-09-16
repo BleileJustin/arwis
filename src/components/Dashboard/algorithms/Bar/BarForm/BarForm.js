@@ -23,6 +23,7 @@ const BarForm = (props) => {
         <option value="ETH/USD">ETH/USD</option>
       </select>
       <input type="submit" value="Connect" className={css.connect}/>
+
     </form>
   );
 };
