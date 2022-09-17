@@ -5,36 +5,46 @@ import css from "./Algorithms.module.css";
 
 const Algorithms = () => {
   const [algorithms, setAlgorithms] = useState([]);
+  const [prevBarState, setPrevBarState] = useState();
   console.log(algorithms);
   let content = {};
 
+  const validateForm = (barState) => {
+    setPrevBarState(barState);
+    console.log(prevBarState);
+  };
+
   const addBarHandler = (event) => {
     console.log("ADD_BAR CLICKED");
-    setAlgorithms((prevBars) => {
-      console.log(prevBars);
-      const prev = [...prevBars];
-      prev.push({ id: Math.random() });
-      console.log([...prevBars]);
-      console.log(algorithms);
-      return [...prev];
-    });
-
+    console.log(algorithms.length)
+    console.log(prevBarState)
+    if (prevBarState !== 1 || algorithms.length < 1) {
+      setAlgorithms((prevBars) => {
+        const prev = [...prevBars];
+        prev.push({ id: Math.random() });
+        return [...prev];
+      });
+    } else {
+      alert("Please connect prevbar");
+    }
     //Validation: "Please Connect before creating a new AlgoBar"
-    //This will rely on the state of the bar
+    // Onclick of + retrieve bar state
   };
 
   const deleteBarHandler = (barId) => {
     setAlgorithms((prevBars) => {
       const updatedBars = prevBars.filter((bar) => bar.id !== barId);
-      console.log(updatedBars);
       return updatedBars;
     });
   };
   content = algorithms.map((bar) => (
-    <Bar key={bar.id} id={bar.id} onDeleteBar={deleteBarHandler}></Bar>
+    <Bar
+      key={bar.id}
+      id={bar.id}
+      onDeleteBar={deleteBarHandler}
+      validate={validateForm}
+    ></Bar>
   ));
-  console.log(content);
-  console.log(algorithms);
 
   return (
     <div className={css.algorithms}>
