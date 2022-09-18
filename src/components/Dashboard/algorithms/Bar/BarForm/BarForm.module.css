@@ -15,7 +15,7 @@
 .cur_pair, .connect{
     margin: 0 15px ;
     font-family: Aldrich;
-    font-size: 1.4em;
+    font-size: 1.5em;
     background-color: transparent;
     color: aliceblue;
 }
@@ -29,5 +29,12 @@
 }
 
 .cur_pair{
-    padding-top: .2em;
+    margin-left: 2em;
+    
+}
+
+select{
+    border: 0px;
+    padding: .1em
+    
 }

@@ -28,9 +28,25 @@
     cursor: pointer;
 }
 
-.cur_pair {
+.cur_pair_container, .wallet_value_container{
+    display: flex;
+    width: 50%;
+
+}
+
+.wallet_value_container {
+    justify-content: space-between;
+}
+
+.cur_pair, .wallet_value {
+    display: flex;
+    align-items: center;
+    padding-top: .2em;
     color: aliceblue;
+    font-family: Aldrich;
+    
 } 
+
 .wallet_value {
-    color: aliceblue;
+    padding-left: 1em;
 }
