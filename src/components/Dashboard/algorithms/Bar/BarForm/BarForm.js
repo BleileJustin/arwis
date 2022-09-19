@@ -7,7 +7,6 @@ const BarForm = (props) => {
 
   const connect = (event) => {
     event.preventDefault();
-    console.log(dropdownState);
     props.onConnect(dropdownState);
   };
   return (

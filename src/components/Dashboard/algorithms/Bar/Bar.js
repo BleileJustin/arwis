@@ -5,19 +5,25 @@ import BarForm from "./BarForm/BarForm";
 
 const Bar = (props) => {
   const [barState, setBarState] = useState(1);
-  const expandBar = () => {
-    console.log("EXPAND_BAR CLICKED");
-  };
-
   const id = props.id;
+  console.log(props.algorithms);
+
+  const expandBar = () => {
+    //
+  };
 
   const deleteBar = () => {
     props.onDeleteBar(id);
-    console.log("DELETE_BAR CLICKED");
+  };
+
+  const validateForm = () => {
+    props.validate(barState);
   };
 
   const onConnect = (curPair) => {
-    curPair
+    console.log(props.algorithms);
+    props.duplicateValidation(curPair)
+    curPair && curPair !== "select" && !props.algorithms.includes(curPair)//Duplicate validation logic too!
       ? setBarState(
           <div className={css.bar}>
             <div className={css.cur_pair_container}>
@@ -33,9 +39,6 @@ const Bar = (props) => {
       : alert("Validation: Please choose a Pair before connecting");
   };
 
-  const validateForm = () => {
-    props.validate(barState);
-  };
   validateForm();
   return barState !== 1 ? (
     barState
