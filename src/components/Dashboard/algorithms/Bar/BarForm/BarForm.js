@@ -19,11 +19,10 @@ const BarForm = (props) => {
         onChange={(e) => setDropdownState(e.target.value)}
       >
         <option value="select">Pair</option>
-        <option value="BTC/USD">BTC/USD</option>
-        <option value="ETH/USD">ETH/USD</option>
+        <option value="BTC/USD:">BTC/USD</option>
+        <option value="ETH/USD:">ETH/USD</option>
       </select>
-      <input type="submit" value="Connect" className={css.connect}/>
-
+      <input type="submit" value="Connect" className={css.connect} />
     </form>
   );
 };
