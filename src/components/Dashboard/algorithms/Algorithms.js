@@ -11,10 +11,13 @@ const Algorithms = () => {
   const validateForm = (barState) => {
     setPrevBarState(barState);
   };
-  const duplicateValidation = (curPair) => {
-  setAlgorithms()//!@@@JUITODPJHIGUIO[aweGIP[J]]
-    console.log(algorithms)
-  }
+  const setCurPair = (curPair) => {
+    const assignedCurPair = { ...algorithms[algorithms.length - 1], curPair: curPair };
+    const algoList = [...algorithms];
+    algoList.splice(algoList.length - 1, 1, assignedCurPair);
+    console.log(algoList);
+    setAlgorithms(algoList);
+  };
 
   const addBarHandler = (event) => {
     if (prevBarState !== 1 || algorithms.length < 1) {
@@ -37,13 +40,14 @@ const Algorithms = () => {
       return updatedBars;
     });
   };
+
   content = algorithms.map((bar) => (
     <Bar
       key={bar.id}
       id={bar.id}
       onDeleteBar={deleteBarHandler}
       validate={validateForm}
-      duplicateValidation={duplicateValidation}
+      duplicateValidation={setCurPair}
       algorithms={algorithms}
     ></Bar>
   ));
