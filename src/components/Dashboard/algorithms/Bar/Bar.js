@@ -6,7 +6,6 @@ import BarForm from "./BarForm/BarForm";
 const Bar = (props) => {
   const [barState, setBarState] = useState(1);
   const id = props.id;
-  console.log(props.algorithms);
 
   const expandBar = () => {
     //
@@ -16,14 +15,16 @@ const Bar = (props) => {
     props.onDeleteBar(id);
   };
 
-  const validateForm = () => {
-    props.validate(barState);
-  };
-
   const onConnect = (curPair) => {
-    console.log(props.algorithms);
-    props.duplicateValidation(curPair)
-    curPair && curPair !== "select" && !props.algorithms.includes(curPair)//Duplicate validation logic too!
+    const algoList = props.setBarCurPair(curPair);
+    console.log(algoList)
+    let algoBool = false;
+    algoList.forEach((algo) => {
+      algo.curPair === curPair || algoBool
+        ? (algoBool = true)
+        : (algoBool = false);
+    });
+    curPair && curPair !== "select" && !algoBool //Duplicate validation logic too!
       ? setBarState(
           <div className={css.bar}>
             <div className={css.cur_pair_container}>
@@ -39,11 +40,11 @@ const Bar = (props) => {
       : alert("Validation: Please choose a Pair before connecting");
   };
 
-  validateForm();
+  props.validateFormCompletion(barState);
   return barState !== 1 ? (
     barState
   ) : (
-    <div className={css.bar} validate={validateForm}>
+    <div className={css.bar}>
       <BarForm onConnect={onConnect}></BarForm>
       <button className={css.delete_bar} onClick={deleteBar}></button>
     </div>

@@ -5,25 +5,32 @@ import css from "./Algorithms.module.css";
 
 const Algorithms = () => {
   const [algorithms, setAlgorithms] = useState([]);
-  const [prevBarState, setPrevBarState] = useState();
+  let latestBarState = 0;
   let content = {};
 
-  const validateForm = (barState) => {
-    setPrevBarState(barState);
+  const validateFormCompletion = (barState) => {
+    latestBarState = barState;
   };
-  const setCurPair = (curPair) => {
-    const assignedCurPair = { ...algorithms[algorithms.length - 1], curPair: curPair };
+  const validateFormDuplication = () => {
+    //
+  };
+  const setBarCurPair = (curPair) => {
+    const assignedCurPair = {
+      ...algorithms[algorithms.length - 1],
+      curPair: curPair,
+    };
     const algoList = [...algorithms];
+    const prevAlgoList = [...algoList];
     algoList.splice(algoList.length - 1, 1, assignedCurPair);
-    console.log(algoList);
+
     setAlgorithms(algoList);
+    return prevAlgoList;
   };
 
   const addBarHandler = (event) => {
-    if (prevBarState !== 1 || algorithms.length < 1) {
+    if (latestBarState !== 1 || algorithms.length < 1) {
       setAlgorithms((prevBars) => {
         const prev = [...prevBars];
-        console.log(prev);
         prev.push({ id: Math.random(), curPair: null });
         return [...prev];
       });
@@ -46,8 +53,9 @@ const Algorithms = () => {
       key={bar.id}
       id={bar.id}
       onDeleteBar={deleteBarHandler}
-      validate={validateForm}
-      duplicateValidation={setCurPair}
+      validateFormCompletion={validateFormCompletion}
+      validateFormDuplication={validateFormDuplication}
+      setBarCurPair={setBarCurPair}
       algorithms={algorithms}
     ></Bar>
   ));
