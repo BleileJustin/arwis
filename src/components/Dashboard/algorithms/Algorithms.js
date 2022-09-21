@@ -11,20 +11,23 @@ const Algorithms = () => {
   const validateFormCompletion = (barState) => {
     latestBarState = barState;
   };
+
   const validateFormDuplication = () => {
     //
   };
-  const setBarCurPair = (curPair) => {
-    const assignedCurPair = {
+
+  const setAlgoCurPair = (curPair) => {
+    const assignedCurPairAlgo = {
       ...algorithms[algorithms.length - 1],
       curPair: curPair,
     };
     const algoList = [...algorithms];
-    const prevAlgoList = [...algoList];
-    algoList.splice(algoList.length - 1, 1, assignedCurPair);
-
+    algoList.splice([...algorithms].length - 1, 1, assignedCurPairAlgo);
     setAlgorithms(algoList);
-    return prevAlgoList;
+  };
+
+  const getAlgoList = (curPair) => {
+    return [...algorithms];
   };
 
   const addBarHandler = (event) => {
@@ -55,7 +58,8 @@ const Algorithms = () => {
       onDeleteBar={deleteBarHandler}
       validateFormCompletion={validateFormCompletion}
       validateFormDuplication={validateFormDuplication}
-      setBarCurPair={setBarCurPair}
+      setAlgoCurPair={setAlgoCurPair}
+      getAlgoList={getAlgoList}
       algorithms={algorithms}
     ></Bar>
   ));
