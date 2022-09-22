@@ -13,18 +13,19 @@ const Bar = (props) => {
   };
   //ON CONNECT
   const onConnect = (curPair) => {
-    const algoList = props.getAlgoList(curPair);
+    //Get list of current wallets
+    const walletList = props.getWalletList(curPair);
     let isDuplicate = false;
 
-    algoList.forEach((algo) => {
-      algo.curPair === curPair || isDuplicate
+    walletList.forEach((wallet) => {
+      wallet.curPair === curPair || isDuplicate
         ? (isDuplicate = true)
         : (isDuplicate = false);
     });
     //if curPair exists and does not equal select and isDuplicate returns false
     if (curPair && curPair !== "select" && !isDuplicate) {
       //setBarState to connected Bar DOM component
-      props.setAlgoCurPair(curPair);
+      props.setWalletCurPair(curPair);
       setBarState(
         <div className={css.bar}>
           <div className={css.cur_pair_container}>
