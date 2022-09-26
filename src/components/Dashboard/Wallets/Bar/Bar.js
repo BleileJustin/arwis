@@ -1,11 +1,21 @@
 import { useState } from "react";
 
-import css from "./Bar.module.css";
+import "./Bar.css";
 import BarForm from "./BarForm/BarForm";
 
 const Bar = (props) => {
   const [barState, setBarState] = useState(1);
+  const [barExpanded, setBarCSS] = useState(false);
+
+  console.log(barExpanded);
   const id = props.id;
+  const walletValueCryp = 20000;
+  const walletValueFiat = 10000;
+
+  //EXPANDBAR
+  const expandBar = () => {
+    setBarCSS((current) => !current);
+  };
 
   //DELETE BAR
   const deleteBar = () => {
@@ -27,15 +37,36 @@ const Bar = (props) => {
       //setBarState to connected Bar DOM component
       props.setWalletCurPair(curPair);
       setBarState(
-        <div className={css.bar}>
-          <div className={css.cur_pair_container}>
-            <button className={css.expand_bar}></button>
-            <h2 className={css.cur_pair}>{curPair}</h2>
+        <div className={"bar"}>
+          <button className={"expand_bar"} onClick={expandBar}></button>
+
+          <div className={"cur_pair_container"}>
+            <h2 className={"cur_pair"}>{curPair}</h2>
+            <div className={"cur_pair_value_container"}>
+              <h3 className={"cur_pair_value_crypto"}>
+                {walletValueCryp} {curPair.slice(0, curPair.indexOf("/"))}
+              </h3>
+              <h4 className={"cur_pair_value_fiat"}>
+                {walletValueFiat}{" "}
+                {curPair.slice(curPair.indexOf("/") + 1, curPair.indexOf(":"))}
+              </h4>
+            </div>
           </div>
-          <div className={css.wallet_value_container}>
-            <h3 className={css.wallet_value}>Wallet Value:</h3>
-            <button className={css.delete_bar} onClick={deleteBar}></button>
+
+          <div className={"wallet_value_container"}>
+            <h3 className={"wallet_value_title"}>Wallet Value:</h3>
+            <div className={"wallet_value_curpair_container"}>
+              <h3 className={"wallet_value_crypto"}>
+                {walletValueCryp} {curPair.slice(0, curPair.indexOf("/"))}
+              </h3>
+              <h4 className={"wallet_value_fiat"}>
+                {walletValueFiat}{" "}
+                {curPair.slice(curPair.indexOf("/") + 1, curPair.indexOf(":"))}
+              </h4>
+            </div>
           </div>
+
+          <button className={"delete_bar"} onClick={deleteBar}></button>
         </div>
       );
     } else {
@@ -47,11 +78,11 @@ const Bar = (props) => {
   props.validateFormCompletion(barState);
 
   return barState !== 1 ? (
-    barState
+    <div className={`${barExpanded ? "bar_expanded" : ""}`}>{barState}</div>
   ) : (
-    <div className={css.bar}>
+    <div className={"bar"}>
       <BarForm onConnect={onConnect}></BarForm>
-      <button className={css.delete_bar} onClick={deleteBar}></button>
+      <button className={"delete_bar"} onClick={deleteBar}></button>
     </div>
   );
 };

@@ -56,7 +56,6 @@ const Wallets = () => {
       validateFormCompletion={validateFormCompletion}
       setWalletCurPair={setWalletCurPair}
       getWalletList={getWalletList}
-      wallets={wallets}
     ></Bar>
   ));
 

@@ -1,0 +1,105 @@
+.bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: hsla(232, 10%, 13%, 0.50);
+    border-radius: 10px;
+    height: 4.2rem;
+    margin-bottom: 1rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    box-shadow: 4px 4px 4px hsla(0, 0%, 0%, 0.25);
+    box-shadow:-4px -4px 4px hsl(240, 25%, 34%);
+}
+
+.bar_expanded { 
+    display: flex;
+    border-radius: 10px;
+    height: 48vh;
+    width: 100%;
+    background-color: #1d1e2480;
+    box-shadow: 4px 4px 4px hsla(0, 0%, 0%, 0.25);
+    box-shadow:-4px -4px 4px hsl(240, 25%, 34%);
+}
+
+.expand_bar {
+    background: url(../../../../assets/icons/expand_bar_icon/x-50.png);
+    background-size: 3.5vh;
+    height: 3.5vh;
+    width: 3.5vh;
+    cursor: pointer;
+}
+
+.delete_bar {
+    background: url(../../../../assets/icons/expand_bar_icon/x-50.png);
+    background-size: 3.5vh;
+    height: 3.5vh;
+    width: 3.5vh;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+
+
+
+.cur_pair_container, .wallet_value_container{
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    padding-left: 2vh;
+    padding-right: 2vh;
+
+}
+.cur_pair_container {
+    border-right: 1px dotted rgba(240, 248, 255, 0.502);
+}
+
+
+
+
+.wallet_value_curpair_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cur_pair_value_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+
+
+.cur_pair, .wallet_value_title {
+    display: flex;
+    align-items: center;
+    padding-top: .2em;
+    color: aliceblue;
+    font-family: Aldrich;
+    
+} 
+
+.wallet_value_title {
+    font-size: 1.25em;
+}
+
+
+
+
+.wallet_value_crypto, .cur_pair_value_crypto {
+    color: aliceblue;
+    font-size: 1.2em;
+    font-family: Aldrich;
+}
+
+.wallet_value_fiat, .cur_pair_value_fiat{
+    font-family: Aldrich;
+    margin-top: .25em;
+    display: flex;
+    color: rgba(240, 248, 255, 0.6);
+    justify-content: flex-end;
+    font-size: 1em;
+    line-height: .5;
+}
