@@ -12,7 +12,6 @@ const Wallets = () => {
     latestBarState = barState;
   };
 
-
   const setWalletCurPair = (curPair) => {
     const assignedCurPairWallet = {
       ...wallets[wallets.length - 1],
@@ -61,8 +60,10 @@ const Wallets = () => {
 
   return (
     <div className={css.wallets}>
-      <ul>{content}</ul>
-      <button className={css.add_bar} onClick={addBarHandler} />
+      <div className={css.scrollWrapper}>
+        <ul>{content}</ul>
+        <button className={css.add_bar} onClick={addBarHandler} />
+      </div>
     </div>
   );
 };

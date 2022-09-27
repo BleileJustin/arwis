@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import "./Bar.css";
 import BarForm from "./BarForm/BarForm";
+import BarExpanded from "./BarExpanded/BarExpanded";
 
 const Bar = (props) => {
   const [barState, setBarState] = useState(1);
@@ -78,7 +79,10 @@ const Bar = (props) => {
   props.validateFormCompletion(barState);
 
   return barState !== 1 ? (
-    <div className={`${barExpanded ? "bar_expanded" : ""}`}>{barState}</div>
+    <div>
+      {barState}
+      <BarExpanded css={barExpanded ? true : false}></BarExpanded>
+    </div>
   ) : (
     <div className={"bar"}>
       <BarForm onConnect={onConnect}></BarForm>

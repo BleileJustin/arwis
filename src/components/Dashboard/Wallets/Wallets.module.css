@@ -1,12 +1,19 @@
 .wallets {
     display: flex;
     flex-direction: column;
-    height: 48%;
+    height: 65%;
     margin-top: 1rem;
+    overflow-y: scroll;
+    scrollbar-color:  hsl(240, 25%, 34%) hsla(0, 0%, 0%, 0.25);
+}
 
+.scrollWrapper{
+    display: flex;
+    flex-direction: column;
 }
 
 .add_bar {
+    position: sticky;
     display: flex;
     align-self: center;
     color: aliceblue;
@@ -14,6 +21,12 @@
     background-size: 6vh;
     height: 6vh;
     width: 6vh;
+    margin-top: 1em;
     cursor: pointer;
+}
+
+::-webkit-scrollbar {
+    background: transparent;
+    width: 0px
 }
 
