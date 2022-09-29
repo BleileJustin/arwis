@@ -1,0 +1,8 @@
+.algorithms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 45%;
+    height: 100%;
+    margin-right: 25px;
+}

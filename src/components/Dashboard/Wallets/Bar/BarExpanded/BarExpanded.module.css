@@ -1,7 +1,14 @@
 .bar_expanded { 
     display: flex;
+    justify-content: space-between;
     border-radius: 5px;
     height: 30vh;
     width: 100%;
     background-color: #1d1e2480;
+
+}
+
+.bar_closed {
+    display: flex;
+    justify-content: space-between;
 }
