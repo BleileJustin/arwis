@@ -52,7 +52,15 @@ select {
     height: 18px;
     border: 1px solid aliceblue;
     background-color: transparent;
-    padding-left: 5px;
+    color: aliceblue;
+    align-items: center;
+    line-height: .9em;
+}
+.text_input_bar {
+    text-align: left;
+    background-color: transparent;
+    color: aliceblue;
+    width: 100%;
 }
 
 .switch {
