@@ -26,7 +26,7 @@ const Wallets = () => {
     return [...wallets];
   };
 
-  const addBarHandler = (event) => {
+  const addBarHandler = () => {
     if (latestBarState !== 1 || wallets.length < 1) {
       setWallets((prevBars) => {
         const prev = [...prevBars];
@@ -60,7 +60,7 @@ const Wallets = () => {
 
   return (
     <div className={css.wallets}>
-      <div className={css.scrollWrapper}>
+      <div className={css.scroll_wrapper}>
         <ul>{content}</ul>
         <button className={css.add_bar} onClick={addBarHandler} />
       </div>

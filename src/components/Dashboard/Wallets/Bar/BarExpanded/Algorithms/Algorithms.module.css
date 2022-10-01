@@ -2,7 +2,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 80%;
     width: 45%;
-    height: 100%;
     margin-right: 25px;
+    overflow-y: scroll;
+}
+
+
+.scroll_wrapper{
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+
+    
+}
+.add_algo_button {
+    background: url(../../../../../../assets/icons/plus_icon.png);
+    height: 2.5vh;
+    width: 2.5vh;
+    background-size: 2.5vh;
+    cursor: pointer;
+    margin-top: 1em;
+    align-self: center;
+
 }

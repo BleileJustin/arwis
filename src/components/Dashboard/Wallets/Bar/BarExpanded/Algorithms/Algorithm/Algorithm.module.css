@@ -3,20 +3,35 @@
     flex-direction: row;
     justify-content: space-evenly;
     width: 100%;
-    height: 20%;
+    height: 8%;
     border-top: 1px solid aliceblue;
     color: aliceblue;
-    font-size: .85em;;
+    font-size: .6em;;
     font-family: Aldrich;
     -webkit-font-smoothing: antialiased;
     letter-spacing: .15em;
     align-items: center;
+    padding: 2% 0 2% 0;
+    margin-top: .1%;
 }
+
+.form, .wrap {
+  width: 100%;
+}
+
+.wrap {height: 100%;}
+
+.algo_container  {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+}
+
 select {
-    border: 0px;
-    padding: .1em;
     font-family: Aldrich;
-    font-size: .8em;
+    font-size: .6em;
     background-color: transparent;
     color: aliceblue;
 
@@ -25,36 +40,61 @@ select {
 .algo_form_item {
     display: flex;
     flex-direction: column;
-    width: 25%;
+    width: 19%;
     height: 100%;
-    margin-top: 25px;
+}
+
+.algo_title {
+  display: flex;
+  justify-content: flex-start;
+  padding-bottom: 1%;
+  
+}
+
+.algo_content{
+  padding-top: .5em;
+}
+.algo_button{
+  display: flex;
+  width: 19%;
+  justify-content: center;
+}
+
+.algo_item {
+  display: flex;
+  flex-direction: column;
+  width: 19%;
+  height: 100%;
+  padding-top: 1%;
+  
 }
 
 .algo_form_item_active {
-    margin-top: 25px;
-
     display: flex;
     flex-direction: column;
-    width: 25%;
+    width: 19%;
     height: 100%;
     align-items: center;
+    justify-content: center;
+    
 }
 
 .algo_form_select {
     height: 20px;
-    width: 75px;
+    width: 98%;
     border: 1px solid aliceblue;
 }
 
 .text_input {
     display: flex;
-    width: 70px;
+    width: 95%;
     height: 18px;
     border: 1px solid aliceblue;
     background-color: transparent;
     color: aliceblue;
     align-items: center;
     line-height: .9em;
+    margin-right: 1px;
 }
 .text_input_bar {
     text-align: left;
@@ -67,7 +107,7 @@ select {
     position: relative;
     display: inline-block;
     width: 40px;
-    height: 20px;
+    height: 22px;
 }
 
 .switch input {
@@ -89,7 +129,7 @@ select {
     border-radius: 12px;
     display: flex;
     align-items: center;
-
+    min-height: 18px;
     background-color: #FF003D;
   }
 
@@ -97,8 +137,8 @@ select {
     left: 2px;
     position: absolute;
     content: "";
-    height: 18px;
-    width: 18px;
+    min-height: 16px;
+    width: 16px;
     background-color: #3B3C46;;
     -webkit-transition: .4s;
     transition: .4s;
@@ -116,3 +156,22 @@ select {
     -ms-transform: translateX(18px);
     transform: translateX(18px);
   }
+
+  .delete_algo {
+    background: url(../../../../../../../assets/icons/x_icon.png);
+    height: 3vh;
+    width: 3vh;
+    background-size: 3vh;
+    cursor: pointer;
+    
+  }
+
+  .submit {
+    background: url(../../../../../../../assets/icons/check_icon.png);
+    height: 3vh;
+    width: 3vh;
+    background-size: 3vh;
+    cursor: pointer;
+  }
+
+  

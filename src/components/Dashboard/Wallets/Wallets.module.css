@@ -1,26 +1,25 @@
 .wallets {
     display: flex;
     flex-direction: column;
-    height: 65%;
+    height: 80%;
     margin-top: 1rem;
     overflow-y: scroll;
     }
 
-.scrollWrapper{
+.scroll_wrapper{
     display: flex;
     flex-direction: column;
 }
 
 .add_bar {
-    position: sticky;
     display: flex;
     align-self: center;
     color: aliceblue;
-    background: url(../../../assets/icons/add_bar_icon/add-50.png);
-    background-size: 6vh;
-    height: 6vh;
-    width: 6vh;
-    margin-top: 1em;
+    background: url(../../../assets/icons/plus_icon.png);
+    background-size: 5vh;
+    height: 5vh;
+    width: 5vh;
+    margin-top: 1.2em;
     cursor: pointer;
 }
 

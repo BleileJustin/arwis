@@ -39,7 +39,7 @@ const Bar = (props) => {
       props.setWalletCurPair(curPair);
       setBarState(
         <div className={"bar"}>
-          <button className={"expand_bar"} onClick={expandBar}></button>
+          <button className={"delete_bar"} onClick={deleteBar}></button>
 
           <div className={"cur_pair_container"}>
             <h2 className={"cur_pair"}>{curPair}</h2>
@@ -66,8 +66,7 @@ const Bar = (props) => {
               </h4>
             </div>
           </div>
-
-          <button className={"delete_bar"} onClick={deleteBar}></button>
+          <button className={"expand_bar"} onClick={expandBar}></button>
         </div>
       );
     } else {

@@ -15,7 +15,7 @@
 
 
 .expand_bar {
-    background: url(../../../../assets/icons/expand_bar_icon/x-50.png);
+    background: url(../../../../assets/icons/plus_icon.png);
     background-size: 3.5vh;
     height: 3.5vh;
     width: 3.5vh;
@@ -23,19 +23,19 @@
 }
 
 .delete_bar {
-    background: url(../../../../assets/icons/expand_bar_icon/x-50.png);
+    background: url(../../../../assets/icons/x_icon.png);
     background-size: 3.5vh;
     height: 3.5vh;
     width: 3.5vh;
-    transform: rotate(45deg);
     cursor: pointer;
+    
 }
 
 
 
 .cur_pair_container, .wallet_value_container{
     display: flex;
-    width: 50%;
+    width: 40%;
     justify-content: space-between;
     padding-left: 2vh;
     padding-right: 2vh;
