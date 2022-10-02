@@ -8,8 +8,10 @@ const Algorithms = () => {
   let latestAlgoState = 0;
   let content = {};
 
-  const validateAlgoForm = (algoState) => {
-    latestAlgoState = algoState;
+  const validateAlgoForm = (formState) => {
+    //WHERE TO RUN THIS!
+    latestAlgoState = formState;
+    return latestAlgoState;
   };
 
   const setAlgo = (chosenAlgo) => {
@@ -34,14 +36,14 @@ const Algorithms = () => {
   };
 
   const addAlgoHandler = () => {
-    console.log(algoList);
-    if (latestAlgoState !== 1 || algoList.length < 1) {
-      setAlgoList((prevAlgos) => {
-        const prev = [...prevAlgos];
-        prev.push({ id: Math.random() });
-        console.log(...prev);
-        return [...prev];
-      });
+    if (latestAlgoState || algoList.length < 1) {
+      algoList
+        ? setAlgoList((prevAlgos) => {
+            const prev = [...prevAlgos];
+            prev.push({ id: Math.random() });
+            return [...prev];
+          })
+        : alert("Algo List Error");
     } else {
       alert("Please complete previous Algo");
     }
@@ -58,12 +60,12 @@ const Algorithms = () => {
           setAlgo={setAlgo}
         ></Algorithm>
       )))
-    : (content = []);
+    : console.log("err");
 
   return (
     <div className={css.algorithms}>
       <div className={css.scroll_wrapper}>
-        <ul>{content}</ul>
+        <ul className={css.list}>{content}</ul>
         <button
           onClick={addAlgoHandler}
           className={css.add_algo_button}

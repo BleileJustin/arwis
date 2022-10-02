@@ -52,37 +52,40 @@ const Algorithm = (props) => {
     if (formState && complete && !isAlgoDuplicate) {
       props.setAlgo(formState.algo);
       setAlgoDom(
-        <div className={css.algorithm}>
-          <div className={css.algo_button}>
-            <button onClick={deleteAlgo} className={css.delete_algo}></button>
-          </div>
+        <div classNam={css.algo_container}>
+          <div className={css.algorithm}>
+            <div className={css.algo_button}>
+              <button onClick={deleteAlgo} className={css.delete_algo}></button>
+            </div>
 
-          <div className={css.algo_item}>
-            <h4 className={css.algo_title}>Algo:</h4>
-            <h4 className={css.algo_content}>{formState.algo}</h4>
-          </div>
-          <div className={css.algo_item}>
-            <h4 className={css.algo_title}>Freq:</h4>
-            <h4 className={css.algo_content}>{formState.freq}</h4>
-          </div>
-          <div className={css.algo_item}>
-            <h4 className={css.algo_title}>Amt:</h4>
-            <h4 className={css.algo_content}>{formState.amt}</h4>
-          </div>
-          <div className={css.algo_form_item_active}>
-            <h4 className={css.algo_title}>Active:</h4>
-            <label className={css.switch}>
-              <input
-                type="checkbox"
-                onChange={(e) =>
-                  setAlgoState((prevState) => ({
-                    ...prevState,
-                    active: !prevState.active,
-                  }))
-                }
-              ></input>
-              <span className={css.slider}></span>
-            </label>
+            <div className={css.algo_item}>
+              <h4 className={css.algo_title}>Algo:</h4>
+              <h4 className={css.algo_content}>{formState.algo}</h4>
+            </div>
+            <div className={css.algo_item}>
+              <h4 className={css.algo_title}>Freq:</h4>
+              <h4 className={css.algo_content}>{formState.freq}σ</h4>
+            </div>
+            <div className={css.algo_item}>
+              <h4 className={css.algo_title}>Amt:</h4>
+              <h4 className={css.algo_content}>{formState.amt}%</h4>
+            </div>
+            <div className={css.algo_form_item_active}>
+              <h4 className={css.algo_title}>Active:</h4>
+              <label className={css.switch}>
+                <input
+                  type="checkbox"
+                  defaultChecked={false}
+                  onChange={(e) => {
+                    setAlgoState((prevState) => ({
+                      ...prevState,
+                      active: !prevState.active,
+                    }));
+                  }}
+                ></input>
+                <span className={css.slider}></span>
+              </label>
+            </div>
           </div>
         </div>
       );
@@ -92,6 +95,7 @@ const Algorithm = (props) => {
       alert("Validation: please complete form before submiting");
     }
   };
+  props.validateAlgoForm(algoDom);
   console.log(algoDom);
   return algoState.complete ? (
     algoDom

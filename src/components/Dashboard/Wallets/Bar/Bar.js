@@ -8,7 +8,6 @@ const Bar = (props) => {
   const [barState, setBarState] = useState(1);
   const [barExpanded, setBarCSS] = useState(false);
 
-  console.log(barExpanded);
   const id = props.id;
   const walletValueCryp = 20000;
   const walletValueFiat = 10000;
