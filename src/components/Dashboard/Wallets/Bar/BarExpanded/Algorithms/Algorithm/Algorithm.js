@@ -10,7 +10,6 @@ const Algorithm = (props) => {
     freq: "",
     amt: "",
   });
-  console.log(algoState);
 
   const [algoDom, setAlgoDom] = useState();
   const id = props.id;
@@ -19,13 +18,13 @@ const Algorithm = (props) => {
     console.log(!formState.amt);
     if (formState.algo && formState.freq && formState.amt) {
       setAlgoState((prevState) => {
-        return { ...formState, complete: true };
+        return { ...formState, complete: true, active: true };
       });
       console.log(algoState);
       return true;
     } else {
       setAlgoState((prevState) => {
-        return { ...formState, complete: false };
+        return { ...formState, complete: false, active: false };
       });
       console.log(algoState);
       return false;
@@ -75,7 +74,7 @@ const Algorithm = (props) => {
               <label className={css.switch}>
                 <input
                   type="checkbox"
-                  defaultChecked={false}
+                  defaultChecked={true}
                   onChange={(e) => {
                     setAlgoState((prevState) => ({
                       ...prevState,
@@ -96,7 +95,7 @@ const Algorithm = (props) => {
     }
   };
   props.validateAlgoForm(algoDom);
-  console.log(algoDom);
+  console.log(algoState);
   return algoState.complete ? (
     algoDom
   ) : (
