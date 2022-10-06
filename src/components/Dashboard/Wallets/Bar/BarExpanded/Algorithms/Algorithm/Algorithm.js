@@ -13,42 +13,38 @@ const Algorithm = (props) => {
 
   const [algoDom, setAlgoDom] = useState();
   const id = props.id;
-
+  
   const checkFormStateComplete = (formState) => {
-    console.log(!formState.amt);
+    
     if (formState.algo && formState.freq && formState.amt) {
       setAlgoState((prevState) => {
         return { ...formState, complete: true, active: true };
       });
-      console.log(algoState);
       return true;
     } else {
       setAlgoState((prevState) => {
         return { ...formState, complete: false, active: false };
       });
-      console.log(algoState);
       return false;
     }
   };
 
   const deleteAlgo = () => {
-    props.onDeleteAlgo(id);
+  props.onDeleteAlgo(id);
   };
-
   const onAlgoSubmit = (formState) => {
-    const complete = checkFormStateComplete(formState);
+
+    const formIsComplete = checkFormStateComplete(formState);
     const algoList = props.getAlgoList();
-    console.log(algoList);
-    let isAlgoDuplicate = false;
+    let algoIsDuplicate = false;
 
     algoList.forEach((algorithm) => {
-      algorithm.algo === formState || isAlgoDuplicate
-        ? (isAlgoDuplicate = true)
-        : (isAlgoDuplicate = false);
-      console.log(isAlgoDuplicate);
+      algorithm.algo === formState || algoIsDuplicate
+      ? (algoIsDuplicate = true)
+      : (algoIsDuplicate = false);
     });
-    console.log(formState);
-    if (formState && complete && !isAlgoDuplicate) {
+
+    if (formState && formIsComplete && !algoIsDuplicate) {
       props.setAlgo(formState.algo);
       setAlgoDom(
         <div classNam={css.algo_container}>
@@ -89,13 +85,10 @@ const Algorithm = (props) => {
         </div>
       );
     } else {
-      console.log(formState);
-      console.log(!isAlgoDuplicate);
       alert("Validation: please complete form before submiting");
     }
   };
   props.validateAlgoForm(algoDom);
-  console.log(algoState);
   return algoState.complete ? (
     algoDom
   ) : (
@@ -103,7 +96,6 @@ const Algorithm = (props) => {
       <AlgorithmForm
         onAlgoSubmit={onAlgoSubmit}
         deleteAlgo={deleteAlgo}
-        checkFormStateComplete={checkFormStateComplete}
       ></AlgorithmForm>
     </div>
   );

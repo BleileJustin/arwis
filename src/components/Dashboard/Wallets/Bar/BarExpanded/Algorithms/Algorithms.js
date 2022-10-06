@@ -5,13 +5,13 @@ import { useState } from "react";
 
 const Algorithms = () => {
   const [algoList, setAlgoList] = useState([]);
-  let latestAlgoState = 0;
+  let previousAlgoIsComplete = {};
   let content = {};
 
   const validateAlgoForm = (formState) => {
     //WHERE TO RUN THIS!
-    latestAlgoState = formState;
-    return latestAlgoState;
+    previousAlgoIsComplete = formState;
+    return previousAlgoIsComplete;
   };
 
   const setAlgo = (chosenAlgo) => {
@@ -36,7 +36,7 @@ const Algorithms = () => {
   };
 
   const addAlgoHandler = () => {
-    if (latestAlgoState || algoList.length < 1) {
+    if (previousAlgoIsComplete || algoList.length < 1) {
       algoList
         ? setAlgoList((prevAlgos) => {
             const prev = [...prevAlgos];

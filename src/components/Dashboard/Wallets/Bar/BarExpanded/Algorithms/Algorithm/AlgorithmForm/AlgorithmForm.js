@@ -12,9 +12,7 @@ const AlgorithmForm = (props) => {
 
   const submitForm = (event) => {
     event.preventDefault();
-    console.log(formState);
     props.onAlgoSubmit(formState);
-    console.log(formState);
   };
 
   return (

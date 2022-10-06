@@ -7,15 +7,13 @@
     overflow-y: scroll;
 }
 
-
 .scroll_wrapper{
     display: flex;
     flex-direction: column; 
     align-items: center;
     width: 100%;
-
-    
 }
+
 .add_algo_button {
     background: url(../../../../../../assets/icons/plus_icon.png);
     height: 2.5vh;
