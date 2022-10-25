@@ -1,0 +1,9 @@
+.login_form_container {
+    height: 50%;
+    width: 50%;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    justify-self: center;
+    background-color: #1d1e2480;
+}

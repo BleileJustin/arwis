@@ -15,7 +15,7 @@
 
 
 .expand_bar {
-    background: url(../../../../assets/icons/plus_icon.png);
+    background: url(../../../../../assets/icons/plus_icon.png);
     background-size: 3.5vh;
     height: 3.5vh;
     width: 3.5vh;
@@ -23,7 +23,7 @@
 }
 
 .delete_bar {
-    background: url(../../../../assets/icons/x_icon.png);
+    background: url(../../../../../assets/icons/x_icon.png);
     background-size: 3.5vh;
     height: 3.5vh;
     width: 3.5vh;

@@ -195,7 +195,7 @@ input:-webkit-autofill:active {
   }
 
   .delete_algo {
-    background: url(../../../../../../../assets/icons/x_icon.png);
+    background: url(../../../../../../../../assets/icons/x_icon.png);
     height: 3vh;
     width: 3vh;
     background-size: 3vh;
@@ -204,7 +204,7 @@ input:-webkit-autofill:active {
   }
 
   .submit {
-    background: url(../../../../../../../assets/icons/check_icon.png);
+    background: url(../../../../../../../../assets/icons/check_icon.png);
     height: 3vh;
     width: 3vh;
     background-size: 3vh;

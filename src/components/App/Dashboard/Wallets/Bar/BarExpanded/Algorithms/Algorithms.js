@@ -36,6 +36,7 @@ const Algorithms = () => {
   };
 
   const addAlgoHandler = () => {
+    
     if (previousAlgoIsComplete || algoList.length < 1) {
       algoList
         ? setAlgoList((prevAlgos) => {

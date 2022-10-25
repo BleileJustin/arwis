@@ -1,5 +1,5 @@
 import css from "./Navigation.module.css";
-import logo from '../../assets/logos/logo.png';
+import logo from "../../../assets/logos/logo.png";
 
 const Navigation = () => {
   return (
