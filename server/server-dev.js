@@ -1,13 +1,14 @@
 const express = require("express");
 const path = require("path");
 const logger = require("morgan");
+const serveStatic = require("serve-static");
 
 const app = express();
 const port = 3000;
 
 app.use(logger("dev"));
 
-app.use(express.static(path.join(__dirname, "../build")));
+app.use(serveStatic(path.join(__dirname, "../build")));
 
 console.log(path.join(__dirname, "../build", "index.html"));
 
