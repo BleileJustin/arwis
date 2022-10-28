@@ -1,0 +1,6 @@
+.portfolio_graph_container {
+    position: relative;
+    border: solid white 1px;
+    height: 100%;
+    width: 100%; 
+}

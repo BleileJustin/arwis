@@ -1,0 +1,6 @@
+.portfolio_container {
+    position: relative;
+    border: dashed white 1px;
+    height: 100%;
+    width: 50%;
+}
