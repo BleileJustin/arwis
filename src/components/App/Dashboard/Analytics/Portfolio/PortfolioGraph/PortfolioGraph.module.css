@@ -1,6 +1,8 @@
 .portfolio_graph_container {
-    position: relative;
-    border: solid white 1px;
-    height: 100%;
-    width: 100%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 88%;
+    border: 1px solid aliceblue;
 }

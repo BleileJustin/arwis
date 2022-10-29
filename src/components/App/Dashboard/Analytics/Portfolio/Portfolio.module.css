@@ -1,6 +1,8 @@
 .portfolio_container {
-    position: relative;
-    border: dashed white 1px;
-    height: 100%;
-    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vh;
+    height: 30vh;
+    width: 45%;
 }
