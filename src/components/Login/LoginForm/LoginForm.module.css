@@ -1,9 +1,59 @@
+.login_form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    text-align: center;
+}
+
 .login_form_container {
-    height: 50%;
+    display: flex;
+    flex-direction: column;
+    height: 40%;
     width: 50%;
     align-items: center;
-    align-self: center;
-    justify-content: center;
-    justify-self: center;
+    justify-content: space-evenly;
     background-color: #1d1e2480;
+
+}
+
+.text_input_field {
+    display: flex;
+    flex-direction: row;
+    font-family: Aldrich;
+    text-align: center;
+    background-color: #4C4F5F48;
+    color: aliceblue;
+    height: 18px;
+    width: 100%;
+    font-family: Aldrich;
+    margin: 5px;
+    padding-top: 2%;
+}
+
+.submit_button {
+    border: .5px solid aliceblue;
+    padding-top: 2%;
+    margin-top: 10%;;
+    font-family: Aldrich;
+    background-color: transparent;
+    color: aliceblue;
+    width: 50%;
+    height: 22px;
+}
+
+.title {
+    margin-top: 18px;
+    color: aliceblue;
+    font-family: Aldrich;
+    font-size: x-large;
+    letter-spacing: .1em;
+}
+
+
+.break_line {
+    background-color: aliceblue;
+    width: 80%;
+    height: 1px;
+
 }

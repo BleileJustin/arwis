@@ -3,3 +3,13 @@
     padding: 0;
     border: 0;
 }
+
+@font-face {
+    font-family: Aldrich;
+    src: url(./assets/fonts/Aldrich/Aldrich-Regular.ttf);
+}
+
+@font-face {
+    font-family: BLKOPS;
+    src: url(./assets/fonts/black-ops-one/BlackOpsOne-Regular.ttf);
+}

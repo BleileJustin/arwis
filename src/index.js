@@ -2,21 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
-import App from "./App";
-//import Login from "./Login/Login";
+import Login from "./components/Login/Login";
+//import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  //<React.StrictMode>
-    <App />
-  //</React.StrictMode>
-
-  /*
-  <React.StrictMode>
-    <Login></Login>
-  </React.StrictMode>
-  */
+  //<App />
+  <Login></Login>
 );
-
-//REACT STRICT MODE?
-//COPILOT DETECT IMPURITIES
