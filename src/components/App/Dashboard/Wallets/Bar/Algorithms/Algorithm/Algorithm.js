@@ -5,17 +5,17 @@ import AlgorithmForm from "./AlgorithmForm/AlgorithmForm";
 
 const Algorithm = (props) => {
   const [algoState, setAlgoState] = useState({
-    active: "",
+    active: false,
     algo: "",
     freq: "",
     amt: "",
   });
 
   const [algoDom, setAlgoDom] = useState();
+  const [algoIsDuplicate, setAlgoIsDuplicate] = useState(false);
   const id = props.id;
-  
+
   const checkFormStateComplete = (formState) => {
-    
     if (formState.algo && formState.freq && formState.amt) {
       setAlgoState((prevState) => {
         return { ...formState, complete: true, active: true };
@@ -29,25 +29,26 @@ const Algorithm = (props) => {
     }
   };
 
-  const deleteAlgo = () => {
-  props.onDeleteAlgo(id);
-  };
-  const onAlgoSubmit = (formState) => {
-
-    const formIsComplete = checkFormStateComplete(formState);
+  const checkAlgorithmIsDuplicate = (formState) => {
     const algoList = props.getAlgoList();
-    let algoIsDuplicate = false;
-
     algoList.forEach((algorithm) => {
       algorithm.algo === formState || algoIsDuplicate
-      ? (algoIsDuplicate = true)
-      : (algoIsDuplicate = false);
+        ? setAlgoIsDuplicate(true)
+        : setAlgoIsDuplicate(false);
     });
+    return algoIsDuplicate;
+  };
 
-    if (formState && formIsComplete && !algoIsDuplicate) {
+  const deleteAlgo = () => {
+    props.onDeleteAlgo(id);
+  };
+  const onAlgoSubmit = (formState) => {
+    const formIsComplete = checkFormStateComplete(formState);
+    const formIsDuplicate = checkAlgorithmIsDuplicate(formState);
+    if (formState && formIsComplete && !formIsDuplicate) {
       props.setAlgo(formState.algo);
       setAlgoDom(
-        <div classNam={css.algo_container}>
+        <div className={css.algo_container}>
           <div className={css.algorithm}>
             <div className={css.algo_button}>
               <button onClick={deleteAlgo} className={css.delete_algo}></button>
@@ -88,7 +89,6 @@ const Algorithm = (props) => {
       alert("Validation: please complete form before submiting");
     }
   };
-  props.validateAlgoForm(algoDom);
   return algoState.complete ? (
     algoDom
   ) : (

@@ -1,12 +1,15 @@
 import { useState } from "react";
 
-import "./Bar.css";
+import css from "./Bar.module.css";
 import BarForm from "./BarForm/BarForm";
-import BarExpanded from "./BarExpanded/BarExpanded";
+import Graph from "../../../../UI/Graph/Graph";
+import Algorithms from "./Algorithms/Algorithms";
+import Section from "../../../../UI/Section/Section";
+import BarContainer from "../../../../UI/BarContainer/BarContainer";
 
 const Bar = (props) => {
-  const [barState, setBarState] = useState(1);
-  const [barExpanded, setBarCSS] = useState(false);
+  const [barJSX, setBarJSX] = useState();
+  const [barExpanded, setBarExpanded] = useState(false);
 
   const id = props.id;
   const walletValueCryp = 20000;
@@ -14,7 +17,7 @@ const Bar = (props) => {
 
   //EXPANDBAR
   const expandBar = () => {
-    setBarCSS((current) => !current);
+    setBarExpanded((current) => !current);
   };
 
   //DELETE BAR
@@ -32,60 +35,61 @@ const Bar = (props) => {
         ? (isDuplicate = true)
         : (isDuplicate = false);
     });
+
     //if curPair exists and does not equal select and isDuplicate returns false
     if (curPair && curPair !== "select" && !isDuplicate) {
-      //setBarState to connected Bar DOM component
+      //setBarJSX to connected Bar DOM component
       props.setWalletCurPair(curPair);
-      setBarState(
-        <div className={"bar"}>
-          <button className={"delete_bar"} onClick={deleteBar}></button>
+      setBarJSX(
+        <BarContainer>
+          <button className={css.delete_bar} onClick={deleteBar}></button>
 
-          <div className={"cur_pair_container"}>
-            <h2 className={"cur_pair"}>{curPair}</h2>
-            <div className={"cur_pair_value_container"}>
-              <h3 className={"cur_pair_value_crypto"}>
+          <div className={css.cur_pair_container}>
+            <h2 className={css.cur_pair}>{curPair}</h2>
+            <div className={css.cur_pair_value_container}>
+              <h3 className={css.cur_pair_value_crypto}>
                 {walletValueCryp} {curPair.slice(0, curPair.indexOf("/"))}
               </h3>
-              <h4 className={"cur_pair_value_fiat"}>
+              <h4 className={css.cur_pair_value_fiat}>
                 {walletValueFiat}{" "}
                 {curPair.slice(curPair.indexOf("/") + 1, curPair.indexOf(":"))}
               </h4>
             </div>
           </div>
 
-          <div className={"wallet_value_container"}>
-            <h3 className={"wallet_value_title"}>Wallet Value:</h3>
-            <div className={"wallet_value_curpair_container"}>
-              <h3 className={"wallet_value_crypto"}>
+          <div className={css.wallet_value_container}>
+            <h3 className={css.wallet_value_title}>Wallet Value:</h3>
+            <div className={css.wallet_value_curpair_container}>
+              <h3 className={css.wallet_value_crypto}>
                 {walletValueCryp} {curPair.slice(0, curPair.indexOf("/"))}
               </h3>
-              <h4 className={"wallet_value_fiat"}>
+              <h4 className={css.wallet_value_fiat}>
                 {walletValueFiat}{" "}
                 {curPair.slice(curPair.indexOf("/") + 1, curPair.indexOf(":"))}
               </h4>
             </div>
           </div>
-          <button className={"expand_bar"} onClick={expandBar}></button>
-        </div>
+          <button className={css.expand_bar} onClick={expandBar}></button>
+        </BarContainer>
       );
     } else {
-      //otherwise alert
-      alert("Validation: Please choose a Pair before connecting");
+      alert("Validation: Please choose a valid currency pair(Non duplicate)");
     }
   };
 
-  props.validateFormCompletion(barState);
-
-  return barState !== 1 ? (
-    <div>
-      {barState}
-      <BarExpanded css={barExpanded ? true : false}></BarExpanded>
-    </div>
+  return barJSX ? (
+    <>
+      {barJSX}
+      <Section barIsExpanded={barExpanded}>
+        <Graph></Graph>
+        <Algorithms></Algorithms>
+      </Section>
+    </>
   ) : (
-    <div className={"bar"}>
+    <BarContainer>
+      <button className={css.delete_bar} onClick={deleteBar}></button>
       <BarForm onConnect={onConnect}></BarForm>
-      <button className={"delete_bar"} onClick={deleteBar}></button>
-    </div>
+    </BarContainer>
   );
 };
 

@@ -1,8 +1,11 @@
-.wallet_graph {
+.graph_container{
+    width: 45%;   
+}
+
+.graph {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 45%;
     height: 88%;
     border: 1px solid aliceblue;
 }

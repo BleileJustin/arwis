@@ -2,17 +2,23 @@ import { useState } from "react";
 import css from "../Algorithm.module.css";
 
 const AlgorithmForm = (props) => {
+  //Square vs rectangle
   const [formState, setFormState] = useState({
-    active: "",
+    active: false,
     algo: "",
     freq: "",
     amt: "",
   });
-  console.log(formState);
 
   const submitForm = (event) => {
     event.preventDefault();
-    props.onAlgoSubmit(formState);
+
+    setFormState((prevState) => ({
+      ...prevState,
+      active: true,
+    }));
+    const submittedForm = formState;
+    props.onAlgoSubmit(submittedForm);
   };
 
   return (

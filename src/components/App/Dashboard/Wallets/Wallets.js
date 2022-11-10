@@ -5,12 +5,8 @@ import css from "./Wallets.module.css";
 
 const Wallets = () => {
   const [wallets, setWallets] = useState([]);
-  let latestBarState = 0;
-  let content = {};
 
-  const validateFormCompletion = (barState) => {
-    latestBarState = barState;
-  };
+  let content = {};
 
   const setWalletCurPair = (curPair) => {
     const assignedCurPairWallet = {
@@ -27,13 +23,15 @@ const Wallets = () => {
   };
 
   const addBarHandler = () => {
-    if (latestBarState !== 1 || wallets.length < 1) {
+    console.log(wallets);
+    if (!wallets.length || wallets[wallets.length - 1].curPair) {
       setWallets((prevBars) => {
         const prev = [...prevBars];
         prev.push({ id: Math.random(), curPair: null });
         return [...prev];
       });
     } else {
+      console.log(wallets);
       alert("Please connect prevbar");
     }
     //Validation: "Please Connect before creating a new WalletBar"
@@ -52,7 +50,6 @@ const Wallets = () => {
       key={bar.id}
       id={bar.id}
       onDeleteBar={deleteBarHandler}
-      validateFormCompletion={validateFormCompletion}
       setWalletCurPair={setWalletCurPair}
       getWalletList={getWalletList}
     ></Bar>

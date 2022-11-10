@@ -1,0 +1,93 @@
+.bar_expanded { 
+    display: flex;
+    justify-content: space-evenly;
+    border-radius: 5px;
+    height: 40vh;
+    width: 100%;
+    background-color: #1d1e2480;
+
+}
+
+.bar_closed {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.expand_bar {
+    background: url(../../../../../assets/icons/plus_icon.png);
+    background-size: 3.5vh;
+    height: 3.5vh;
+    width: 3.5vh;
+    cursor: pointer;
+}
+
+.delete_bar {
+    background: url(../../../../../assets/icons/x_icon.png);
+    background-size: 3.5vh;
+    height: 3.5vh;
+    width: 3.5vh;
+    cursor: pointer;
+    
+}
+
+
+
+.cur_pair_container, .wallet_value_container{
+    display: flex;
+    width: 40%;
+    justify-content: space-between;
+    padding-left: 2vh;
+    padding-right: 2vh;
+
+}
+
+
+
+
+.wallet_value_curpair_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cur_pair_value_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+
+
+.cur_pair, .wallet_value_title {
+    display: flex;
+    align-items: center;
+    padding-top: .2em;
+    color: aliceblue;
+    font-family: Aldrich;
+    
+} 
+
+.wallet_value_title {
+    font-size: 1.25em;
+}
+
+
+
+
+.wallet_value_crypto, .cur_pair_value_crypto {
+    color: aliceblue;
+    font-size: 1.2em;
+    font-family: Aldrich;
+}
+
+.wallet_value_fiat, .cur_pair_value_fiat{
+    font-family: Aldrich;
+    margin-top: .25em;
+    display: flex;
+    color: rgba(240, 248, 255, 0.6);
+    justify-content: flex-end;
+    font-size: 1em;
+    line-height: .5;
+}

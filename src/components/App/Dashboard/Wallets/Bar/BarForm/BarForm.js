@@ -9,8 +9,10 @@ const BarForm = (props) => {
     event.preventDefault();
     props.onConnect(dropdownState);
   };
+
   return (
     //Eventually eliminate hard coded options
+
     <form className={css.wallet_form} onSubmit={connect}>
       <select
         className={css.cur_pair}

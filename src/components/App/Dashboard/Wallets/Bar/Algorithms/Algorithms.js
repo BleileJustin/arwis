@@ -3,15 +3,15 @@ import css from "./Algorithms.module.css";
 import Algorithm from "./Algorithm/Algorithm";
 import { useState } from "react";
 
-const Algorithms = () => {
+const Algorithms = (props) => {
   const [algoList, setAlgoList] = useState([]);
+  //LIFT STATE^ UP TO PERSIST IT
+
   let previousAlgoIsComplete = {};
   let content = {};
 
-  const validateAlgoForm = (formState) => {
-    //WHERE TO RUN THIS!
-    previousAlgoIsComplete = formState;
-    return previousAlgoIsComplete;
+  const sendAlgoListToChild = () => {
+    return [...algoList];
   };
 
   const setAlgo = (chosenAlgo) => {
@@ -24,10 +24,6 @@ const Algorithms = () => {
     setAlgoList(algos);
   };
 
-  const sendAlgoList = () => {
-    return [...algoList];
-  };
-
   const deleteAlgoHandler = (algoId) => {
     setAlgoList((prevAlgos) => {
       const updatedAlgos = prevAlgos.filter((algo) => algo.id !== algoId);
@@ -36,7 +32,6 @@ const Algorithms = () => {
   };
 
   const addAlgoHandler = () => {
-    
     if (previousAlgoIsComplete || algoList.length < 1) {
       algoList
         ? setAlgoList((prevAlgos) => {
@@ -55,10 +50,9 @@ const Algorithms = () => {
         <Algorithm
           key={algo.id}
           id={algo.id}
-          validateAlgoForm={validateAlgoForm}
           onDeleteAlgo={deleteAlgoHandler}
-          getAlgoList={sendAlgoList}
           setAlgo={setAlgo}
+          getAlgoList={sendAlgoListToChild}
         ></Algorithm>
       )))
     : console.log("err");
