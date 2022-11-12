@@ -4,6 +4,7 @@
     flex-direction: column;
     color: white;
     text-align: center;
+    width: 50%;
 }
 
 .login_form_container {
@@ -20,26 +21,33 @@
 .text_input_field {
     display: flex;
     flex-direction: row;
+
     font-family: Aldrich;
+    font-size: large;
     text-align: center;
-    background-color: #4C4F5F48;
     color: aliceblue;
-    height: 18px;
+    
+    background-color: #4C4F5F48;
+    
+    height: 26px;
     width: 100%;
-    font-family: Aldrich;
     margin: 5px;
     padding-top: 2%;
 }
 
 .submit_button {
     border: .5px solid aliceblue;
-    padding-top: 2%;
-    margin-top: 10%;;
+    padding-top: 1%;
+    margin-top: 8%;;
     font-family: Aldrich;
     background-color: transparent;
     color: aliceblue;
-    width: 50%;
-    height: 22px;
+    width: 33%;
+    height: 28px;
+}
+
+.submit_button:hover {
+    cursor: pointer;
 }
 
 .title {

@@ -1,16 +1,17 @@
-import Background from "./components/App/Background/Background";
-import Navigation from "./components/App/Navigation/Navigation";
-import Dashboard from "./components/App/Dashboard/Dashboard";
-
-import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import HomePage from "./pages/HomePage";
 
 const App = () => {
   return (
-    <div className="app">
-      <Background />
-      <Navigation />
-      <Dashboard />
-    </div>
+    <Routes>
+      <Route path="/auth">
+        <LoginPage />
+      </Route>
+      <Route path="/home">
+        <HomePage></HomePage>
+      </Route>
+    </Routes>
   );
 };
 
