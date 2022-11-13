@@ -20,12 +20,13 @@ export const AuthContextProvider = (props) => {
 
   let initalToken;
   if (tokenData) {
-    initalToken = tokenData;
+    initalToken = tokenData.token;
   }
 
   const [token, setToken] = useState(initalToken);
 
-  const userIsLoggedIn = !!token.token;
+  const userIsLoggedIn = !!token;
+
 
   const logoutHandler = useCallback(() => {
     setToken(null);

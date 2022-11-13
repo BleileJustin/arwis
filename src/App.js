@@ -10,8 +10,12 @@ const App = () => {
 
   return (
     <Routes>
-      {!authCtx.isLoggedIn && <Route path="/auth" element={<AuthPage />} />}
-
+      <Route
+        path="/auth"
+        element={
+          authCtx.isLoggedIn ? <Navigate to="/" replace /> : <AuthPage />
+        }
+      />
       <Route
         path="/"
         exact

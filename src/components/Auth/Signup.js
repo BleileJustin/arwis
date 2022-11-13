@@ -7,29 +7,28 @@ import AuthContext from "../../store/auth-context";
 const Signup = (props) => {
   const navigate = useNavigate();
   const [signupFormState, setSignupFormState] = useState({
-    username: null,
+    email: null,
     password: null,
     apikey: null,
   });
 
   const authCtx = useContext(AuthContext);
-  const userNameInputRef = useRef();
+  const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const apiKeyInputRef = useRef();
 
   const submitForm = (event) => {
     event.preventDefault();
 
-    const enteredUsername = userNameInputRef.current.value;
+    const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
     const enteredApiKey = apiKeyInputRef.current.value;
 
     fetch(props.url, {
       method: "POST",
       body: JSON.stringify({
-        username: enteredUsername,
+        email: enteredEmail,
         password: enteredPassword,
-        apiKey: enteredApiKey,
         returnSecureToken: true,
       }),
       headers: {
@@ -38,17 +37,19 @@ const Signup = (props) => {
     })
       .then((res) => {
         if (res.ok) {
-          return res.json;
+          return res.json();
         } else {
           return res.json().then((data) => {
-            let errorMessage = "Sign Up Failed";
-            throw new Error(errorMessage);
+            console.log(data);
           });
         }
       })
       .then((data) => {
         authCtx.login(data.idToken);
-        navigate.replaceState("/");
+        navigate("/", { replace: true });
+      })
+      .catch((e) => {
+        console.log(e);
       });
 
     console.log("Submit");
@@ -59,12 +60,12 @@ const Signup = (props) => {
       <hr className={css.break_line}></hr>
       <form className={css.login_form} onSubmit={submitForm}>
         <input
-          placeholder="Username"
+          placeholder="Email"
           className={css.text_input_field}
           type="text"
-          ref={userNameInputRef}
+          ref={emailInputRef}
           onChange={(e) =>
-            setSignupFormState({ ...signupFormState, username: e.target.value })
+            setSignupFormState({ ...signupFormState, email: e.target.value })
           }
         ></input>
 
