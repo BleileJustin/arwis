@@ -1,9 +1,9 @@
 import Background from "../App/Background/Background";
-import LoginForm from "./LoginForm/LoginForm";
+import AuthForm from "./AuthForm/AuthForm";
 
-import css from "./Login.module.css";
+import css from "./Auth.module.css";
 
-const Login = () => {
+const Auth = () => {
   return (
     <div className={css.login}>
       <Background />
@@ -19,10 +19,10 @@ const Login = () => {
             trading bot
           </h4>
         </div>
-        <LoginForm></LoginForm>
+        <AuthForm></AuthForm>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Auth;

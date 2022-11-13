@@ -10,7 +10,7 @@
 .login_form_container {
     display: flex;
     flex-direction: column;
-    height: 40%;
+    height: 50%;
     width: 50%;
     align-items: center;
     justify-content: space-evenly;
@@ -63,5 +63,17 @@
     background-color: aliceblue;
     width: 80%;
     height: 1px;
+
+}
+
+.switch_to_login_button {
+
+    font-family: Aldrich;
+    background-color: transparent;
+    color: aliceblue;
+    width: 33%;
+    height: 28px;
+    cursor: pointer;
+    text-decoration: underline;
 
 }
