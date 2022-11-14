@@ -3,7 +3,7 @@ A Cryptocurrency Trading Bot using React, Express, Node, and Firebase
 Skills Demonstrated:
 React
     - Hooks:
-        - useState
+      - useState
         - useContext
         - useRef
         - useCallback
