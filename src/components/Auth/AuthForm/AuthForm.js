@@ -22,7 +22,7 @@ const Auth = (props) => {
     setIsSignup((current) => !current);
   };
 
-  const authFormValidation = () => {};
+  //const authFormValidation = () => {};
 
   const submitForm = (event) => {
     event.preventDefault();
@@ -31,11 +31,13 @@ const Auth = (props) => {
 
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-    const enteredApiKey = apiKeyInputRef.current.value;
+    let enteredApiKey;
 
     if (isSignup) {
+      enteredApiKey = apiKeyInputRef.current.value;
       url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${config.APIKEY}`;
     } else {
+      enteredApiKey = null;
       url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${config.APIKEY}`;
     }
     if (enteredPassword.length > 7) {
