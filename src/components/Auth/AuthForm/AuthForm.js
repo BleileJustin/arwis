@@ -1,6 +1,7 @@
 import css from "./AuthForm.module.css";
 import { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { config } from "../../../config/config";
 
 import AuthContext from "../../../store/auth-context";
 
@@ -33,11 +34,9 @@ const Auth = (props) => {
     const enteredApiKey = apiKeyInputRef.current.value;
 
     if (isSignup) {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCTXSnYN9vcdlcltoZ7ucz8S7Sii8iV33E";
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${config.APIKEY}`;
     } else {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCTXSnYN9vcdlcltoZ7ucz8S7Sii8iV33E";
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${config.APIKEY}`;
     }
     if (enteredPassword.length > 7) {
       fetch(url, {
