@@ -41,7 +41,7 @@ const Bar = (props) => {
       //setBarJSX to connected Bar DOM component
       props.setWalletCurPair(curPair);
       setBarJSX(
-        <BarContainer>
+        <BarContainer isWalletBar={true}>
           <button className={css.delete_bar} onClick={deleteBar}></button>
 
           <div className={css.cur_pair_container}>
@@ -86,7 +86,7 @@ const Bar = (props) => {
       </Section>
     </>
   ) : (
-    <BarContainer>
+    <BarContainer isWalletBar={true}>
       <button className={css.delete_bar} onClick={deleteBar}></button>
       <BarForm onConnect={onConnect}></BarForm>
     </BarContainer>

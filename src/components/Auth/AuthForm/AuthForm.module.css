@@ -1,4 +1,4 @@
-.login_form {
+.auth_form {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -7,7 +7,7 @@
     width: 50%;
 }
 
-.login_form_container {
+.auth_form_container {
     display: flex;
     flex-direction: column;
     height: 50%;
@@ -66,7 +66,7 @@
 
 }
 
-.switch_to_login_button {
+.login_signup_toggle {
 
     font-family: Aldrich;
     background-color: transparent;
