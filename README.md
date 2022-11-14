@@ -1,33 +1,33 @@
 # Arwis
 A Cryptocurrency Trading Bot using React, Express, Node, and Firebase
 Skills Demonstrated:
-React
-<br/>    - Hooks:
-<br/>        - useState
-<br/>        - useContext
-<br/>        - useRef
-<br/>        - useCallback
-<br/>    - Authentication and Authorization
-<br/>    - Routing
-<br/>    - Functional Components
-<br/>    - Component Composition
-<br/>    - JSX
-<br/>    - Async and Fetch API
-<br/>    - Local Storage and session persisitence
-<br/>    - Complex Form management and validation
+<br/>React
+<br/>    &nbsp;- Hooks:
+<br/>        &nbsp;&nbsp;- useState
+<br/>        &nbsp;&nbsp;- useContext
+<br/>        &nbsp;&nbsp;- useRef
+<br/>        &nbsp;&nbsp;- useCallback
+<br/>    &nbsp;- Authentication and Authorization
+<br/>    &nbsp;- Routing
+<br/>    &nbsp;- Functional Components
+<br/>    &nbsp;- Component Composition
+<br/>    &nbsp;- JSX
+<br/>    &nbsp;- Async and Fetch API
+<br/>    &nbsp;- Local Storage and session persisitence
+<br/>    &nbsp;- Complex Form management and validation
 <br/>Express
-<br/>    - Serving and Hosting environment
-<br/>    - Custom API Developement
-<br/>    - CORS restrictions and functionality
-<br/>    - Server Routing
+<br/>    &nbsp;- Serving and Hosting environment
+<br/>    &nbsp;- Custom API Developement
+<br/>    &nbsp;- CORS restrictions and functionality
+<br/>    &nbsp;- Server Routing
 <br/>Firebase
-<br/>    - Data and database management
-<br/>    - User account data
-<br/>    - User authorization data security
-<br/>    - Backend application structure
-<br/>    - HTTP
-<br/>    - POST requests
-<br/>    - JSON
+<br/>    &nbsp;- Data and database management
+<br/>    &nbsp;- User account data
+<br/>    &nbsp;- User authorization data security
+<br/>    &nbsp;- Backend application structure
+<br/>    &nbsp;- HTTP
+<br/>    &nbsp;- POST requests
+<br/>    &nbsp;- JSON
 
 
 
