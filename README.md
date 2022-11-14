@@ -1,5 +1,5 @@
 # Arwis
-##A Cryptocurrency Trading Bot using React, Express, Node, and Firebase
+## A Cryptocurrency Trading Bot using React, Express, Node, and Firebase
 Skills Demonstrated:
 <br/>React
 <br/>    &nbsp;&nbsp;- Hooks:
