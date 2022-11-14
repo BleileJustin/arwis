@@ -12,7 +12,7 @@ const Navigation = () => {
   return (
     <div className={css.navigation}>
       <img src={logo} alt="logo" className={css.logo}></img>
-      <button onClick={logoutHandler}>Log Out</button>
+      <button className={css.logout} onClick={logoutHandler}>Log Out</button>
     </div>
   );
 };

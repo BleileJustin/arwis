@@ -4,7 +4,7 @@ const BarContainer = (props) => {
   return (
     <div
       className={css.bar_container}
-      style={props.isWalletBar ? { marginBottom: "1em" } : null}
+      style={props.isWalletBar ? { marginTop: "1em" } : null}
     >
       {props.children}
     </div>

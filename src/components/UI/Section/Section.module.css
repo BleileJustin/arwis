@@ -1,11 +1,10 @@
 .visible {
     display: flex;
     justify-content: space-evenly;
-    border-radius: 10px;
     height: 30vh;
     width: 100%;
     background-color: #1d1e2480;
-    margin-bottom: 1em;
+
 }
 
 .invisible {

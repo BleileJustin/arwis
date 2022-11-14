@@ -11,8 +11,7 @@ import BarContainer from "../../../UI/BarContainer/BarContainer";
 const Analytics = () => {
   return (
     <>
-      <BarContainer>
-      </BarContainer>
+      <BarContainer isAnalyticsBar={true}></BarContainer>
       <Section barIsExpanded={true}>
         <Portfolio></Portfolio>
         <div className={css.analytics_right_half_container}>

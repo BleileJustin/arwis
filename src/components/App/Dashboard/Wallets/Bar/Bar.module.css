@@ -1,7 +1,6 @@
 .bar_expanded { 
     display: flex;
     justify-content: space-evenly;
-    border-radius: 5px;
     height: 40vh;
     width: 100%;
     background-color: #1d1e2480;

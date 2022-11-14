@@ -126,7 +126,7 @@ const Auth = (props) => {
       <hr className={css.break_line}></hr>
       <form className={css.auth_form} onSubmit={submitForm}>
         <input
-          placeholder="Email"
+          placeholder="Demo Email: arwisdemo@gmail.com"
           className={css.text_input_field}
           type="text"
           ref={emailInputRef}
@@ -136,7 +136,7 @@ const Auth = (props) => {
         ></input>
 
         <input
-          placeholder="Password"
+          placeholder="Demo Password: password"
           className={css.text_input_field}
           type="password"
           ref={passwordInputRef}

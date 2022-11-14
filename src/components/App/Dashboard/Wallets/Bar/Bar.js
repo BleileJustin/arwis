@@ -14,10 +14,11 @@ const Bar = (props) => {
   const id = props.id;
   const walletValueCryp = 20000;
   const walletValueFiat = 10000;
-
+  let isAnalyticsBar = false;
   //EXPANDBAR
   const expandBar = () => {
     setBarExpanded((current) => !current);
+
   };
 
   //DELETE BAR
