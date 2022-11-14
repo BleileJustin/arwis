@@ -2,32 +2,32 @@
 A Cryptocurrency Trading Bot using React, Express, Node, and Firebase
 Skills Demonstrated:
 React
-    - Hooks:
-      - useState
-        - useContext
-        - useRef
-        - useCallback
-    - Authentication and Authorization
-    - Routing
-    - Functional Components
-    - Component Composition
-    - JSX
-    - Async and Fetch API
-    - Local Storage and session persisitence
-    - Complex Form management and validation
-Express
-    - Serving and Hosting environment
-    - Custom API Developement
-    - CORS restrictions and functionality
-    - Server Routing
-Firebase
-    - Data and database management
-    - User account data
-    - User authorization data security
-    - Backend application structure
-    - HTTP
-    - POST requests
-    - JSON
+<br/>    - Hooks:
+<br/>        - useState
+<br/>        - useContext
+<br/>        - useRef
+<br/>        - useCallback
+<br/>    - Authentication and Authorization
+<br/>    - Routing
+<br/>    - Functional Components
+<br/>    - Component Composition
+<br/>    - JSX
+<br/>    - Async and Fetch API
+<br/>    - Local Storage and session persisitence
+<br/>    - Complex Form management and validation
+<br/>Express
+<br/>    - Serving and Hosting environment
+<br/>    - Custom API Developement
+<br/>    - CORS restrictions and functionality
+<br/>    - Server Routing
+<br/>Firebase
+<br/>    - Data and database management
+<br/>    - User account data
+<br/>    - User authorization data security
+<br/>    - Backend application structure
+<br/>    - HTTP
+<br/>    - POST requests
+<br/>    - JSON
 
 
 
