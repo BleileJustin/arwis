@@ -19,7 +19,7 @@
     margin-top: 2rem;
 }
 
-.logout {
+.nav_button {
     font-family: Aldrich;
     background-color: transparent;
     color: aliceblue;
@@ -28,4 +28,12 @@
     cursor: pointer;
     text-decoration: underline;
     margin-bottom: 10%;
+}
+
+.test_button_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 }
