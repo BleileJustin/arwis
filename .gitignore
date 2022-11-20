@@ -25,4 +25,4 @@ yarn-error.log*
 
 # secure
 /src/config
-./arwis1-firebase-adminsdk.json
+./functions/arwis1-firebase-adminsdk.json
