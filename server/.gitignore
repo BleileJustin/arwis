@@ -1,4 +1,4 @@
 /node_modules
 /package-lock.json
-/arwis-admin-sdk.json
+/arwisv1-firebase-adminsdk.json
 /.DS_Store

@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const functions = require("firebase-functions");
 const cors = require("cors");
+const serviceAccount = require("./arwisv1-firebase-adminsdk.json");
+const port = 80;
 
 var whitelist = ["http://localhost:3000", "https://arwis1.web.app"];
 var corsOptions = {
@@ -14,19 +16,13 @@ var corsOptions = {
   },
 };
 app.use(cors(corsOptions));
-
 const { initializeApp, cert } = require("firebase-admin/app");
 const { getFirestore } = require("firebase-admin/firestore");
-
-const serviceAccount = require("./arwis-admin-sdk.json");
 
 initializeApp({
   credential: cert(serviceAccount),
 });
-
 const db = getFirestore();
-
-const port = 80;
 
 // SERVER-DEV
 

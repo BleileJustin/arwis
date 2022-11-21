@@ -25,4 +25,4 @@ yarn-error.log*
 
 # secure
 /src/config
-/functions/arwissdk.json
+/functions/arwis-owner-sdk.json
