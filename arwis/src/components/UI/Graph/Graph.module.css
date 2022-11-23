@@ -1,11 +1,9 @@
-.graph_container{
-    width: 45%;   
-}
+
 
 .graph {
+    width: 45%;   
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 88%;
-    border: 1px solid aliceblue;
 }

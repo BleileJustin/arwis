@@ -5,8 +5,8 @@ import css from "./Graph.module.css";
 
 const Graph = (props) => {
   return (
-    <div className={css.graph_container}>
-      <div className={css.graph}>{props.children}</div>
+    <div id="container" className={css.graph}>
+      {props.children}
     </div>
   );
 };

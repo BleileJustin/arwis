@@ -52,7 +52,8 @@ const Bar = (props) => {
       const lastPercent = tickerData.info.priceChangePercent;
       console.log(lastPercent);
       const priceString = lastPrice.toString();
-      const percentColor = lastPercent.charAt(0) === "-" ? "red" : "green";
+      const percentColor =
+        lastPercent.charAt(0) === "-" ? "rgb(225, 50, 85)" : "rgb(5, 255, 0)";
 
       const candles = await fetch(
         `http://localhost:80/api/binance/candles/${curPair}`
@@ -101,8 +102,9 @@ const Bar = (props) => {
       {barJSX}
       <Section barIsExpanded={barExpanded}>
         <Graph>
-          <WalletChart data={candles} />
+          <WalletChart data={candles}></WalletChart>
         </Graph>
+
         <Algorithms></Algorithms>
       </Section>
     </>
