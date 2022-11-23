@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ccxt": "^2.1.102",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "firebase-admin": "^11.3.0",

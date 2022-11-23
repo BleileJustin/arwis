@@ -2,30 +2,33 @@ import { useState } from "react";
 
 import css from "./Bar.module.css";
 import BarForm from "./BarForm/BarForm";
-import Graph from "../../../../UI/Graph/Graph";
 import Algorithms from "./Algorithms/Algorithms";
 import Section from "../../../../UI/Section/Section";
 import BarContainer from "../../../../UI/BarContainer/BarContainer";
+import WalletChart from "./WalletChart/WalletChart";
+
+import Graph from "../../../../UI/Graph/Graph";
 
 const Bar = (props) => {
   const [barJSX, setBarJSX] = useState();
   const [barExpanded, setBarExpanded] = useState(false);
+  const [candles, setCandles] = useState();
 
   const id = props.id;
-  const walletValueCryp = 20000;
-  const walletValueFiat = 10000;
+
   //EXPANDBAR
   const expandBar = () => {
     setBarExpanded((current) => !current);
-
   };
 
   //DELETE BAR
   const deleteBar = () => {
     props.onDeleteBar(id);
   };
+
+  //GET TICKER PRICE
   //ON CONNECT
-  const onConnect = (curPair) => {
+  const onConnect = async (curPair) => {
     //Get list of current wallets
     const walletList = props.getWalletList(curPair);
     let isDuplicate = false;
@@ -39,20 +42,37 @@ const Bar = (props) => {
     //if curPair exists and does not equal select and isDuplicate returns false
     if (curPair && curPair !== "select" && !isDuplicate) {
       //setBarJSX to connected Bar DOM component
+
       props.setWalletCurPair(curPair);
+      console.log(curPair);
+      const ticker = await fetch(`http://localhost:80/api/binance/${curPair}`);
+      const tickerData = await ticker.json();
+      console.log(tickerData);
+      const lastPrice = tickerData.last;
+      const lastPercent = tickerData.info.priceChangePercent;
+      console.log(lastPercent);
+      const priceString = lastPrice.toString();
+      const percentColor = lastPercent.charAt(0) === "-" ? "red" : "green";
+
+      const candles = await fetch(
+        `http://localhost:80/api/binance/candles/${curPair}`
+      );
+      const candlesData = await candles.json();
+      setCandles(candlesData.candles);
+
       setBarJSX(
         <BarContainer isWalletBar={true}>
           <button className={css.delete_bar} onClick={deleteBar}></button>
 
           <div className={css.cur_pair_container}>
-            <h2 className={css.cur_pair}>{curPair}</h2>
+            <h2 className={css.cur_pair}>{curPair.replace("USDT", "/USDT")}</h2>
             <div className={css.cur_pair_value_container}>
-              <h3 className={css.cur_pair_value_crypto}>
-                {walletValueCryp} {curPair.slice(0, curPair.indexOf("/"))}
-              </h3>
-              <h4 className={css.cur_pair_value_fiat}>
-                {walletValueFiat}{" "}
-                {curPair.slice(curPair.indexOf("/") + 1, curPair.indexOf(":"))}
+              <h3 className={css.cur_pair_value_crypto}>{`$${priceString}`}</h3>
+              <h4
+                className={css.cur_pair_value_fiat}
+                style={{ color: percentColor }}
+              >
+                {`${lastPercent} %`}
               </h4>
             </div>
           </div>
@@ -61,11 +81,10 @@ const Bar = (props) => {
             <h3 className={css.wallet_value_title}>Wallet Value:</h3>
             <div className={css.wallet_value_curpair_container}>
               <h3 className={css.wallet_value_crypto}>
-                {walletValueCryp} {curPair.slice(0, curPair.indexOf("/"))}
+                {`0 ${curPair.replace("USDT", "")}`}
               </h3>
               <h4 className={css.wallet_value_fiat}>
-                {walletValueFiat}{" "}
-                {curPair.slice(curPair.indexOf("/") + 1, curPair.indexOf(":"))}
+                {"0"} {"%"}
               </h4>
             </div>
           </div>
@@ -81,7 +100,9 @@ const Bar = (props) => {
     <>
       {barJSX}
       <Section barIsExpanded={barExpanded}>
-        <Graph></Graph>
+        <Graph>
+          <WalletChart data={candles} />
+        </Graph>
         <Algorithms></Algorithms>
       </Section>
     </>

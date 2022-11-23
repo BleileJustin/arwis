@@ -4,25 +4,6 @@ import Algorithm from "./Algorithm/Algorithm";
 import { useState } from "react";
 
 const Algorithms = (props) => {
-  fetch("https://us-central1-arwis1.cloudfunctions.net/app", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => {
-      if (res.ok) {
-        console.log(res.json());
-        console.log(res);
-        return res;
-      } else {
-        console.log("Error");
-        console.log(res);
-      }
-    })
-    .then((data) => {
-      console.log(data);
-    });
 
   const [algoList, setAlgoList] = useState([]);
   //LIFT STATE^ UP TO PERSIST IT

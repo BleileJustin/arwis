@@ -4,6 +4,8 @@ const functions = require("firebase-functions");
 const cors = require("cors");
 const serviceAccount = require("./arwisv1-firebase-adminsdk.json");
 const port = 80;
+const ccxt = require("ccxt");
+const binance = new ccxt.binance();
 
 var whitelist = ["http://localhost:3000", "https://arwis1.web.app"];
 var corsOptions = {
@@ -15,6 +17,7 @@ var corsOptions = {
     }
   },
 };
+
 app.use(cors(corsOptions));
 const { initializeApp, cert } = require("firebase-admin/app");
 const { getFirestore } = require("firebase-admin/firestore");
@@ -23,11 +26,26 @@ initializeApp({
   credential: cert(serviceAccount),
 });
 const db = getFirestore();
+//////////////////////////////////////////////////////
+//Binance API
+app.get("/api/binance/:curPair", async (req, res) => {
+  const ticker = await binance.fetchTicker(req.params.curPair);
+  const tickerData = JSON.stringify(ticker);
+  res.send(tickerData);
+});
 
+app.get("/api/binance/candles/:curPair", async (req, res) => {
+  if (binance.has.fetchOHLCV) {
+    // milliseconds
+    const candles = await binance.fetchOHLCV(req.params.curPair, "1m");
+    res.send({ candles: candles });
+  }
+});
+
+//////////////////////////////////////////////////////
 // SERVER-DEV
-
 //// WRITE
-app.use("/write/:userid", async (req, res) => {
+app.get("/write/:userid", async (req, res) => {
   let count = 0;
 
   const snapshot = db.collection("users").doc(req.params.userid);
@@ -39,17 +57,13 @@ app.use("/write/:userid", async (req, res) => {
 });
 
 //// READ
-app.use("/read/:userid", async (req, res) => {
+app.get("/read/:userid", async (req, res) => {
   const snapshot = db.collection("users").doc(req.params.userid);
   const doc = await snapshot.get();
   //  const fuckthisshit = { data: doc.data() };
   const jsons = JSON.stringify(doc.data());
   res.send(jsons);
   // res.send("hello");
-});
-
-app.use("/count", (req, res) => {
-  res.send("count");
 });
 
 //////////////////////////////////////////////////////

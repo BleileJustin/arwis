@@ -10,70 +10,26 @@ const Navigation = () => {
   };
 
   const testRead = async () => {
-    let userID = await prompt("Enter userid");
-    await fetch(
-      // `https://us-central1-arwis1.cloudfunctions.net/app/read/${userID}`,
-      `http://localhost:80/read/${userID}`,
-
-      {
-        method: "POST",
-      }
-    )
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          console.log("Error");
-          console.log(res);
-        }
-      })
-      .then((data) => {
-        console.log(data);
-      });
+    //let userID = await prompt("Enter userid");
+    let userID = "arwisdemo";
+    const response = await fetch(`http://localhost:80/read/${userID}`);
+    const data = await response.json();
+    let count = data.count;
+    console.log(count);
   };
 
   const testWrite = async () => {
     let userID = await prompt("Enter userid");
-    await fetch(
-      // `https://us-central1-arwis1.cloudfunctions.net/app/write/${userID}`,
-      `http://localhost:80/write/${userID}`,
-      {
-        method: "POST",
-      }
-    )
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          console.log("Error");
-          console.log(res);
-        }
-      })
-      .then((data) => {
-        console.log(data);
-      });
+    const response = await fetch(`http://localhost:80/write/${userID}`);
+    const data = await response.json();
+    let count = data.count;
+    console.log(count);
   };
-
   const testInstance = async () => {
     let userID = await prompt("Enter userid");
-    await fetch(
-      // "https://us-central1-arwis1.cloudfunctions.net/app/instance"
-      `http://localhost:80/instance/${userID}`,
-      {
-        method: "POST",
-      }
-    )
-      .then((res) => {
-        if (res.ok) {
-          return res.text();
-        } else {
-          console.log("Error");
-          console.log(res.text());
-        }
-      })
-      .then((data) => {
-        console.log(data);
-      });
+    const response = await fetch(`http://localhost:80/instance/${userID}`);
+    const data = await response.text();
+    console.log(data);
   };
 
   const testCount = async () => {

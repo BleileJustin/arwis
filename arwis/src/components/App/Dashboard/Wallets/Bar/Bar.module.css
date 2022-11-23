@@ -77,8 +77,9 @@
 
 .wallet_value_crypto, .cur_pair_value_crypto {
     color: aliceblue;
-    font-size: 1.2em;
+    font-size: 1.4em;
     font-family: Aldrich;
+    letter-spacing: 2px;
 }
 
 .wallet_value_fiat, .cur_pair_value_fiat{
