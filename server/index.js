@@ -1,19 +1,15 @@
+const port = 80;
 const express = require("express");
 const app = express();
 const functions = require("firebase-functions");
 const cors = require("cors");
 const serviceAccount = require("./arwisv1-firebase-adminsdk.json");
-const port = 80;
 const ccxt = require("ccxt");
 const binance = new ccxt.binance();
-const tls = require("tls");
-const fs = require("fs");
 
-const bodyParser = require("body-parser");
-const jsonParser = bodyParser.json();
-
-const CryptoJS = require("crypto-js");
 const crypto = require("crypto");
+const JSEncrypt = require("node-jsencrypt");
+const jsencrypt = new JSEncrypt();
 
 const whitelist = ["http://localhost:3000", "https://arwis1.web.app"];
 const corsOptions = {
@@ -53,18 +49,17 @@ app.get("/api/binance/candles/:curPair", async (req, res) => {
 //////////////////////////////////////////////////////
 // API KEY ENCRYPTION HANDLING
 
-// DECRYPT CLIENT API KEY
+// DECRYPT APIKEY AND APISECRET
 const decryptKey = (encryptedKey, privateKey) => {
-  const decryptedKey = crypto.privateDecrypt({
-    key: privateKey,
-  });
+  jsencrypt.setPrivateKey(privateKey);
+  const decryptedKey = jsencrypt.decrypt(encryptedKey, "utf8");
   return decryptedKey;
 };
 
-//GENERATE PUBLIC AND PRIVATE KEY
+//GENERATE KEYPAIR
 const generateKeyPair = () => {
   const keyPair = crypto.generateKeyPairSync("rsa", {
-    modulusLength: 4096,
+    modulusLength: 8192,
     publicKeyEncoding: {
       type: "spki",
       format: "pem",
@@ -76,13 +71,13 @@ const generateKeyPair = () => {
   });
   return keyPair;
 };
+const keyPair = generateKeyPair();
+const publicKey = keyPair.publicKey;
+const privateKey = keyPair.privateKey;
 
 //SEND PUBLIC KEY TO CLIENT
-
-const keyPair = generateKeyPair();
-
 app.get("/api/public-key", async (req, res) => {
-  res.send({ publicKey: keyPair.publicKey });
+  res.send({ publicKey: publicKey });
 });
 
 //GET ENCRYPTED API KEY AND SECRET FROM CLIENT
@@ -91,27 +86,18 @@ app.post("/api/encrypted-api-key", express.json(), async (req, res) => {
   const encryptedApiSecret = req.body.encryptedApiSecret;
   const uid = req.body.uid;
 
-  const decryptedApiKey = decryptKey(encryptedApiKey, keyPair.privateKey);
-  const decryptedApiSecret = decryptKey(encryptedApiSecret, keyPair.privateKey);
-
-  const apiKey = "SHH SECRET";
-  //decryptedApiKey.toString();
-  const apiSecret = "SHH SECRET";
-  //decryptedApiSecret.toString();
+  const apiKey = await decryptKey(encryptedApiKey, privateKey);
+  const apiSecret = await decryptKey(encryptedApiSecret, privateKey);
 
   const snapshot = db.collection("users").doc(uid);
   const doc = await snapshot.get();
-  if (!doc.exists) {
-    res.send({ message: "No such document!" });
-  } else {
-    snapshot.set(
-      { apiKey: apiKey, apiSecret: apiSecret },
-      {
-        merge: true,
-      }
-    );
-    res.send({ message: "success" });
-  }
+
+  snapshot.set(
+    { apiKey: apiKey, apiSecret: apiSecret },
+    {
+      merge: true,
+    }
+  );
 });
 
 //////////////////////////////////////////////////////

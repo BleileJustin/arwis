@@ -53,9 +53,10 @@ const Auth = (props) => {
       },
     });
     const data = await sendCred.json();
-    authCtx.login(data.idToken);
-    navigate("/", { replace: true });
-    if (!sendCred.ok) {
+    if (sendCred.ok) {
+      authCtx.login(data.idToken);
+      navigate("/", { replace: true });
+    } else {
       alert(data.error.message);
     }
     ////////////
@@ -67,21 +68,23 @@ const Auth = (props) => {
 
     const encryptedApiKey = encryptKey(enteredApiKey, publicKey);
     const encryptedApiSecret = encryptKey(enteredApiSecret, publicKey);
+    const encryptedApiKeyPromise = await fetch(
+      "http://localhost:80/api/encrypted-api-key",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          encryptedApiKey: encryptedApiKey,
+          encryptedApiSecret: encryptedApiSecret,
+          uid: enteredEmail,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-    await fetch("http://localhost:80/api/encrypted-api-key", {
-      method: "POST",
-      body: JSON.stringify({
-        encryptedApiKey: encryptedApiKey,
-        encryptedApiSecret: encryptedApiSecret,
-        uid: enteredEmail,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    console.log(encryptedApiKey);
-    console.log(encryptedApiSecret);
+    const encryptedApiKeyData = await encryptedApiKeyPromise.json();
+    console.log(encryptedApiKeyData);
   };
 
   const signUpForm = (

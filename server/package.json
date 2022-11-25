@@ -19,6 +19,8 @@
     "firebase-admin": "^11.3.0",
     "firebase-functions": "^4.1.0",
     "fs": "^0.0.1-security",
+    "jsencrypt": "^3.3.1",
+    "node-jsencrypt": "^1.0.0",
     "nodemon": "^2.0.20",
     "tls": "^0.0.1"
   },
