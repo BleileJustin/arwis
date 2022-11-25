@@ -2,3 +2,5 @@
 /package-lock.json
 /arwisv1-firebase-adminsdk.json
 /.DS_Store
+./private-key.pem
+./csr.pem

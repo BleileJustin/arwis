@@ -85,7 +85,7 @@ const Bar = (props) => {
                 {`0 ${curPair.replace("USDT", "")}`}
               </h3>
               <h4 className={css.wallet_value_fiat}>
-                {"0"} {"%"}
+                {"0"} {"USD"}
               </h4>
             </div>
           </div>

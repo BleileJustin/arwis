@@ -2,21 +2,19 @@ import css from "./AuthForm.module.css";
 import { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { config } from "../../../config/config";
+import encryptKey from "../../../utils/encrypt-key.js";
 
 import AuthContext from "../../../store/auth-context";
 
 const Auth = (props) => {
   const navigate = useNavigate();
-  const [authFormState, setAuthFormState] = useState({
-    email: null,
-    password: null,
-    apikey: null,
-  });
   const [isSignup, setIsSignup] = useState(false);
   const authCtx = useContext(AuthContext);
+
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const apiKeyInputRef = useRef();
+  const apiSecretInputRef = useRef();
 
   const toggleSignupVsLogin = () => {
     setIsSignup((current) => !current);
@@ -24,56 +22,66 @@ const Auth = (props) => {
 
   //const authFormValidation = () => {};
 
-  const submitForm = (event) => {
+  const submitForm = async (event) => {
     event.preventDefault();
-
-    let url;
 
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
+    let enteredApiSecret;
     let enteredApiKey;
+    let url;
 
     if (isSignup) {
       enteredApiKey = apiKeyInputRef.current.value;
+      enteredApiSecret = apiSecretInputRef.current.value;
+
+      //AUTHENTICATION FOR SIGNUP AND LOGIN
       url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${config.APIKEY}`;
     } else {
-      enteredApiKey = null;
       url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${config.APIKEY}`;
     }
-    if (enteredPassword.length > 7) {
-      fetch(url, {
-        method: "POST",
-        body: JSON.stringify({
-          email: enteredEmail,
-          password: enteredPassword,
-          apiKey: enteredApiKey,
-          returnSecureToken: true,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          } else {
-            return res.json().then((data) => {
-              console.log(data);
-            });
-          }
-        })
-        .then((data) => {
-          authCtx.login(data.idToken);
-          navigate("/", { replace: true });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    } else {
-      alert("Password must be 8+ characters");
+    const sendCred = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        email: enteredEmail,
+        password: enteredPassword,
+        uid: enteredEmail,
+        returnSecureToken: true,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await sendCred.json();
+    authCtx.login(data.idToken);
+    navigate("/", { replace: true });
+    if (!sendCred.ok) {
+      alert(data.error.message);
     }
+    ////////////
 
-    console.log("Submit");
+    //ENCRYPT AND SEND APIKEY AND APISECRET
+    const publicKeyPromise = await fetch("http://localhost:80/api/public-key");
+    const publicKeyData = await publicKeyPromise.json();
+    const publicKey = publicKeyData.publicKey;
+
+    const encryptedApiKey = encryptKey(enteredApiKey, publicKey);
+    const encryptedApiSecret = encryptKey(enteredApiSecret, publicKey);
+
+    await fetch("http://localhost:80/api/encrypted-api-key", {
+      method: "POST",
+      body: JSON.stringify({
+        encryptedApiKey: encryptedApiKey,
+        encryptedApiSecret: encryptedApiSecret,
+        uid: enteredEmail,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log(encryptedApiKey);
+    console.log(encryptedApiSecret);
   };
 
   const signUpForm = (
@@ -86,9 +94,6 @@ const Auth = (props) => {
           className={css.text_input_field}
           type="text"
           ref={emailInputRef}
-          onChange={(e) =>
-            setAuthFormState({ ...authFormState, email: e.target.value })
-          }
         ></input>
 
         <input
@@ -96,19 +101,20 @@ const Auth = (props) => {
           className={css.text_input_field}
           type="password"
           ref={passwordInputRef}
-          onChange={(e) =>
-            setAuthFormState({ ...authFormState, password: e.target.value })
-          }
         ></input>
 
         <input
           placeholder="API Key"
           className={css.text_input_field}
-          type="text"
+          type="password"
           ref={apiKeyInputRef}
-          onChange={(e) =>
-            setAuthFormState({ ...authFormState, apikey: e.target.value })
-          }
+        ></input>
+
+        <input
+          placeholder="API Secret"
+          className={css.text_input_field}
+          type="password"
+          ref={apiSecretInputRef}
         ></input>
         <button className={css.submit_button} type="submit" value="submit">
           Submit
@@ -130,9 +136,6 @@ const Auth = (props) => {
           className={css.text_input_field}
           type="text"
           ref={emailInputRef}
-          onChange={(e) =>
-            setAuthFormState({ ...authFormState, email: e.target.value })
-          }
         ></input>
 
         <input
@@ -140,9 +143,6 @@ const Auth = (props) => {
           className={css.text_input_field}
           type="password"
           ref={passwordInputRef}
-          onChange={(e) =>
-            setAuthFormState({ ...authFormState, password: e.target.value })
-          }
         ></input>
 
         <button className={css.submit_button} type="submit" value="submit">
@@ -157,5 +157,4 @@ const Auth = (props) => {
 
   return isSignup ? signUpForm : logInForm;
 };
-
 export default Auth;
