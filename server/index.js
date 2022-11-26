@@ -25,35 +25,60 @@ const corsOptions = {
 app.use(cors(corsOptions));
 const { initializeApp, cert } = require("firebase-admin/app");
 const { getFirestore } = require("firebase-admin/firestore");
-
 initializeApp({
   credential: cert(serviceAccount),
 });
 const db = getFirestore();
-//////////////////////////////////////////////////////
-//Binance API
-app.get("/api/binance/:curPair", async (req, res) => {
-  const ticker = await binance.fetchTicker(req.params.curPair);
-  const tickerData = JSON.stringify(ticker);
-  res.send(tickerData);
-});
-
-app.get("/api/binance/candles/:curPair", async (req, res) => {
-  if (binance.has.fetchOHLCV) {
-    // milliseconds
-    const candles = await binance.fetchOHLCV(req.params.curPair, "1m");
-    res.send({ candles: candles });
-  }
-});
 
 //////////////////////////////////////////////////////
-// API KEY ENCRYPTION HANDLING
+// API KEY ENCRYPTION HANDLING FUNCTIONS
 
 // DECRYPT APIKEY AND APISECRET
 const decryptKey = (encryptedKey, privateKey) => {
   jsencrypt.setPrivateKey(privateKey);
   const decryptedKey = jsencrypt.decrypt(encryptedKey, "utf8");
   return decryptedKey;
+};
+
+// ENCRYPT APIKEY AND APISECRET
+const encryptKey = (key, publicKey) => {
+  const encrypt = new JSEncrypt();
+  encrypt.setPublicKey(publicKey);
+  const encryptedKey = encrypt.encrypt(key);
+  return encryptedKey;
+};
+
+// SEND ENCRYPTED APIKEY AND APISECRET TO DATABASE
+const sendEncryptedApiKeyToDB = async (
+  dbKeyPair,
+  clientApiKey,
+  clientApiSecret,
+  uid
+) => {
+  const dbPublicKey = dbKeyPair.publicKey;
+
+  const dbApiKey = await encryptKey(clientApiKey, dbPublicKey);
+  const dbApiSecret = await encryptKey(clientApiSecret, dbPublicKey);
+
+  const snapshot = db.collection("users").doc(uid);
+  const doc = await snapshot.get();
+
+  snapshot.set(
+    { apiKey: dbApiKey, apiSecret: dbApiSecret },
+    {
+      merge: true,
+    }
+  );
+};
+
+const getEncryptedApiKeyFromDBAndDecrypt = async (uid, privateKey) => {
+  const snapshot = db.collection("users").doc(uid);
+  const doc = await snapshot.get();
+  const encryptedApiKey = doc.data().apiKey;
+  const encryptedApiSecret = doc.data().apiSecret;
+  const apiKey = decryptKey(encryptedApiKey, privateKey);
+  const apiSecret = decryptKey(encryptedApiSecret, privateKey);
+  return { apiKey, apiSecret };
 };
 
 //GENERATE KEYPAIR
@@ -71,13 +96,20 @@ const generateKeyPair = () => {
   });
   return keyPair;
 };
-const keyPair = generateKeyPair();
-const publicKey = keyPair.publicKey;
-const privateKey = keyPair.privateKey;
+
+const clientKeyPair = generateKeyPair();
+const clientPublicKey = clientKeyPair.publicKey;
+const clientPrivateKey = clientKeyPair.privateKey;
+
+const dbKeyPair = generateKeyPair();
+const dbPrivateKey = dbKeyPair.privateKey;
+
+//////////////////////////////////////////////////////
+// API KEY HANDLING
 
 //SEND PUBLIC KEY TO CLIENT
-app.get("/api/public-key", async (req, res) => {
-  res.send({ publicKey: publicKey });
+app.get("/api/client-public-key", async (req, res) => {
+  res.send({ publicKey: clientPublicKey });
 });
 
 //GET ENCRYPTED API KEY AND SECRET FROM CLIENT
@@ -86,47 +118,70 @@ app.post("/api/encrypted-api-key", express.json(), async (req, res) => {
   const encryptedApiSecret = req.body.encryptedApiSecret;
   const uid = req.body.uid;
 
-  const apiKey = await decryptKey(encryptedApiKey, privateKey);
-  const apiSecret = await decryptKey(encryptedApiSecret, privateKey);
-
-  const snapshot = db.collection("users").doc(uid);
-  const doc = await snapshot.get();
-
-  snapshot.set(
-    { apiKey: apiKey, apiSecret: apiSecret },
-    {
-      merge: true,
-    }
+  const clientApiKey = await decryptKey(encryptedApiKey, clientPrivateKey);
+  const clientApiSecret = await decryptKey(
+    encryptedApiSecret,
+    clientPrivateKey
   );
+  sendEncryptedApiKeyToDB(dbKeyPair, clientApiKey, clientApiSecret, uid);
 });
 
 //////////////////////////////////////////////////////
 // SERVER-DEV
-//// WRITE
+
+// WRITE
 app.get("/write/:userid", async (req, res) => {
   let count = 0;
-
   const snapshot = db.collection("users").doc(req.params.userid);
-
   snapshot.set({ count: count }, { merge: true });
   const doc = await snapshot.get();
   const json = JSON.stringify(doc.data());
   res.send(json);
 });
 
-//// READ
+// READ
 app.get("/read/:userid", async (req, res) => {
   const snapshot = db.collection("users").doc(req.params.userid);
   const doc = await snapshot.get();
-  //  const fuckthisshit = { data: doc.data() };
   const jsons = JSON.stringify(doc.data());
   res.send(jsons);
-  // res.send("hello");
+});
+
+//////////////////////////////////////////////////////
+// BINANCE API
+
+// GET TICKER DATA
+app.get("/api/binance/:curPair", async (req, res) => {
+  const ticker = await binance.fetchTicker(req.params.curPair);
+  const tickerData = JSON.stringify(ticker);
+  res.send(tickerData);
+});
+
+// GET CANDLESTICK DATA
+app.get("/api/binance/candles/:curPair", async (req, res) => {
+  if (binance.has.fetchOHLCV) {
+    // milliseconds
+    const candles = await binance.fetchOHLCV(req.params.curPair, "1m");
+    res.send({ candles: candles });
+  }
+});
+
+// GET WALLET BALANCE
+app.get("/api/get-wallet-data/:uid", async (req, res) => {
+  const { apiKey, apiSecret } = await getEncryptedApiKeyFromDBAndDecrypt(
+    req.params.uid,
+    dbPrivateKey,
+  );
+  const binance = new ccxt.binance({
+    apiKey: apiKey,
+    secret: apiSecret,
+  });
+  const walletData = await binance.fetchBalance();
+  res.send({ walletData: walletData });
 });
 
 //////////////////////////////////////////////////////
 // INSTANCE
-
 const startInstance = async (uid) => {
   const snapshot = db.collection("users").doc(uid);
   setInterval(async () => {
@@ -143,9 +198,10 @@ app.use("/instance/:userid", async (req, res) => {
   res.send(`INSTANCE CREATED FOR ${uid}`);
 });
 
+//////////////////////////////////////////////////////
+
 app.listen(port, () => {
   console.log(`app listening at http://localhost:${port}`);
 });
 
-//////////////////////////////////////////////////////
 exports.app = functions.https.onRequest(app);

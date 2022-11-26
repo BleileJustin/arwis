@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import css from "./Bar.module.css";
 import BarForm from "./BarForm/BarForm";
@@ -6,13 +6,18 @@ import Algorithms from "./Algorithms/Algorithms";
 import Section from "../../../../UI/Section/Section";
 import BarContainer from "../../../../UI/BarContainer/BarContainer";
 import WalletChart from "./WalletChart/WalletChart";
-
 import Graph from "../../../../UI/Graph/Graph";
+import AuthContext from "../../../../../store/auth-context";
 
 const Bar = (props) => {
   const [barJSX, setBarJSX] = useState();
   const [barExpanded, setBarExpanded] = useState(false);
   const [candles, setCandles] = useState();
+  const authCtx = useContext(AuthContext);
+  const uid = authCtx.uid;
+  
+  //GET WALLET DATA
+  console.log("uid", uid);
 
   const id = props.id;
 
@@ -27,6 +32,15 @@ const Bar = (props) => {
   };
 
   //GET TICKER PRICE
+  const getTickerData = async (ticker) => {
+    const tickerData = await ticker.json();
+    const lastPrice = tickerData.last;
+    const lastPercent = tickerData.info.priceChangePercent;
+    return { lastPrice: lastPrice, lastPercent: lastPercent };
+  };
+
+  //GET WALLET DATA
+
   //ON CONNECT
   const onConnect = async (curPair) => {
     //Get list of current wallets
@@ -46,11 +60,9 @@ const Bar = (props) => {
       props.setWalletCurPair(curPair);
       console.log(curPair);
       const ticker = await fetch(`http://localhost:80/api/binance/${curPair}`);
-      const tickerData = await ticker.json();
-      console.log(tickerData);
-      const lastPrice = tickerData.last;
-      const lastPercent = tickerData.info.priceChangePercent;
-      console.log(lastPercent);
+      const tickerData = await getTickerData(ticker);
+      const lastPrice = tickerData.lastPrice;
+      const lastPercent = tickerData.lastPercent;
       const priceString = lastPrice.toString();
       const percentColor =
         lastPercent.charAt(0) === "-" ? "rgb(225, 50, 85)" : "rgb(5, 255, 0)";

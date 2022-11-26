@@ -2,7 +2,9 @@ import React, { useCallback, useState } from "react";
 
 const AuthContext = React.createContext({
   token: "",
+  uid: "",
   isLoggedIn: false,
+  setUserId: (uid) => {},
   login: (token) => {},
   logout: () => {},
 });
@@ -24,23 +26,30 @@ export const AuthContextProvider = (props) => {
   }
 
   const [token, setToken] = useState(initalToken);
+  const [uid, setUid] = useState("");
 
   const userIsLoggedIn = !!token;
-
 
   const logoutHandler = useCallback(() => {
     setToken(null);
     localStorage.removeItem("token");
   }, []);
 
-  const loginHandler = (token) => {
+  const loginHandler = (token, uid) => {
     setToken(token);
     localStorage.setItem("token", token);
   };
 
+  const setUserIdHandler = (uid) => {
+    setUid(uid);
+    localStorage.setItem("uid", uid);
+  };
+
   const contextValue = {
     token: tokenData,
+    uid: uid,
     isLoggedIn: userIsLoggedIn,
+    setUserId: setUserIdHandler,
     login: loginHandler,
     logout: logoutHandler,
   };

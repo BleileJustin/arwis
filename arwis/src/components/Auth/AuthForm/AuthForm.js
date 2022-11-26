@@ -55,14 +55,16 @@ const Auth = (props) => {
     const data = await sendCred.json();
     if (sendCred.ok) {
       authCtx.login(data.idToken);
+      authCtx.setUserId(enteredEmail);
       navigate("/", { replace: true });
     } else {
       alert(data.error.message);
     }
     ////////////
 
+
     //ENCRYPT AND SEND APIKEY AND APISECRET
-    const publicKeyPromise = await fetch("http://localhost:80/api/public-key");
+    const publicKeyPromise = await fetch("http://localhost:80/api/client-public-key");
     const publicKeyData = await publicKeyPromise.json();
     const publicKey = publicKeyData.publicKey;
 
