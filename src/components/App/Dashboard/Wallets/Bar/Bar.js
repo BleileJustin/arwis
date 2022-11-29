@@ -15,9 +15,21 @@ const Bar = (props) => {
   const [candles, setCandles] = useState();
   const authCtx = useContext(AuthContext);
   const uid = authCtx.uid;
-  
+
+  //const url = `https://us-central1-arwisv1.cloudfunctions.net/app`;
+  const url = `http://localhost:5001/arwisv1/us-central1/app`;
+
   //GET WALLET DATA
   console.log("uid", uid);
+  const getWalletData = async () => {
+    const response = await fetch(`${url}/api/get-wallet-data/${uid}/`);
+    //const response = await fetch(`/api/get-wallet-data/${uid}`);
+    const data = await response.json();
+    console.log("data", data);
+    const walletData = data.walletData;
+    console.log("walletData", walletData);
+    return walletData;
+  };
 
   const id = props.id;
 
@@ -59,7 +71,18 @@ const Bar = (props) => {
 
       props.setWalletCurPair(curPair);
       console.log(curPair);
-      const ticker = await fetch(`http://localhost:80/api/binance/${curPair}`);
+      // const ticker = await fetch(`http://localhost:80/api/binance/${curPair}`, {
+      //   method: "GET",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // });
+      const ticker = await fetch(`${url}/api/binance/${curPair}/`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const tickerData = await getTickerData(ticker);
       const lastPrice = tickerData.lastPrice;
       const lastPercent = tickerData.lastPercent;
@@ -67,9 +90,12 @@ const Bar = (props) => {
       const percentColor =
         lastPercent.charAt(0) === "-" ? "rgb(225, 50, 85)" : "rgb(5, 255, 0)";
 
-      const candles = await fetch(
-        `http://localhost:80/api/binance/candles/${curPair}`
-      );
+      const candles = await fetch(`${url}/api/binance/candles/${curPair}/`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const candlesData = await candles.json();
       setCandles(candlesData.candles);
 

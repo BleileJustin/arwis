@@ -45,7 +45,6 @@ const Auth = (props) => {
       body: JSON.stringify({
         email: enteredEmail,
         password: enteredPassword,
-        uid: enteredEmail,
         returnSecureToken: true,
       }),
       headers: {
@@ -55,23 +54,28 @@ const Auth = (props) => {
     const data = await sendCred.json();
     if (sendCred.ok) {
       authCtx.login(data.idToken);
-      authCtx.setUserId(enteredEmail);
       navigate("/", { replace: true });
     } else {
       alert(data.error.message);
     }
     ////////////
 
-
     //ENCRYPT AND SEND APIKEY AND APISECRET
-    const publicKeyPromise = await fetch("http://localhost:80/api/client-public-key");
+    const publicKeyPromise = await fetch(
+      `https://us-central1-arwisv1.cloudfunctions.net/app/api/client-public-key/`,
+      {
+        method: "POST",
+      }
+    );
+    //const publicKeyPromise = await fetch("http://localhost:80/api/client-public-key");
     const publicKeyData = await publicKeyPromise.json();
     const publicKey = publicKeyData.publicKey;
 
     const encryptedApiKey = encryptKey(enteredApiKey, publicKey);
     const encryptedApiSecret = encryptKey(enteredApiSecret, publicKey);
     const encryptedApiKeyPromise = await fetch(
-      "http://localhost:80/api/encrypted-api-key",
+      `https://us-central1-arwisv1.cloudfunctions.net/app/api/encrypt-api-key/`,
+      //"http://localhost:80/api/encrypted-api-key",
       {
         method: "POST",
         body: JSON.stringify({

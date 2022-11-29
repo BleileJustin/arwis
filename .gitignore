@@ -5,6 +5,7 @@
 /package-lock.json
 /.pnp
 .pnp.js
+.firebaserc
 
 # testing
 /coverage
@@ -25,4 +26,3 @@ yarn-error.log*
 
 # secure
 /src/config
-/functions/arwis-owner-sdk.json
