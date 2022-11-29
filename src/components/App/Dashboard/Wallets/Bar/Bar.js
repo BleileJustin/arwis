@@ -80,17 +80,17 @@ const Bar = (props) => {
       const candlesData = await candles.json();
       setCandles(candlesData.candles);
 
-      // const walletData = await fetch(
-      //   `${url}/api/wallet/${curPair}/justinxbleile@gmail.com`,
-      //   {
-      //     method: "GET",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   }
-      // );
-      // const walletDataObj = await getWalletData(walletData);
-      // console.log(walletDataObj);
+      const walletData = await fetch(
+        `${url}/api/wallet/${curPair}/justinxbleile@gmail.com`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const walletDataObj = await getWalletData(walletData);
+      console.log(walletDataObj);
 
       setBarJSX(
         <BarContainer isWalletBar={true}>

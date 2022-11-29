@@ -14,26 +14,18 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 // Exchange packages
 const ccxt = require("ccxt");
-const binance = new ccxt.binance();
+const publicBinance = new ccxt.binanceus();
 // Encryption packages
 const crypto = require("crypto");
 const JSEncrypt = require("node-jsencrypt");
 
 const jsencrypt = new JSEncrypt();
 const app = express();
-
 // ////////////////////////////////////////////////////
 // CORS CONFIGURATION AND SERVER & DATABASE INITIALIZATION
-const origin = (req, callback) => {
-  if (
-    req.header("Origin") === "https://arwisv1.web.app" ||
-    req.header("Origin") === "http://localhost:3000"
-  ) {
-    callback(null, true);
-  } else {
-    callback(new Error("Not allowed by CORS"));
-  }
-};
+const origin = "https://arwisv1.web.app";
+// const origin = "http://localhost:3000";
+
 const corsOptions = {
   origin: origin,
   optionsSuccessStatus: 200,
@@ -142,42 +134,21 @@ app.post("/api/encrypt-api-key", express.json(), async (req, res) => {
 });
 
 // ////////////////////////////////////////////////////
-// SERVER-DEV
-
-// WRITE
-app.get("/write/:userid", async (req, res) => {
-  const count = 0;
-  const snapshot = db.collection("users").doc(req.params.userid);
-  snapshot.set({ count: count }, { merge: true });
-  const doc = await snapshot.get();
-  const json = JSON.stringify(doc.data());
-  res.send(json);
-});
-
-// READ
-app.get("/read/:userid", async (req, res) => {
-  const snapshot = db.collection("users").doc(req.params.userid);
-  const doc = await snapshot.get();
-  const jsons = JSON.stringify(doc.data());
-  res.send(jsons);
-});
-
-// ////////////////////////////////////////////////////
 // BINANCE API
 
 // // PUBLIC API
 // GET TICKER DATA
 app.get("/api/binance/:curPair", async (req, res) => {
-  const ticker = await binance.fetchTicker(req.params.curPair);
+  const ticker = await publicBinance.fetchTicker(req.params.curPair);
   const tickerData = JSON.stringify(ticker);
   res.send(tickerData);
 });
 
 // GET CANDLESTICK DATA
 app.get("/api/binance/candles/:curPair", async (req, res) => {
-  if (binance.has.fetchOHLCV) {
+  if (publicBinance.has.fetchOHLCV) {
     // milliseconds
-    const candles = await binance.fetchOHLCV(req.params.curPair, "1m");
+    const candles = await publicBinance.fetchOHLCV(req.params.curPair, "1m");
     res.send({ candles: candles });
   }
 });
@@ -185,16 +156,16 @@ app.get("/api/binance/candles/:curPair", async (req, res) => {
 // // PRIVATE API
 // GET WALLET BALANCE
 app.get("/api/wallet/:curPair/:uid", async (req, res) => {
-  const { apiKey, apiSecret } = await getEncryptedApiKeyFromDBAndDecrypt(
+  const api = await getEncryptedApiKeyFromDBAndDecrypt(
     req.params.uid,
     dbPrivateKey
   );
-  const authedBinance = new ccxt.binance({
-    apiKey: apiKey,
-    secret: apiSecret,
+  const authedBinance = new ccxt.binanceus({
+    apiKey: api.apiKey,
+    secret: api.apiSecret,
   });
-  const walletData = await authedBinance.fetchBalance();
-  res.send({ walletData: walletData });
+  const balance = await authedBinance.fetchBalance();
+  res.send({ walletData: balance });
 });
 
 // ////////////////////////////////////////////////////

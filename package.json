@@ -29,11 +29,10 @@
     "watch": "watch 'npm run build' ./src",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "dev": "nodemon server/server-dev.js",
-    "prod": "nodemon server/server-prod.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "fire": "npm run build && firebase deploy"
+    "fire": "npm run build && firebase deploy",
+    "client": "npm run build && firebase deploy --only hosting"
   },
   "eslintConfig": {
     "extends": [
