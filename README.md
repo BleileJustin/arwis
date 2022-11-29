@@ -25,7 +25,7 @@ Skills Demonstrated:
 <br/>    &nbsp;&nbsp;- User account data
 <br/>    &nbsp;&nbsp;- User authorization data security
 <br/>    &nbsp;&nbsp;- Backend application structure
-<br/>    &nbsp;&nbsp;- HTTP
+<br/>    &nbsp;&nbsp;- HTTP/S
 <br/>    &nbsp;&nbsp;- POST requests
 <br/>    &nbsp;&nbsp;- JSON
 
