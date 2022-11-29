@@ -6,23 +6,39 @@
 /* eslint-disable object-curly-spacing */
 // UPDATE SERVICE ACCOUNT PATH BEFORE DEPLOYING
 const serviceAccount = require("./arwisv1-firebase-adminsdk-diedy-c15bf5cfc5.json");
-
+// Server and Database Packages
 const port = 80;
 const express = require("express");
-const app = express();
-const functions = require("firebase-functions");
 const cors = require("cors");
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+// Exchange packages
 const ccxt = require("ccxt");
 const binance = new ccxt.binance();
-
+// Encryption packages
 const crypto = require("crypto");
 const JSEncrypt = require("node-jsencrypt");
+
 const jsencrypt = new JSEncrypt();
+const app = express();
 
-const corsOptions = { origin: true };
-
+// ////////////////////////////////////////////////////
+// CORS CONFIGURATION AND SERVER & DATABASE INITIALIZATION
+const origin = (req, callback) => {
+  if (
+    req.header("Origin") === "https://arwisv1.web.app" ||
+    req.header("Origin") === "http://localhost:3000"
+  ) {
+    callback(null, true);
+  } else {
+    callback(new Error("Not allowed by CORS"));
+  }
+};
+const corsOptions = {
+  origin: origin,
+  optionsSuccessStatus: 200,
+};
 app.use(cors(corsOptions));
-const admin = require("firebase-admin");
 
 const { getFirestore } = require("firebase-admin/firestore");
 const initApp = admin.initializeApp({
@@ -56,13 +72,9 @@ const sendEncryptedApiKeyToDB = async (
   uid
 ) => {
   const dbPublicKey = dbKeyPair.publicKey;
-
   const dbApiKey = await encryptKey(clientApiKey, dbPublicKey);
   const dbApiSecret = await encryptKey(clientApiSecret, dbPublicKey);
-
   const snapshot = db.collection("users").doc(uid);
-  // const doc = await snapshot.get();
-
   snapshot.set(
     { apiKey: dbApiKey, apiSecret: dbApiSecret },
     {
@@ -81,7 +93,7 @@ const getEncryptedApiKeyFromDBAndDecrypt = async (uid, privateKey) => {
   return { apiKey, apiSecret };
 };
 
-// GENERATE KEYPAIR
+// GENERATE RSA ENCRYPTION KEYPAIR FOR CLIENT AND DATABASE
 const generateKeyPair = () => {
   const keyPair = crypto.generateKeyPairSync("rsa", {
     modulusLength: 8192,
@@ -107,25 +119,26 @@ const dbPrivateKey = dbKeyPair.privateKey;
 // ////////////////////////////////////////////////////
 // API KEY HANDLING
 
-// SEND PUBLIC KEY TO CLIENT
+// SEND PUBLIC ENCRYPTION KEY TO CLIENT
 app.post("/api/client-public-key", async (req, res) => {
   const publicKey = { publicKey: clientPublicKey };
   const publicKeyString = JSON.stringify(publicKey);
   res.send(publicKeyString);
 });
 
-// GET ENCRYPTED API KEY AND SECRET FROM CLIENT
-app.post("/api/encrypted-api-key", express.json(), async (req, res) => {
+// DECRYPT API KEY AND SECRET FROM CLIENT
+app.post("/api/encrypt-api-key", express.json(), async (req, res) => {
   const encryptedApiKey = req.body.encryptedApiKey;
   const encryptedApiSecret = req.body.encryptedApiSecret;
   const uid = req.body.uid;
-
   const clientApiKey = await decryptKey(encryptedApiKey, clientPrivateKey);
   const clientApiSecret = await decryptKey(
     encryptedApiSecret,
     clientPrivateKey
   );
+  // ENCRYPT API KEY AND SECRET AND SEND TO DATABASE
   sendEncryptedApiKeyToDB(dbKeyPair, clientApiKey, clientApiSecret, uid);
+  res.send("ok");
 });
 
 // ////////////////////////////////////////////////////
@@ -171,7 +184,7 @@ app.get("/api/binance/candles/:curPair", async (req, res) => {
 
 // // PRIVATE API
 // GET WALLET BALANCE
-app.get("/api/get-wallet-data/:uid", async (req, res) => {
+app.get("/api/wallet/:curPair/:uid", async (req, res) => {
   const { apiKey, apiSecret } = await getEncryptedApiKeyFromDBAndDecrypt(
     req.params.uid,
     dbPrivateKey

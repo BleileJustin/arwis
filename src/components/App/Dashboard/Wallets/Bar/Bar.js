@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 
 import css from "./Bar.module.css";
 import BarForm from "./BarForm/BarForm";
@@ -7,29 +7,14 @@ import Section from "../../../../UI/Section/Section";
 import BarContainer from "../../../../UI/BarContainer/BarContainer";
 import WalletChart from "./WalletChart/WalletChart";
 import Graph from "../../../../UI/Graph/Graph";
-import AuthContext from "../../../../../store/auth-context";
 
 const Bar = (props) => {
   const [barJSX, setBarJSX] = useState();
   const [barExpanded, setBarExpanded] = useState(false);
   const [candles, setCandles] = useState();
-  const authCtx = useContext(AuthContext);
-  const uid = authCtx.uid;
 
-  //const url = `https://us-central1-arwisv1.cloudfunctions.net/app`;
-  const url = `http://localhost:5001/arwisv1/us-central1/app`;
-
-  //GET WALLET DATA
-  console.log("uid", uid);
-  const getWalletData = async () => {
-    const response = await fetch(`${url}/api/get-wallet-data/${uid}/`);
-    //const response = await fetch(`/api/get-wallet-data/${uid}`);
-    const data = await response.json();
-    console.log("data", data);
-    const walletData = data.walletData;
-    console.log("walletData", walletData);
-    return walletData;
-  };
+  const url = `https://us-central1-arwisv1.cloudfunctions.net/app`;
+  //const url = `http://127.0.0.1:5001/arwis1/us-central1/app`;
 
   const id = props.id;
 
@@ -52,6 +37,11 @@ const Bar = (props) => {
   };
 
   //GET WALLET DATA
+  const getWalletData = async (walletData) => {
+    const walletDataJSON = await walletData.json();
+    const walletDataObj = walletDataJSON.walletData;
+    return walletDataObj;
+  };
 
   //ON CONNECT
   const onConnect = async (curPair) => {
@@ -67,16 +57,7 @@ const Bar = (props) => {
 
     //if curPair exists and does not equal select and isDuplicate returns false
     if (curPair && curPair !== "select" && !isDuplicate) {
-      //setBarJSX to connected Bar DOM component
-
       props.setWalletCurPair(curPair);
-      console.log(curPair);
-      // const ticker = await fetch(`http://localhost:80/api/binance/${curPair}`, {
-      //   method: "GET",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // });
       const ticker = await fetch(`${url}/api/binance/${curPair}/`, {
         method: "GET",
         headers: {
@@ -98,6 +79,18 @@ const Bar = (props) => {
       });
       const candlesData = await candles.json();
       setCandles(candlesData.candles);
+
+      // const walletData = await fetch(
+      //   `${url}/api/wallet/${curPair}/justinxbleile@gmail.com`,
+      //   {
+      //     method: "GET",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   }
+      // );
+      // const walletDataObj = await getWalletData(walletData);
+      // console.log(walletDataObj);
 
       setBarJSX(
         <BarContainer isWalletBar={true}>

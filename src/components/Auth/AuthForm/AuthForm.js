@@ -20,47 +20,10 @@ const Auth = (props) => {
     setIsSignup((current) => !current);
   };
 
-  //const authFormValidation = () => {};
-
-  const submitForm = async (event) => {
-    event.preventDefault();
-
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
-    let enteredApiSecret;
-    let enteredApiKey;
-    let url;
-
-    if (isSignup) {
-      enteredApiKey = apiKeyInputRef.current.value;
-      enteredApiSecret = apiSecretInputRef.current.value;
-
-      //AUTHENTICATION FOR SIGNUP AND LOGIN
-      url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${config.APIKEY}`;
-    } else {
-      url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${config.APIKEY}`;
-    }
-    const sendCred = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify({
-        email: enteredEmail,
-        password: enteredPassword,
-        returnSecureToken: true,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await sendCred.json();
-    if (sendCred.ok) {
-      authCtx.login(data.idToken);
-      navigate("/", { replace: true });
-    } else {
-      alert(data.error.message);
-    }
-    ////////////
-
-    //ENCRYPT AND SEND APIKEY AND APISECRET
+  const apiKeyHandler = async (enteredEmail) => {
+    const enteredApiKey = apiKeyInputRef.current.value;
+    const enteredApiSecret = apiSecretInputRef.current.value;
+    //ENCRYPT AND SEND APIKEY AND APISECRET TO SERVER
     const publicKeyPromise = await fetch(
       `https://us-central1-arwisv1.cloudfunctions.net/app/api/client-public-key/`,
       {
@@ -88,9 +51,45 @@ const Auth = (props) => {
         },
       }
     );
+    const promiseStatus = await encryptedApiKeyPromise.text();
+    console.log(`Encrypt key: ${promiseStatus}`);
+  };
 
-    const encryptedApiKeyData = await encryptedApiKeyPromise.json();
-    console.log(encryptedApiKeyData);
+  //const authFormValidation = () => {};
+
+  const submitForm = async (event) => {
+    event.preventDefault();
+
+    const enteredEmail = emailInputRef.current.value;
+    const enteredPassword = passwordInputRef.current.value;
+    let url;
+
+    //AUTHENTICATION FOR SIGNUP AND LOGIN
+    if (isSignup) {
+      apiKeyHandler(enteredEmail);
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${config.APIKEY}`;
+    } else {
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${config.APIKEY}`;
+    }
+    const sendCred = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        email: enteredEmail,
+        password: enteredPassword,
+        returnSecureToken: true,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await sendCred.json();
+    if (sendCred.ok) {
+      authCtx.login(data.idToken);
+      navigate("/", { replace: true });
+    } else {
+      alert(data.error.message);
+    }
   };
 
   const signUpForm = (
@@ -166,4 +165,5 @@ const Auth = (props) => {
 
   return isSignup ? signUpForm : logInForm;
 };
+
 export default Auth;
