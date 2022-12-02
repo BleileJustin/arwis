@@ -24,19 +24,20 @@ const Auth = (props) => {
     const enteredApiKey = apiKeyInputRef.current.value;
     const enteredApiSecret = apiSecretInputRef.current.value;
     //ENCRYPT AND SEND APIKEY AND APISECRET TO SERVER
-    const publicKeyPromise = await fetch(
+    const getPublicKey = await fetch(
       `https://us-central1-arwisv1.cloudfunctions.net/app/api/client-public-key/`,
       {
         method: "POST",
       }
     );
     //const publicKeyPromise = await fetch("http://localhost:80/api/client-public-key");
-    const publicKeyData = await publicKeyPromise.json();
+    const publicKeyData = await getPublicKey.json();
     const publicKey = publicKeyData.publicKey;
+    console.log(publicKey);
 
     const encryptedApiKey = encryptKey(enteredApiKey, publicKey);
     const encryptedApiSecret = encryptKey(enteredApiSecret, publicKey);
-    const encryptedApiKeyPromise = await fetch(
+    const sendEncryptedApiKey = await fetch(
       `https://us-central1-arwisv1.cloudfunctions.net/app/api/encrypt-api-key/`,
       //"http://localhost:80/api/encrypted-api-key",
       {
@@ -51,7 +52,7 @@ const Auth = (props) => {
         },
       }
     );
-    const promiseStatus = await encryptedApiKeyPromise.text();
+    const promiseStatus = await sendEncryptedApiKey.text();
     console.log(`Encrypt key: ${promiseStatus}`);
   };
 
@@ -142,7 +143,7 @@ const Auth = (props) => {
         <input
           placeholder="Demo Email: arwisdemo@gmail.com"
           className={css.text_input_field}
-          type="text"
+          type="Email"
           ref={emailInputRef}
         ></input>
 

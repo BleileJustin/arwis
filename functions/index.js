@@ -19,12 +19,14 @@ const publicBinance = new ccxt.binanceus();
 const crypto = require("crypto");
 const JSEncrypt = require("node-jsencrypt");
 
-const jsencrypt = new JSEncrypt();
 const app = express();
+
+// const encPbKey = functions.config().enckey.pbkey;
+
 // ////////////////////////////////////////////////////
 // CORS CONFIGURATION AND SERVER & DATABASE INITIALIZATION
-const origin = "https://arwisv1.web.app";
-// const origin = "http://localhost:3000";
+// const origin = "https://arwisv1.web.app";
+const origin = "http://localhost:3000";
 
 const corsOptions = {
   origin: origin,
@@ -43,8 +45,11 @@ const db = getFirestore(initApp);
 
 // DECRYPT APIKEY AND APISECRET
 const decryptKey = (encryptedKey, privateKey) => {
-  jsencrypt.setPrivateKey(privateKey);
-  const decryptedKey = jsencrypt.decrypt(encryptedKey, "utf8");
+  const decrypt = new JSEncrypt();
+  decrypt.setPrivateKey(privateKey);
+  const decryptedKey = decrypt.decrypt(encryptedKey);
+  console.log("48");
+  console.log(decryptedKey);
   return decryptedKey;
 };
 
@@ -63,12 +68,12 @@ const sendEncryptedApiKeyToDB = async (
   clientApiSecret,
   uid
 ) => {
-  const dbPublicKey = dbKeyPair.publicKey;
-  const dbApiKey = await encryptKey(clientApiKey, dbPublicKey);
-  const dbApiSecret = await encryptKey(clientApiSecret, dbPublicKey);
+  const dbPublicKey = dbKeyPair.pbkey;
+  const userApiKey = await encryptKey(clientApiKey, dbPublicKey);
+  const userApiSecret = await encryptKey(clientApiSecret, dbPublicKey);
   const snapshot = db.collection("users").doc(uid);
   snapshot.set(
-    { apiKey: dbApiKey, apiSecret: dbApiSecret },
+    { apiKey: userApiKey, apiSecret: userApiSecret },
     {
       merge: true,
     }
@@ -88,7 +93,7 @@ const getEncryptedApiKeyFromDBAndDecrypt = async (uid, privateKey) => {
 // GENERATE RSA ENCRYPTION KEYPAIR FOR CLIENT AND DATABASE
 const generateKeyPair = () => {
   const keyPair = crypto.generateKeyPairSync("rsa", {
-    modulusLength: 8192,
+    modulusLength: 2048,
     publicKeyEncoding: {
       type: "spki",
       format: "pem",
@@ -105,20 +110,22 @@ const clientKeyPair = generateKeyPair();
 const clientPublicKey = clientKeyPair.publicKey;
 const clientPrivateKey = clientKeyPair.privateKey;
 
-const dbKeyPair = generateKeyPair();
-const dbPrivateKey = dbKeyPair.privateKey;
+const dbConfEncKeyPair = functions.config().enckey;
+
+const dbPrivateKey = dbConfEncKeyPair.pvkey;
 
 // ////////////////////////////////////////////////////
-// API KEY HANDLING
+// API KEY HANDLING/ AUTHFORM ENDPOINTS
 
 // SEND PUBLIC ENCRYPTION KEY TO CLIENT
 app.post("/api/client-public-key", async (req, res) => {
-  const publicKey = { publicKey: clientPublicKey };
-  const publicKeyString = JSON.stringify(publicKey);
-  res.send(publicKeyString);
+  const key = { publicKey: clientPublicKey };
+  const keyString = JSON.stringify(key);
+  res.send({ keyString });
 });
+// kdsal;
 
-// DECRYPT API KEY AND SECRET FROM CLIENT
+// GET AND DECRYPT API KEY AND SECRET FROM CLIENT
 app.post("/api/encrypt-api-key", express.json(), async (req, res) => {
   const encryptedApiKey = req.body.encryptedApiKey;
   const encryptedApiSecret = req.body.encryptedApiSecret;
@@ -129,13 +136,27 @@ app.post("/api/encrypt-api-key", express.json(), async (req, res) => {
     clientPrivateKey
   );
   // ENCRYPT API KEY AND SECRET AND SEND TO DATABASE
-  sendEncryptedApiKeyToDB(dbKeyPair, clientApiKey, clientApiSecret, uid);
+  sendEncryptedApiKeyToDB(dbConfEncKeyPair, clientApiKey, clientApiSecret, uid);
   res.send("ok");
 });
 
 // ////////////////////////////////////////////////////
 // BINANCE API
 
+// // PRIVATE API
+// GET WALLET BALANCE
+app.post("/api/wallet", express.json(), async (req, res) => {
+  const api = await getEncryptedApiKeyFromDBAndDecrypt(
+    req.body.uid,
+    dbPrivateKey
+  );
+  const authedBinance = new ccxt.binanceus({
+    apiKey: api.apiKey,
+    secret: api.apiSecret,
+  });
+  const balance = await authedBinance.fetchBalance();
+  res.send({ walletData: balance });
+});
 // // PUBLIC API
 // GET TICKER DATA
 app.get("/api/binance/:curPair", async (req, res) => {
@@ -151,21 +172,6 @@ app.get("/api/binance/candles/:curPair", async (req, res) => {
     const candles = await publicBinance.fetchOHLCV(req.params.curPair, "1m");
     res.send({ candles: candles });
   }
-});
-
-// // PRIVATE API
-// GET WALLET BALANCE
-app.get("/api/wallet/:curPair/:uid", async (req, res) => {
-  const api = await getEncryptedApiKeyFromDBAndDecrypt(
-    req.params.uid,
-    dbPrivateKey
-  );
-  const authedBinance = new ccxt.binanceus({
-    apiKey: api.apiKey,
-    secret: api.apiSecret,
-  });
-  const balance = await authedBinance.fetchBalance();
-  res.send({ walletData: balance });
 });
 
 // ////////////////////////////////////////////////////

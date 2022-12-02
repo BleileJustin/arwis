@@ -12,7 +12,6 @@ const App = () => {
 
   return (
     <Routes>
-      
       <Route
         path="/auth"
         element={
