@@ -1,0 +1,728 @@
+[debug] [2022-12-02T22:40:46.093Z] ----------------------------------------------------------------------
+[debug] [2022-12-02T22:40:46.095Z] Command:       /usr/local/bin/node /usr/local/bin/firebase emulators:start --only functions
+[debug] [2022-12-02T22:40:46.095Z] CLI Version:   11.16.1
+[debug] [2022-12-02T22:40:46.095Z] Platform:      darwin
+[debug] [2022-12-02T22:40:46.095Z] Node Version:  v16.13.0
+[debug] [2022-12-02T22:40:46.096Z] Time:          Fri Dec 02 2022 15:40:46 GMT-0700 (Mountain Standard Time)
+[debug] [2022-12-02T22:40:46.097Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-12-02T22:40:46.164Z] Object "" in "firebase.json" has unknown property: {"additionalProperty":"rewrites"}
+[debug] [2022-12-02T22:40:46.170Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-12-02T22:40:46.171Z] > authorizing via signed-in user (justinbleile.dev@gmail.com)
+[info] i  emulators: Starting emulators: functions {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions"}}
+[debug] [2022-12-02T22:40:46.531Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-12-02T22:40:46.532Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2022-12-02T22:40:46.540Z] [hub] writing locator at /var/folders/kd/n44nlskx11d4g2y9n5cbc5rr0000gp/T/hub-arwisv1.json
+[debug] [2022-12-02T22:40:46.799Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-12-02T22:40:46.800Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-12-02T22:40:46.800Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] ⚠  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: auth, firestore, database, hosting, pubsub, storage {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mauth, firestore, database, hosting, pubsub, storage\u001b[22m"}}
+[info] ✔  functions: Using node@16 from host. {"metadata":{"emulator":{"name":"functions"},"message":"Using node@16 from host."}}
+[debug] [2022-12-02T22:40:46.810Z] defaultcredentials: writing to file /Users/justinbleile/.config/firebase/justinbleile_dev_gmail.com_application_default_credentials.json
+[debug] [2022-12-02T22:40:46.821Z] Setting GAC to /Users/justinbleile/.config/firebase/justinbleile_dev_gmail.com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to /Users/justinbleile/.config/firebase/justinbleile_dev_gmail.com_application_default_credentials.json"}}
+[debug] [2022-12-02T22:40:46.822Z] > refreshing access token with scopes: []
+[debug] [2022-12-02T22:40:46.827Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2022-12-02T22:40:46.828Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2022-12-02T22:40:47.079Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2022-12-02T22:40:47.079Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2022-12-02T22:40:47.127Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/arwisv1/adminSdkConfig [none]
+[debug] [2022-12-02T22:40:47.864Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/arwisv1/adminSdkConfig 200
+[debug] [2022-12-02T22:40:47.865Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/arwisv1/adminSdkConfig {"projectId":"arwisv1","storageBucket":"arwisv1.appspot.com","locationId":"us-central"}
+[debug] [2022-12-02T22:40:47.901Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-12-02T22:40:47.902Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2022-12-02T22:40:47.902Z] Starting Emulator UI with command {"binary":"node","args":["/Users/justinbleile/.cache/firebase/emulators/ui-v1.11.1/server/server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/Users/justinbleile/.cache/firebase/emulators/ui-v1.11.1/server/server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2022-12-02T22:40:48.028Z] Web / API server started at 127.0.0.1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
+[debug] [2022-12-02T22:40:48.028Z] Web / API server started at ::1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
+[info] i  functions: Watching "/Users/justinbleile/Desktop/arwis/functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"/Users/justinbleile/Desktop/arwis/functions\" for Cloud Functions..."}}
+[debug] [2022-12-02T22:40:48.176Z] Validating nodejs source
+[debug] [2022-12-02T22:40:49.948Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "ccxt": "^2.2.39",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "express": "^4.18.2",
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^4.1.0",
+    "node-jsencrypt": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-02T22:40:49.948Z] Building nodejs source
+[debug] [2022-12-02T22:40:49.948Z] Analyzing nodejs backend spec
+[debug] [2022-12-02T22:40:49.950Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-02T22:40:50.102Z] Serving at port 9005
+
+[debug] [2022-12-02T22:40:50.561Z] app listening at port: 80
+
+[debug] [2022-12-02T22:40:50.565Z] Got response from /__/functions.yaml {"endpoints":{"app":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"app"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-12-02T22:40:50.571Z] shutdown requested via /__/quitquitquit
+
+[info] ✔  functions: Loaded functions definitions from source: app. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: app."}}
+[info] ✔  functions[us-central1-app]: http function initialized (http://127.0.0.1:5001/arwisv1/us-central1/app). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/arwisv1/us-central1/app)."}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌───────────┬────────────────┬─────────────────────────────────┐
+│ Emulator  │ Host:Port      │ View in Emulator UI             │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Functions │ 127.0.0.1:5001 │ http://127.0.0.1:4000/functions │
+└───────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2022-12-02T22:41:08.317Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:41:08.318Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:41:08.318Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/binance/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:41:08.321Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:41:08.322Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/"}}
+[debug] [2022-12-02T22:41:08.330Z] [worker-pool] addWorker(us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(us-central1-app)"}}
+[debug] [2022-12-02T22:41:08.330Z] [worker-pool] Adding worker with key us-central1-app, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key us-central1-app, total=1"}}
+[debug] [2022-12-02T22:41:09.672Z] [runtime-status] [7592] Resolved module firebase-admin {"declared":true,"installed":true,"version":"10.3.0","resolution":"/Users/justinbleile/Desktop/arwis/functions/node_modules/firebase-admin/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"[runtime-status] [7592] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"/Users/justinbleile/Desktop/arwis/functions/node_modules/firebase-admin/lib/index.js\"}"}}
+[debug] [2022-12-02T22:41:09.673Z] [runtime-status] [7592] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"/Users/justinbleile/Desktop/arwis/functions/node_modules/firebase-functions/lib/v1/index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"[runtime-status] [7592] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"/Users/justinbleile/Desktop/arwis/functions/node_modules/firebase-functions/lib/v1/index.js\"}"}}
+[debug] [2022-12-02T22:41:09.674Z] [runtime-status] [7592] Found local functions config: /Users/justinbleile/Desktop/arwis/functions/.runtimeconfig.json {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"[runtime-status] [7592] Found local functions config: /Users/justinbleile/Desktop/arwis/functions/.runtimeconfig.json"}}
+[debug] [2022-12-02T22:41:09.674Z] [runtime-status] [7592] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"[runtime-status] [7592] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2022-12-02T22:41:09.675Z] [runtime-status] [7592] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"/Users/justinbleile/Desktop/arwis/functions/node_modules/firebase-functions/lib/v1/index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"[runtime-status] [7592] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"/Users/justinbleile/Desktop/arwis/functions/node_modules/firebase-functions/lib/v1/index.js\"}"}}
+[debug] [2022-12-02T22:41:09.920Z] [runtime-status] [7592] Checked functions.config() {"config":{"enckey":{"pvkey":"-----BEGIN RSA PRIVATE KEY-----\nMIICXgIBAAKBgQC7m6RQmxjjQdBcfLRzKMo7RDD9b0ByFq7kTUvK//4aQ+FdSzqj\nrsqgwbGRx3QrCwITuIuLyXvW3zsAVEjCEj38Ft6ji5OPTpfVYC9jAXkgo9nxaM/M\ny8cxLPqKswQO6lSqSL98rOB96hhWi/pTDn5o60c4N18Q1i7PMMuwgBr4nwIDAQAB\nAoGBAJVHv3O0NhV+5QDy6dNIfcKy/BhtUeZ2Tiuzpb+d+t+Da+wEVGCyUOGhvl21\nS6aEV97BVaihZj0P267jYhGq2k5D5nibhWpTm/eEvFlBqbOMXM2NmiKOXah8/Fvf\nwq/P+kQ3JnDL3/tuJPS8xjcgPeilztPXm6R9nEbGtakElNSBAkEA5heM+6qtXggO\nca9g1Z/y0pENbIgXXXx1Sj2RX1uNwz32esnV+cvDFqxsgUcD7o+AZIgr8FE6Q4jZ\nF2A7FtOqTwJBANC7ewMlWoqjKZnoMIXi7q0h4huzLZVoGJOFTOse+R49+WifY34K\nCAacnjeTJSZPW6f0PCOh6npfuE73VIdkSLECQQDdtifFgUsY5o50gVe/wSZMPDVB\nNUm+bWTfqr/fsOrDDXvqCX7D+tH7kR3k3Dcvsts3A/fC06Je3QjC+5k0f7UFAkBp\nncOzps32gnLFXphW1qngTtnDHFm/VKnC01tFSSnSZJdzmdrU5qyC8/KWuky84sDE\n7i8T9JTZkN+IjVtnGpYxAkEA3Rcu5cVzxBkjQ+Xf29JpZ62anK9Tp76xgMcZ+LzC\nE4J+f2HrjrUvuqe6w2cDG0Mx7zORhxT3nKTUVk/waplwug==\n-----END RSA PRIVATE KEY-----","pbkey":"-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7m6RQmxjjQdBcfLRzKMo7RDD9\nb0ByFq7kTUvK//4aQ+FdSzqjrsqgwbGRx3QrCwITuIuLyXvW3zsAVEjCEj38Ft6j\ni5OPTpfVYC9jAXkgo9nxaM/My8cxLPqKswQO6lSqSL98rOB96hhWi/pTDn5o60c4\nN18Q1i7PMMuwgBr4nwIDAQAB\n-----END PUBLIC KEY-----"}}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"[runtime-status] [7592] Checked functions.config() {\"config\":{\"enckey\":{\"pvkey\":\"-----BEGIN RSA PRIVATE KEY-----\\nMIICXgIBAAKBgQC7m6RQmxjjQdBcfLRzKMo7RDD9b0ByFq7kTUvK//4aQ+FdSzqj\\nrsqgwbGRx3QrCwITuIuLyXvW3zsAVEjCEj38Ft6ji5OPTpfVYC9jAXkgo9nxaM/M\\ny8cxLPqKswQO6lSqSL98rOB96hhWi/pTDn5o60c4N18Q1i7PMMuwgBr4nwIDAQAB\\nAoGBAJVHv3O0NhV+5QDy6dNIfcKy/BhtUeZ2Tiuzpb+d+t+Da+wEVGCyUOGhvl21\\nS6aEV97BVaihZj0P267jYhGq2k5D5nibhWpTm/eEvFlBqbOMXM2NmiKOXah8/Fvf\\nwq/P+kQ3JnDL3/tuJPS8xjcgPeilztPXm6R9nEbGtakElNSBAkEA5heM+6qtXggO\\nca9g1Z/y0pENbIgXXXx1Sj2RX1uNwz32esnV+cvDFqxsgUcD7o+AZIgr8FE6Q4jZ\\nF2A7FtOqTwJBANC7ewMlWoqjKZnoMIXi7q0h4huzLZVoGJOFTOse+R49+WifY34K\\nCAacnjeTJSZPW6f0PCOh6npfuE73VIdkSLECQQDdtifFgUsY5o50gVe/wSZMPDVB\\nNUm+bWTfqr/fsOrDDXvqCX7D+tH7kR3k3Dcvsts3A/fC06Je3QjC+5k0f7UFAkBp\\nncOzps32gnLFXphW1qngTtnDHFm/VKnC01tFSSnSZJdzmdrU5qyC8/KWuky84sDE\\n7i8T9JTZkN+IjVtnGpYxAkEA3Rcu5cVzxBkjQ+Xf29JpZ62anK9Tp76xgMcZ+LzC\\nE4J+f2HrjrUvuqe6w2cDG0Mx7zORhxT3nKTUVk/waplwug==\\n-----END RSA PRIVATE KEY-----\",\"pbkey\":\"-----BEGIN PUBLIC KEY-----\\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7m6RQmxjjQdBcfLRzKMo7RDD9\\nb0ByFq7kTUvK//4aQ+FdSzqjrsqgwbGRx3QrCwITuIuLyXvW3zsAVEjCEj38Ft6j\\ni5OPTpfVYC9jAXkgo9nxaM/My8cxLPqKswQO6lSqSL98rOB96hhWi/pTDn5o60c4\\nN18Q1i7PMMuwgBr4nwIDAQAB\\n-----END PUBLIC KEY-----\"}}}"}}
+[debug] [2022-12-02T22:41:09.921Z] [runtime-status] [7592] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"4.1.0","resolution":"/Users/justinbleile/Desktop/arwis/functions/node_modules/firebase-functions/lib/v1/index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"[runtime-status] [7592] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"/Users/justinbleile/Desktop/arwis/functions/node_modules/firebase-functions/lib/v1/index.js\"}}"}}
+[debug] [2022-12-02T22:41:09.921Z] [runtime-status] [7592] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"/Users/justinbleile/Desktop/arwis/functions/node_modules/firebase-functions/lib/v1/index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"[runtime-status] [7592] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"/Users/justinbleile/Desktop/arwis/functions/node_modules/firebase-functions/lib/v1/index.js\"}"}}
+[debug] [2022-12-02T22:41:09.922Z] [runtime-status] [7592] Resolved module firebase-admin {"declared":true,"installed":true,"version":"10.3.0","resolution":"/Users/justinbleile/Desktop/arwis/functions/node_modules/firebase-admin/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"[runtime-status] [7592] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"/Users/justinbleile/Desktop/arwis/functions/node_modules/firebase-admin/lib/index.js\"}"}}
+[debug] [2022-12-02T22:41:09.925Z] [runtime-status] [7592] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"/Users/justinbleile/Desktop/arwis/functions/node_modules/firebase-functions/lib/v1/index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"[runtime-status] [7592] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"/Users/justinbleile/Desktop/arwis/functions/node_modules/firebase-functions/lib/v1/index.js\"}"}}
+[debug] [2022-12-02T22:41:09.925Z] [runtime-status] [7592] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"10.3.0","resolution":"/Users/justinbleile/Desktop/arwis/functions/node_modules/firebase-admin/lib/index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"[runtime-status] [7592] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"/Users/justinbleile/Desktop/arwis/functions/node_modules/firebase-admin/lib/index.js\"}}"}}
+[debug] [2022-12-02T22:41:10.386Z] [runtime-status] [7592] initializeApp(DEFAULT) {"credential":{"implicit":false,"projectId":"arwisv1","privateKey":"-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDmlOWgEJYuTCkU\nYhV7sZAWzZC1KKWJwTpaaAQfa1qykzPaZEJ7+zSsZTWgimYCD8nk5Z3ZfTxM/DTU\nm00eM08nuEjOmAmYmgKNExHtoR/zyfRG0uzMEJcOuk3G/0gR60Z098WmeIvXpZac\nypPbWLMtewuHmXBg19814JJB7wjQUhcDyqiMBkHhfzF/g6zaoU6px1ix193/XCKp\nL0f2TD7alwzvpCqqyJVTM5hMDmV9lHY+7rhpDkny+ixMD5yE9htnezCRTTjYIswG\nPqr/TRSfAavx4s6e/P015qob/bEtBzUq5p1evj8QCijYd5zGMGETgUZF8uCmBXVE\nexCyW0s7AgMBAAECggEATNOXnrloEIz3sv7rQYdsBuz/Jh0g6sEi/DRkC0PtuEor\noLx/GmgcqMQgFhmG23D/R/DpoymDCfOOdrg3/bQCz60rNQqbR+koqHCOLKrexo+n\ngGGO3H86lYGloIQ2MyI9G4PiqxDHJ1bY0+z7Tr5DFQhGUyvgsaO7j2v/z1Ahk6bk\ncYf6JZW9xNz1NqxTV6s7W4v5G2endrlVHinyo4K+QGmdU+xjhB/1bQ2N5tdpkQwF\n8TPgKDPJLrogrPt8AUO8gBv8TbFNX9+WIgrNSc+3uI2fEi3/xA/eo5QFwrJ9EP7R\nYS00NwC9KkL7MGY5wBR2QlfIYdxx+BdPCyac7wcFoQKBgQD2HGDFH/L7udbb442C\nfifxyz1b54y8MVha4xiqRoiswMnNE3OVZd2cCOO0EkIwtX1eybXnVAQFqN11StVt\ndHpYfWaMSNmKrZpS0/lD5bQ8A12yYxfJ1voXKnyqffGxuGkE1pgVGnNlOBX5OXMP\nrKpqdH8Dqz0vvp/6d+4g9v/NvwKBgQDv2McGkzvkiSrRpqK3L+TDiW6v175RzCEv\ndvDDI3wU/qaua6sgWpbrccND+xVnkEQ3bQp37w5IkwrC1TDjFe0iBPIfRN54pScA\nhC+OuBcp07YUqlrSrFj3Wva2/fG9Su357l+h9nt6qIqPt2L4+mfsUXenRMnPnSWG\nZnDMZpJZhQKBgCZ+29gZnj0nnWb5meneZ8sXWjqk5kuNgF9/BB2mOLykzyvnrf2h\nWF+OuGczL+1Ehh6seGp9pr9n4XP2R5n+TSDIRKEOyBA8BVaNV4D6Tg3RDPfZLiBh\nIu86sxNL7eE5khuyoUkzwPcFJdK83LWH8YQDQtbFEyYDsCxSVAoN+IcrAoGATaXv\noRhPfohNvXvmF8pAlHFMzU7aRZ8Ba11lSreVNzLOAY/H4fyR+X1mCv8hidqxywPZ\nLMTO6f34sOTWI954W9ggDrF8GLDW9JrWzqyYiykIPJ5+MtArKUFguBN0jKTScGSU\nv1mN1kL0QNzNBPAEbwRc6WEiuL0WZfGKORJH9QUCgYEAvAfsa7rlWAsKfflcBGFt\n6e+xfPIg6LZFgrVPwjoc+0Rq24SW+JIXPX08lwbjDvyBm5FONtTwiiPfBysEDKVk\ngVdeV5jisHaLoq/AKbN//2xAM27bKWXsmbRZMhCxYd4coy+PQJcsMvW/T9kwpnhM\nLlQL8Wp+nZBrm/yUlA1eTDg=\n-----END PRIVATE KEY-----\n","clientEmail":"firebase-adminsdk-diedy@arwisv1.iam.gserviceaccount.com","httpClient":{"retry":{"maxRetries":4,"statusCodes":[503],"ioErrorCodes":["ECONNRESET","ETIMEDOUT"],"backOffFactor":0.5,"maxDelayInMillis":60000}}}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"[runtime-status] [7592] initializeApp(DEFAULT) {\"credential\":{\"implicit\":false,\"projectId\":\"arwisv1\",\"privateKey\":\"-----BEGIN PRIVATE KEY-----\\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDmlOWgEJYuTCkU\\nYhV7sZAWzZC1KKWJwTpaaAQfa1qykzPaZEJ7+zSsZTWgimYCD8nk5Z3ZfTxM/DTU\\nm00eM08nuEjOmAmYmgKNExHtoR/zyfRG0uzMEJcOuk3G/0gR60Z098WmeIvXpZac\\nypPbWLMtewuHmXBg19814JJB7wjQUhcDyqiMBkHhfzF/g6zaoU6px1ix193/XCKp\\nL0f2TD7alwzvpCqqyJVTM5hMDmV9lHY+7rhpDkny+ixMD5yE9htnezCRTTjYIswG\\nPqr/TRSfAavx4s6e/P015qob/bEtBzUq5p1evj8QCijYd5zGMGETgUZF8uCmBXVE\\nexCyW0s7AgMBAAECggEATNOXnrloEIz3sv7rQYdsBuz/Jh0g6sEi/DRkC0PtuEor\\noLx/GmgcqMQgFhmG23D/R/DpoymDCfOOdrg3/bQCz60rNQqbR+koqHCOLKrexo+n\\ngGGO3H86lYGloIQ2MyI9G4PiqxDHJ1bY0+z7Tr5DFQhGUyvgsaO7j2v/z1Ahk6bk\\ncYf6JZW9xNz1NqxTV6s7W4v5G2endrlVHinyo4K+QGmdU+xjhB/1bQ2N5tdpkQwF\\n8TPgKDPJLrogrPt8AUO8gBv8TbFNX9+WIgrNSc+3uI2fEi3/xA/eo5QFwrJ9EP7R\\nYS00NwC9KkL7MGY5wBR2QlfIYdxx+BdPCyac7wcFoQKBgQD2HGDFH/L7udbb442C\\nfifxyz1b54y8MVha4xiqRoiswMnNE3OVZd2cCOO0EkIwtX1eybXnVAQFqN11StVt\\ndHpYfWaMSNmKrZpS0/lD5bQ8A12yYxfJ1voXKnyqffGxuGkE1pgVGnNlOBX5OXMP\\nrKpqdH8Dqz0vvp/6d+4g9v/NvwKBgQDv2McGkzvkiSrRpqK3L+TDiW6v175RzCEv\\ndvDDI3wU/qaua6sgWpbrccND+xVnkEQ3bQp37w5IkwrC1TDjFe0iBPIfRN54pScA\\nhC+OuBcp07YUqlrSrFj3Wva2/fG9Su357l+h9nt6qIqPt2L4+mfsUXenRMnPnSWG\\nZnDMZpJZhQKBgCZ+29gZnj0nnWb5meneZ8sXWjqk5kuNgF9/BB2mOLykzyvnrf2h\\nWF+OuGczL+1Ehh6seGp9pr9n4XP2R5n+TSDIRKEOyBA8BVaNV4D6Tg3RDPfZLiBh\\nIu86sxNL7eE5khuyoUkzwPcFJdK83LWH8YQDQtbFEyYDsCxSVAoN+IcrAoGATaXv\\noRhPfohNvXvmF8pAlHFMzU7aRZ8Ba11lSreVNzLOAY/H4fyR+X1mCv8hidqxywPZ\\nLMTO6f34sOTWI954W9ggDrF8GLDW9JrWzqyYiykIPJ5+MtArKUFguBN0jKTScGSU\\nv1mN1kL0QNzNBPAEbwRc6WEiuL0WZfGKORJH9QUCgYEAvAfsa7rlWAsKfflcBGFt\\n6e+xfPIg6LZFgrVPwjoc+0Rq24SW+JIXPX08lwbjDvyBm5FONtTwiiPfBysEDKVk\\ngVdeV5jisHaLoq/AKbN//2xAM27bKWXsmbRZMhCxYd4coy+PQJcsMvW/T9kwpnhM\\nLlQL8Wp+nZBrm/yUlA1eTDg=\\n-----END PRIVATE KEY-----\\n\",\"clientEmail\":\"firebase-adminsdk-diedy@arwisv1.iam.gserviceaccount.com\",\"httpClient\":{\"retry\":{\"maxRetries\":4,\"statusCodes\":[503],\"ioErrorCodes\":[\"ECONNRESET\",\"ETIMEDOUT\"],\"backOffFactor\":0.5,\"maxDelayInMillis\":60000}}}}"}}
+[debug] [2022-12-02T22:41:10.503Z] [runtime-status] [7592] Functions runtime initialized. {"cwd":"/Users/justinbleile/Desktop/arwis/functions","node_version":"16.13.0"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"[runtime-status] [7592] Functions runtime initialized. {\"cwd\":\"/Users/justinbleile/Desktop/arwis/functions\",\"node_version\":\"16.13.0\"}"}}
+[info] >  app listening at port: 80 {"user":"app listening at port: 80","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"\u001b[90m> \u001b[39m app listening at port: 80"}}
+[debug] [2022-12-02T22:41:10.505Z] [runtime-status] [7592] Listening to port: /var/folders/kd/n44nlskx11d4g2y9n5cbc5rr0000gp/T/fire_emu_42908b8d2d9ea16f.sock {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"[runtime-status] [7592] Listening to port: /var/folders/kd/n44nlskx11d4g2y9n5cbc5rr0000gp/T/fire_emu_42908b8d2d9ea16f.sock"}}
+[debug] [2022-12-02T22:41:10.556Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:41:10.556Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:41:10.556Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[debug] [2022-12-02T22:41:10.562Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:41:10.562Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 1.722993ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 1.722993ms"}}
+[debug] [2022-12-02T22:41:10.565Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:41:10.565Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:41:10.565Z] Accepted request GET /arwisv1/us-central1/app/api/binance/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:41:10.567Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:41:10.567Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/"}}
+[debug] [2022-12-02T22:41:10.567Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:41:10.567Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/api/v3/exchangeInfo"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/api/v3/exchangeInfo\"\n - Be careful, this may be a production service."}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/api/v3/ticker/24hr?symbol=BTCUSDT"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/api/v3/ticker/24hr?symbol=BTCUSDT\"\n - Be careful, this may be a production service."}}
+[debug] [2022-12-02T22:41:15.250Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:41:15.251Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 4680.596009ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 4680.596009ms"}}
+[debug] [2022-12-02T22:41:15.269Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:41:15.269Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:41:15.269Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/binance/candles/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:41:15.271Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:41:15.271Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/"}}
+[debug] [2022-12-02T22:41:15.271Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:41:15.271Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[debug] [2022-12-02T22:41:15.273Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:41:15.273Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 0.386941ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.386941ms"}}
+[debug] [2022-12-02T22:41:15.276Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:41:15.276Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:41:15.276Z] Accepted request GET /arwisv1/us-central1/app/api/binance/candles/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:41:15.278Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:41:15.278Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/"}}
+[debug] [2022-12-02T22:41:15.278Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:41:15.278Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/api/v3/klines?interval=1m&limit=500&symbol=BTCUSDT"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/api/v3/klines?interval=1m&limit=500&symbol=BTCUSDT\"\n - Be careful, this may be a production service."}}
+[debug] [2022-12-02T22:41:15.459Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:41:15.460Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 178.511386ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 178.511386ms"}}
+[debug] [2022-12-02T22:41:15.467Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:41:15.467Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:41:15.467Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/wallet/ --> us-central1-app
+[debug] [2022-12-02T22:41:15.470Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:41:15.471Z] [functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/"}}
+[debug] [2022-12-02T22:41:15.471Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:41:15.471Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[info] i  functions: Finished "app" in 0.426507ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.426507ms"}}
+[debug] [2022-12-02T22:41:15.475Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:41:15.475Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-12-02T22:41:15.477Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:41:15.477Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:41:15.477Z] Accepted request POST /arwisv1/us-central1/app/api/wallet/ --> us-central1-app
+[debug] [2022-12-02T22:41:15.479Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:41:15.480Z] [functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/"}}
+[debug] [2022-12-02T22:41:15.480Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:41:15.480Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/sapi/v1/capital/config/getall?timestamp=1670020876424&recvWindow=10000&signature=4b9ed39e3d8839f9b6023c1b0016b9c81a2c00b8893d0070e9481fb62384bde6"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/sapi/v1/capital/config/getall?timestamp=1670020876424&recvWindow=10000&signature=4b9ed39e3d8839f9b6023c1b0016b9c81a2c00b8893d0070e9481fb62384bde6\"\n - Be careful, this may be a production service."}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/api/v3/account?timestamp=1670020877423&recvWindow=10000&signature=acd726635ada1dd93e0b087e11000fc92f6bcc2b4af74f28299874314324e284"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/api/v3/account?timestamp=1670020877423&recvWindow=10000&signature=acd726635ada1dd93e0b087e11000fc92f6bcc2b4af74f28299874314324e284\"\n - Be careful, this may be a production service."}}
+[info] >  0 {"user":0,"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"\u001b[90m> \u001b[39m 0"}}
+[debug] [2022-12-02T22:41:17.503Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:41:17.503Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 2008.724688ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 2008.724688ms"}}
+[debug] [2022-12-02T22:43:17.197Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:43:17.198Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:43:17.199Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/binance/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:43:17.206Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:43:17.206Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/"}}
+[debug] [2022-12-02T22:43:17.206Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:43:17.207Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[debug] [2022-12-02T22:43:17.213Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:43:17.213Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 2.018176ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 2.018176ms"}}
+[debug] [2022-12-02T22:43:17.215Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:43:17.218Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:43:17.219Z] Accepted request GET /arwisv1/us-central1/app/api/binance/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:43:17.221Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:43:17.222Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/"}}
+[debug] [2022-12-02T22:43:17.222Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:43:17.222Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[debug] [2022-12-02T22:43:17.496Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:43:17.496Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 272.030018ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 272.030018ms"}}
+[debug] [2022-12-02T22:43:17.503Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:43:17.504Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:43:17.504Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/binance/candles/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:43:17.509Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:43:17.509Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/"}}
+[debug] [2022-12-02T22:43:17.509Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:43:17.509Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[info] i  functions: Finished "app" in 0.385136ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.385136ms"}}
+[debug] [2022-12-02T22:43:17.513Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:43:17.513Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-12-02T22:43:17.516Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:43:17.516Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:43:17.516Z] Accepted request GET /arwisv1/us-central1/app/api/binance/candles/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:43:17.518Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:43:17.519Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/"}}
+[debug] [2022-12-02T22:43:17.519Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:43:17.519Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[debug] [2022-12-02T22:43:17.862Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:43:17.863Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 341.234451ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 341.234451ms"}}
+[debug] [2022-12-02T22:43:17.869Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:43:17.869Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:43:17.869Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/wallet/ --> us-central1-app
+[debug] [2022-12-02T22:43:17.871Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:43:17.871Z] [functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/"}}
+[debug] [2022-12-02T22:43:17.871Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:43:17.871Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[debug] [2022-12-02T22:43:17.873Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:43:17.873Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 0.326152ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.326152ms"}}
+[debug] [2022-12-02T22:43:17.874Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:43:17.874Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:43:17.874Z] Accepted request POST /arwisv1/us-central1/app/api/wallet/ --> us-central1-app
+[debug] [2022-12-02T22:43:17.876Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:43:17.877Z] [functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/"}}
+[debug] [2022-12-02T22:43:17.877Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:43:17.877Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/sapi/v1/capital/config/getall?timestamp=1670020998256&recvWindow=10000&signature=04c99d6b8f14f943a3e4ea2e47bada4d0b4e35858d01bd413b110fcaa393f5dc"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/sapi/v1/capital/config/getall?timestamp=1670020998256&recvWindow=10000&signature=04c99d6b8f14f943a3e4ea2e47bada4d0b4e35858d01bd413b110fcaa393f5dc\"\n - Be careful, this may be a production service."}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/api/v3/account?timestamp=1670021003151&recvWindow=10000&signature=bf26d78ee43fc06ea65d8044997bd97b9a004756383bdae9504c94dd3884143f"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/api/v3/account?timestamp=1670021003151&recvWindow=10000&signature=bf26d78ee43fc06ea65d8044997bd97b9a004756383bdae9504c94dd3884143f\"\n - Be careful, this may be a production service."}}
+[info] >  0 {"user":0,"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"\u001b[90m> \u001b[39m 0"}}
+[debug] [2022-12-02T22:43:23.692Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:43:23.692Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 5809.822513ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 5809.822513ms"}}
+[debug] [2022-12-02T22:43:55.913Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:43:55.913Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:43:55.913Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/binance/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:43:55.917Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:43:55.917Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/"}}
+[debug] [2022-12-02T22:43:55.917Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:43:55.918Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[info] i  functions: Finished "app" in 0.557039ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.557039ms"}}
+[debug] [2022-12-02T22:43:55.923Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:43:55.923Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-12-02T22:43:55.925Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:43:55.925Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:43:55.925Z] Accepted request GET /arwisv1/us-central1/app/api/binance/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:43:55.927Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:43:55.927Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/"}}
+[debug] [2022-12-02T22:43:55.928Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:43:55.928Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[debug] [2022-12-02T22:43:56.057Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:43:56.058Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 127.901283ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 127.901283ms"}}
+[debug] [2022-12-02T22:43:56.063Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:43:56.063Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:43:56.063Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/binance/candles/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:43:56.065Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:43:56.065Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/"}}
+[debug] [2022-12-02T22:43:56.066Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:43:56.066Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[debug] [2022-12-02T22:43:56.067Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:43:56.067Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 0.526745ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.526745ms"}}
+[debug] [2022-12-02T22:43:56.069Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:43:56.069Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:43:56.069Z] Accepted request GET /arwisv1/us-central1/app/api/binance/candles/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:43:56.071Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:43:56.071Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/"}}
+[debug] [2022-12-02T22:43:56.071Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:43:56.071Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[debug] [2022-12-02T22:43:56.253Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:43:56.254Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 180.443897ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 180.443897ms"}}
+[debug] [2022-12-02T22:43:56.258Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:43:56.258Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:43:56.258Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/wallet/ --> us-central1-app
+[debug] [2022-12-02T22:43:56.260Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:43:56.260Z] [functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/"}}
+[debug] [2022-12-02T22:43:56.260Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:43:56.260Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[debug] [2022-12-02T22:43:56.263Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:43:56.263Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 0.431448ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.431448ms"}}
+[debug] [2022-12-02T22:43:56.265Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:43:56.265Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:43:56.266Z] Accepted request POST /arwisv1/us-central1/app/api/wallet/ --> us-central1-app
+[debug] [2022-12-02T22:43:56.268Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:43:56.268Z] [functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/"}}
+[debug] [2022-12-02T22:43:56.268Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:43:56.268Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/sapi/v1/capital/config/getall?timestamp=1670021036372&recvWindow=10000&signature=3b002686e1c622f89326691abe4ab8f49628d8221fbe27077f3e1d291a6ebfd2"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/sapi/v1/capital/config/getall?timestamp=1670021036372&recvWindow=10000&signature=3b002686e1c622f89326691abe4ab8f49628d8221fbe27077f3e1d291a6ebfd2\"\n - Be careful, this may be a production service."}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/api/v3/account?timestamp=1670021037808&recvWindow=10000&signature=78e36bc5508edc9d0ae5a3da7c50b7bbb59af37f3bfacff07aa263b35229d38d"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/api/v3/account?timestamp=1670021037808&recvWindow=10000&signature=78e36bc5508edc9d0ae5a3da7c50b7bbb59af37f3bfacff07aa263b35229d38d\"\n - Be careful, this may be a production service."}}
+[info] >  0 {"user":0,"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"\u001b[90m> \u001b[39m 0"}}
+[debug] [2022-12-02T22:43:58.110Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:43:58.111Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 1840.347596ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 1840.347596ms"}}
+[debug] [2022-12-02T22:44:09.291Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:44:09.291Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:44:09.291Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/binance/VETUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:44:09.294Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:44:09.296Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/VETUSDT/, mapping to path=/api/binance/VETUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/VETUSDT/, mapping to path=/api/binance/VETUSDT/"}}
+[debug] [2022-12-02T22:44:09.296Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:44:09.296Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[info] i  functions: Finished "app" in 0.399677ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.399677ms"}}
+[debug] [2022-12-02T22:44:09.300Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:44:09.300Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-12-02T22:44:09.302Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:44:09.303Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:44:09.303Z] Accepted request GET /arwisv1/us-central1/app/api/binance/VETUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:44:09.305Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:44:09.305Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/VETUSDT/, mapping to path=/api/binance/VETUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/VETUSDT/, mapping to path=/api/binance/VETUSDT/"}}
+[debug] [2022-12-02T22:44:09.305Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:44:09.305Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/api/v3/ticker/24hr?symbol=VETUSDT"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/api/v3/ticker/24hr?symbol=VETUSDT\"\n - Be careful, this may be a production service."}}
+[debug] [2022-12-02T22:44:09.427Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:44:09.427Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 119.542707ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 119.542707ms"}}
+[debug] [2022-12-02T22:44:09.433Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:44:09.433Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:44:09.433Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/binance/candles/VETUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:44:09.436Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:44:09.436Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/VETUSDT/, mapping to path=/api/binance/candles/VETUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/VETUSDT/, mapping to path=/api/binance/candles/VETUSDT/"}}
+[debug] [2022-12-02T22:44:09.436Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:44:09.436Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[debug] [2022-12-02T22:44:09.438Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:44:09.439Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 0.373471ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.373471ms"}}
+[debug] [2022-12-02T22:44:09.439Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:44:09.440Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:44:09.440Z] Accepted request GET /arwisv1/us-central1/app/api/binance/candles/VETUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:44:09.442Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:44:09.442Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/VETUSDT/, mapping to path=/api/binance/candles/VETUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/VETUSDT/, mapping to path=/api/binance/candles/VETUSDT/"}}
+[debug] [2022-12-02T22:44:09.442Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:44:09.442Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/api/v3/klines?interval=1m&limit=500&symbol=VETUSDT"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/api/v3/klines?interval=1m&limit=500&symbol=VETUSDT\"\n - Be careful, this may be a production service."}}
+[debug] [2022-12-02T22:44:09.572Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:44:09.572Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 127.550722ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 127.550722ms"}}
+[debug] [2022-12-02T22:44:09.578Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:44:09.578Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:44:09.578Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/wallet/ --> us-central1-app
+[debug] [2022-12-02T22:44:09.580Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:44:09.580Z] [functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/"}}
+[debug] [2022-12-02T22:44:09.580Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:44:09.580Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[debug] [2022-12-02T22:44:09.582Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:44:09.582Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 0.295487ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.295487ms"}}
+[debug] [2022-12-02T22:44:09.584Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:44:09.584Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:44:09.584Z] Accepted request POST /arwisv1/us-central1/app/api/wallet/ --> us-central1-app
+[debug] [2022-12-02T22:44:09.587Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:44:09.587Z] [functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/"}}
+[debug] [2022-12-02T22:44:09.587Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:44:09.587Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/sapi/v1/capital/config/getall?timestamp=1670021049697&recvWindow=10000&signature=83e4a313e11e0b840c1e3fbbaf37abbfea158e8efdbfeb74fa1c2bb36da029c7"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/sapi/v1/capital/config/getall?timestamp=1670021049697&recvWindow=10000&signature=83e4a313e11e0b840c1e3fbbaf37abbfea158e8efdbfeb74fa1c2bb36da029c7\"\n - Be careful, this may be a production service."}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/api/v3/account?timestamp=1670021050857&recvWindow=10000&signature=792b711f89108057484ff94ec2586febac6cb48b4989349d16dd5f478bb3a6c5"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/api/v3/account?timestamp=1670021050857&recvWindow=10000&signature=792b711f89108057484ff94ec2586febac6cb48b4989349d16dd5f478bb3a6c5\"\n - Be careful, this may be a production service."}}
+[info] >  0.171 {"user":0.171,"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"\u001b[90m> \u001b[39m 0.171"}}
+[debug] [2022-12-02T22:44:11.226Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:44:11.226Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 1636.009393ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 1636.009393ms"}}
+[debug] [2022-12-02T22:44:27.525Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:44:27.525Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:44:27.526Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/binance/ADAUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:44:27.529Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:44:27.529Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/ADAUSDT/, mapping to path=/api/binance/ADAUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/ADAUSDT/, mapping to path=/api/binance/ADAUSDT/"}}
+[debug] [2022-12-02T22:44:27.529Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:44:27.529Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[info] i  functions: Finished "app" in 0.460148ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.460148ms"}}
+[debug] [2022-12-02T22:44:27.533Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:44:27.533Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-12-02T22:44:27.535Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:44:27.536Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:44:27.536Z] Accepted request GET /arwisv1/us-central1/app/api/binance/ADAUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:44:27.538Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:44:27.538Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/ADAUSDT/, mapping to path=/api/binance/ADAUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/ADAUSDT/, mapping to path=/api/binance/ADAUSDT/"}}
+[debug] [2022-12-02T22:44:27.538Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:44:27.538Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/api/v3/ticker/24hr?symbol=ADAUSDT"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/api/v3/ticker/24hr?symbol=ADAUSDT\"\n - Be careful, this may be a production service."}}
+[debug] [2022-12-02T22:44:27.661Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:44:27.661Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 120.444819ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 120.444819ms"}}
+[debug] [2022-12-02T22:44:27.666Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:44:27.666Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:44:27.666Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/binance/candles/ADAUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:44:27.668Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:44:27.668Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/ADAUSDT/, mapping to path=/api/binance/candles/ADAUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/ADAUSDT/, mapping to path=/api/binance/candles/ADAUSDT/"}}
+[debug] [2022-12-02T22:44:27.668Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:44:27.668Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[info] i  functions: Finished "app" in 0.327299ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.327299ms"}}
+[debug] [2022-12-02T22:44:27.672Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:44:27.672Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-12-02T22:44:27.673Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:44:27.673Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:44:27.673Z] Accepted request GET /arwisv1/us-central1/app/api/binance/candles/ADAUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:44:27.675Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:44:27.675Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/ADAUSDT/, mapping to path=/api/binance/candles/ADAUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/ADAUSDT/, mapping to path=/api/binance/candles/ADAUSDT/"}}
+[debug] [2022-12-02T22:44:27.675Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:44:27.676Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/api/v3/klines?interval=1m&limit=500&symbol=ADAUSDT"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/api/v3/klines?interval=1m&limit=500&symbol=ADAUSDT\"\n - Be careful, this may be a production service."}}
+[debug] [2022-12-02T22:44:27.807Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:44:27.807Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 129.802919ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 129.802919ms"}}
+[debug] [2022-12-02T22:44:27.813Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:44:27.813Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:44:27.813Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/wallet/ --> us-central1-app
+[debug] [2022-12-02T22:44:27.815Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:44:27.815Z] [functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/"}}
+[debug] [2022-12-02T22:44:27.815Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:44:27.815Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[info] i  functions: Finished "app" in 0.240395ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.240395ms"}}
+[debug] [2022-12-02T22:44:27.817Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:44:27.817Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-12-02T22:44:27.818Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:44:27.818Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:44:27.818Z] Accepted request POST /arwisv1/us-central1/app/api/wallet/ --> us-central1-app
+[debug] [2022-12-02T22:44:27.820Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:44:27.821Z] [functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/"}}
+[debug] [2022-12-02T22:44:27.821Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:44:27.821Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/sapi/v1/capital/config/getall?timestamp=1670021067925&recvWindow=10000&signature=b35bf80174f40e484cf45a5cff3ea74ec880916f7233d6dfa851353b587b5db0"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/sapi/v1/capital/config/getall?timestamp=1670021067925&recvWindow=10000&signature=b35bf80174f40e484cf45a5cff3ea74ec880916f7233d6dfa851353b587b5db0\"\n - Be careful, this may be a production service."}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/api/v3/account?timestamp=1670021069033&recvWindow=10000&signature=d4fe9e46b98ed2cb984ea166fd8e1e71f7b653dbd178ccfb19d4f02f457daf69"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/api/v3/account?timestamp=1670021069033&recvWindow=10000&signature=d4fe9e46b98ed2cb984ea166fd8e1e71f7b653dbd178ccfb19d4f02f457daf69\"\n - Be careful, this may be a production service."}}
+[info] >  0.0445 {"user":0.0445,"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"\u001b[90m> \u001b[39m 0.0445"}}
+[debug] [2022-12-02T22:44:29.237Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:44:29.238Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 1413.89696ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 1413.89696ms"}}
+[debug] [2022-12-02T22:45:50.047Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:45:50.047Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:45:50.047Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/binance/ETHUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:45:50.049Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:45:50.049Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/ETHUSDT/, mapping to path=/api/binance/ETHUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/ETHUSDT/, mapping to path=/api/binance/ETHUSDT/"}}
+[debug] [2022-12-02T22:45:50.050Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:45:50.050Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[info] i  functions: Finished "app" in 0.424967ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.424967ms"}}
+[debug] [2022-12-02T22:45:50.053Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:45:50.053Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-12-02T22:45:50.054Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:45:50.054Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:45:50.055Z] Accepted request GET /arwisv1/us-central1/app/api/binance/ETHUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:45:50.056Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:45:50.056Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/ETHUSDT/, mapping to path=/api/binance/ETHUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/ETHUSDT/, mapping to path=/api/binance/ETHUSDT/"}}
+[debug] [2022-12-02T22:45:50.057Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:45:50.057Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/api/v3/ticker/24hr?symbol=ETHUSDT"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/api/v3/ticker/24hr?symbol=ETHUSDT\"\n - Be careful, this may be a production service."}}
+[debug] [2022-12-02T22:45:50.175Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:45:50.175Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 116.302484ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 116.302484ms"}}
+[debug] [2022-12-02T22:45:50.180Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:45:50.180Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:45:50.180Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/binance/candles/ETHUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:45:50.182Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:45:50.182Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/ETHUSDT/, mapping to path=/api/binance/candles/ETHUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/ETHUSDT/, mapping to path=/api/binance/candles/ETHUSDT/"}}
+[debug] [2022-12-02T22:45:50.183Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:45:50.183Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[info] i  functions: Finished "app" in 0.294934ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.294934ms"}}
+[debug] [2022-12-02T22:45:50.186Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:45:50.186Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-12-02T22:45:50.187Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:45:50.187Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:45:50.187Z] Accepted request GET /arwisv1/us-central1/app/api/binance/candles/ETHUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:45:50.189Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:45:50.189Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/ETHUSDT/, mapping to path=/api/binance/candles/ETHUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/ETHUSDT/, mapping to path=/api/binance/candles/ETHUSDT/"}}
+[debug] [2022-12-02T22:45:50.189Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:45:50.189Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/api/v3/klines?interval=1m&limit=500&symbol=ETHUSDT"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/api/v3/klines?interval=1m&limit=500&symbol=ETHUSDT\"\n - Be careful, this may be a production service."}}
+[debug] [2022-12-02T22:45:50.320Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:45:50.320Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 128.733786ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 128.733786ms"}}
+[debug] [2022-12-02T22:45:50.325Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:45:50.325Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:45:50.325Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/wallet/ --> us-central1-app
+[debug] [2022-12-02T22:45:50.327Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:45:50.327Z] [functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/"}}
+[debug] [2022-12-02T22:45:50.327Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:45:50.327Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[debug] [2022-12-02T22:45:50.329Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:45:50.329Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 0.895056ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.895056ms"}}
+[debug] [2022-12-02T22:45:50.332Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:45:50.332Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:45:50.332Z] Accepted request POST /arwisv1/us-central1/app/api/wallet/ --> us-central1-app
+[debug] [2022-12-02T22:45:50.334Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:45:50.334Z] [functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/"}}
+[debug] [2022-12-02T22:45:50.334Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:45:50.334Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/sapi/v1/capital/config/getall?timestamp=1670021150435&recvWindow=10000&signature=21113dcb88eec947fc74c083b50a514e7b72ffa2ca3d561d50f0cd5d911fcc64"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/sapi/v1/capital/config/getall?timestamp=1670021150435&recvWindow=10000&signature=21113dcb88eec947fc74c083b50a514e7b72ffa2ca3d561d50f0cd5d911fcc64\"\n - Be careful, this may be a production service."}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/api/v3/account?timestamp=1670021152315&recvWindow=10000&signature=cc3c8ef6bbf253b7de292041f58cfe47ded71eba8207ac5536a93f0683718201"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/api/v3/account?timestamp=1670021152315&recvWindow=10000&signature=cc3c8ef6bbf253b7de292041f58cfe47ded71eba8207ac5536a93f0683718201\"\n - Be careful, this may be a production service."}}
+[info] >  0 {"user":0,"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"\u001b[90m> \u001b[39m 0"}}
+[debug] [2022-12-02T22:45:52.430Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:45:52.430Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 2092.447563ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 2092.447563ms"}}
+[debug] [2022-12-02T22:45:55.390Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:45:55.391Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:45:55.391Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/binance/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:45:55.394Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:45:55.394Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/"}}
+[debug] [2022-12-02T22:45:55.394Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:45:55.394Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[info] i  functions: Finished "app" in 0.36175ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.36175ms"}}
+[debug] [2022-12-02T22:45:55.398Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:45:55.398Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-12-02T22:45:55.403Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:45:55.403Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:45:55.403Z] Accepted request GET /arwisv1/us-central1/app/api/binance/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:45:55.406Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:45:55.406Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/"}}
+[debug] [2022-12-02T22:45:55.406Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:45:55.406Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[debug] [2022-12-02T22:45:55.526Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:45:55.526Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 117.547684ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 117.547684ms"}}
+[debug] [2022-12-02T22:45:55.530Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:45:55.530Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:45:55.530Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/binance/candles/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:45:55.532Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:45:55.532Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/"}}
+[debug] [2022-12-02T22:45:55.533Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:45:55.533Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[info] i  functions: Finished "app" in 0.248819ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.248819ms"}}
+[debug] [2022-12-02T22:45:55.535Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:45:55.535Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-12-02T22:45:55.538Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:45:55.538Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:45:55.538Z] Accepted request GET /arwisv1/us-central1/app/api/binance/candles/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:45:55.540Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:45:55.540Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/"}}
+[debug] [2022-12-02T22:45:55.540Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:45:55.541Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[debug] [2022-12-02T22:45:55.677Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:45:55.678Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 135.572954ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 135.572954ms"}}
+[debug] [2022-12-02T22:45:55.686Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:45:55.686Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:45:55.686Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/wallet/ --> us-central1-app
+[debug] [2022-12-02T22:45:55.688Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:45:55.688Z] [functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/"}}
+[debug] [2022-12-02T22:45:55.688Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:45:55.689Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[info] i  functions: Finished "app" in 0.238634ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.238634ms"}}
+[debug] [2022-12-02T22:45:55.691Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:45:55.691Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-12-02T22:45:55.692Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:45:55.692Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:45:55.692Z] Accepted request POST /arwisv1/us-central1/app/api/wallet/ --> us-central1-app
+[debug] [2022-12-02T22:45:55.694Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:45:55.695Z] [functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/"}}
+[debug] [2022-12-02T22:45:55.695Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:45:55.695Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/sapi/v1/capital/config/getall?timestamp=1670021155790&recvWindow=10000&signature=bcc0a7a8c9c1ddd1623cf194a2dc972280563620d516ebec485f319c5cd54c61"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/sapi/v1/capital/config/getall?timestamp=1670021155790&recvWindow=10000&signature=bcc0a7a8c9c1ddd1623cf194a2dc972280563620d516ebec485f319c5cd54c61\"\n - Be careful, this may be a production service."}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/api/v3/account?timestamp=1670021156748&recvWindow=10000&signature=b7fbcff3c767113e20ab529563bc86dec11c7ca46561ed24d2a0b06f845d8ea5"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/api/v3/account?timestamp=1670021156748&recvWindow=10000&signature=b7fbcff3c767113e20ab529563bc86dec11c7ca46561ed24d2a0b06f845d8ea5\"\n - Be careful, this may be a production service."}}
+[info] >  0 {"user":0,"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"\u001b[90m> \u001b[39m 0"}}
+[debug] [2022-12-02T22:45:57.004Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:45:57.005Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 1306.474735ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 1306.474735ms"}}
+[debug] [2022-12-02T22:55:13.763Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:55:13.765Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:55:13.765Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/binance/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:55:13.774Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:55:13.775Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/"}}
+[debug] [2022-12-02T22:55:13.775Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:55:13.775Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[debug] [2022-12-02T22:55:13.783Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:55:13.783Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 1.710339ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 1.710339ms"}}
+[debug] [2022-12-02T22:55:13.786Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:55:13.786Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:55:13.786Z] Accepted request GET /arwisv1/us-central1/app/api/binance/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:55:13.788Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:55:13.788Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/BTCUSDT/, mapping to path=/api/binance/BTCUSDT/"}}
+[debug] [2022-12-02T22:55:13.788Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:55:13.789Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[debug] [2022-12-02T22:55:14.379Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:55:14.380Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 589.102776ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 589.102776ms"}}
+[debug] [2022-12-02T22:55:14.386Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:55:14.386Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:55:14.386Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/binance/candles/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:55:14.391Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:55:14.391Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/"}}
+[debug] [2022-12-02T22:55:14.391Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:55:14.391Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[info] i  functions: Finished "app" in 0.260151ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.260151ms"}}
+[debug] [2022-12-02T22:55:14.393Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:55:14.393Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-12-02T22:55:14.396Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:55:14.396Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:55:14.396Z] Accepted request GET /arwisv1/us-central1/app/api/binance/candles/BTCUSDT/ --> us-central1-app
+[debug] [2022-12-02T22:55:14.399Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:55:14.399Z] [functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/binance/candles/BTCUSDT/, mapping to path=/api/binance/candles/BTCUSDT/"}}
+[debug] [2022-12-02T22:55:14.399Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:55:14.399Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[debug] [2022-12-02T22:55:14.584Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:55:14.584Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 183.576496ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 183.576496ms"}}
+[debug] [2022-12-02T22:55:14.590Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:55:14.591Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:55:14.591Z] Accepted request OPTIONS /arwisv1/us-central1/app/api/wallet/ --> us-central1-app
+[debug] [2022-12-02T22:55:14.592Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:55:14.593Z] [functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/"}}
+[debug] [2022-12-02T22:55:14.593Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:55:14.593Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[info] i  functions: Finished "app" in 0.277319ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 0.277319ms"}}
+[debug] [2022-12-02T22:55:14.595Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:55:14.595Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-12-02T22:55:14.596Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-02T22:55:14.596Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-02T22:55:14.596Z] Accepted request POST /arwisv1/us-central1/app/api/wallet/ --> us-central1-app
+[debug] [2022-12-02T22:55:14.598Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-02T22:55:14.598Z] [functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/arwisv1/us-central1/app/api/wallet/, mapping to path=/api/wallet/"}}
+[debug] [2022-12-02T22:55:14.599Z] [worker-pool] submitRequest(triggerId=us-central1-app) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-app)"}}
+[debug] [2022-12-02T22:55:14.600Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: BUSY"}}
+[info] i  functions: Beginning execution of "app" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Beginning execution of \"app\""}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/sapi/v1/capital/config/getall?timestamp=1670021714786&recvWindow=10000&signature=aa2b26f16256499346523ead417811faffa42e4022f5944f577c33d0bd4e01cb"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/sapi/v1/capital/config/getall?timestamp=1670021714786&recvWindow=10000&signature=aa2b26f16256499346523ead417811faffa42e4022f5944f577c33d0bd4e01cb\"\n - Be careful, this may be a production service."}}
+[warn] ⚠  External network resource requested!
+   - URL: "https://api.binance.us/api/v3/account?timestamp=1670021716298&recvWindow=10000&signature=6182ed735e4a46167be0c4e02416493a6d2de051723db08b810b3c4f024b0280"
+ - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"External network resource requested!\n   - URL: \"https://api.binance.us/api/v3/account?timestamp=1670021716298&recvWindow=10000&signature=6182ed735e4a46167be0c4e02416493a6d2de051723db08b810b3c4f024b0280\"\n - Be careful, this may be a production service."}}
+[info] >  0 {"user":0,"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"\u001b[90m> \u001b[39m 0"}}
+[debug] [2022-12-02T22:55:16.568Z] [worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-app-33d1da8c-6c37-4bb5-ba3f-aaa0c10aa38d]: IDLE"}}
+[debug] [2022-12-02T22:55:16.568Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "app" in 1965.327138ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-app"},"extension":{},"message":"Finished \"app\" in 1965.327138ms"}}

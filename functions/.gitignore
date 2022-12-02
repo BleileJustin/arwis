@@ -1,3 +1,5 @@
 node_modules/
 arwisv1-firebase-adminsdk-diedy-c15bf5cfc5.json
 ui-debug.log
+.runtimeconfig.json
+.eslintrc.js

@@ -48,8 +48,6 @@ const decryptKey = (encryptedKey, privateKey) => {
   const decrypt = new JSEncrypt();
   decrypt.setPrivateKey(privateKey);
   const decryptedKey = decrypt.decrypt(encryptedKey);
-  console.log("48");
-  console.log(decryptedKey);
   return decryptedKey;
 };
 
@@ -61,14 +59,13 @@ const encryptKey = (key, publicKey) => {
   return encryptedKey;
 };
 
-// SEND ENCRYPTED APIKEY AND APISECRET TO DATABASE
+//  ENCRYPT AND SEND USER API KEY AND SECRET TO DATABASE
 const sendEncryptedApiKeyToDB = async (
-  dbKeyPair,
+  dbPublicKey,
   clientApiKey,
   clientApiSecret,
   uid
 ) => {
-  const dbPublicKey = dbKeyPair.pbkey;
   const userApiKey = await encryptKey(clientApiKey, dbPublicKey);
   const userApiSecret = await encryptKey(clientApiSecret, dbPublicKey);
   const snapshot = db.collection("users").doc(uid);
@@ -79,7 +76,7 @@ const sendEncryptedApiKeyToDB = async (
     }
   );
 };
-
+// GET ENCRYPTED USER API KEY AND SECRET FROM DB AND DECRYPT
 const getEncryptedApiKeyFromDBAndDecrypt = async (uid, privateKey) => {
   const snapshot = db.collection("users").doc(uid);
   const doc = await snapshot.get();
@@ -111,34 +108,8 @@ const clientPublicKey = clientKeyPair.publicKey;
 const clientPrivateKey = clientKeyPair.privateKey;
 
 const dbConfEncKeyPair = functions.config().enckey;
-
+const dbPublicKey = dbConfEncKeyPair.pbkey;
 const dbPrivateKey = dbConfEncKeyPair.pvkey;
-
-// ////////////////////////////////////////////////////
-// API KEY HANDLING/ AUTHFORM ENDPOINTS
-
-// SEND PUBLIC ENCRYPTION KEY TO CLIENT
-app.post("/api/client-public-key", async (req, res) => {
-  const key = { publicKey: clientPublicKey };
-  const keyString = JSON.stringify(key);
-  res.send({ keyString });
-});
-// kdsal;
-
-// GET AND DECRYPT API KEY AND SECRET FROM CLIENT
-app.post("/api/encrypt-api-key", express.json(), async (req, res) => {
-  const encryptedApiKey = req.body.encryptedApiKey;
-  const encryptedApiSecret = req.body.encryptedApiSecret;
-  const uid = req.body.uid;
-  const clientApiKey = await decryptKey(encryptedApiKey, clientPrivateKey);
-  const clientApiSecret = await decryptKey(
-    encryptedApiSecret,
-    clientPrivateKey
-  );
-  // ENCRYPT API KEY AND SECRET AND SEND TO DATABASE
-  sendEncryptedApiKeyToDB(dbConfEncKeyPair, clientApiKey, clientApiSecret, uid);
-  res.send("ok");
-});
 
 // ////////////////////////////////////////////////////
 // BINANCE API
@@ -154,8 +125,11 @@ app.post("/api/wallet", express.json(), async (req, res) => {
     apiKey: api.apiKey,
     secret: api.apiSecret,
   });
-  const balance = await authedBinance.fetchBalance();
-  res.send({ walletData: balance });
+  const currency = req.body.currency;
+  const allBalance = await authedBinance.fetchBalance();
+  const walletBalance = allBalance.total[currency];
+  console.log(walletBalance);
+  res.send({ walletData: walletBalance });
 });
 // // PUBLIC API
 // GET TICKER DATA
@@ -166,12 +140,37 @@ app.get("/api/binance/:curPair", async (req, res) => {
 });
 
 // GET CANDLESTICK DATA
+
 app.get("/api/binance/candles/:curPair", async (req, res) => {
   if (publicBinance.has.fetchOHLCV) {
     // milliseconds
     const candles = await publicBinance.fetchOHLCV(req.params.curPair, "1m");
     res.send({ candles: candles });
   }
+});
+
+// ////////////////////////////////////////////////////
+// API KEY HANDLING/ AuthForm.js ENDPOINTS
+
+// SEND PUBLIC ENCRYPTION KEY TO CLIENT
+app.post("/api/client-public-key", async (req, res) => {
+  res.send({ publicKey: clientPublicKey });
+});
+// kdsal;
+
+// GET AND DECRYPT API KEY AND SECRET FROM CLIENT
+app.post("/api/encrypt-api-key", express.json(), async (req, res) => {
+  const encryptedApiKey = req.body.encryptedApiKey;
+  const encryptedApiSecret = req.body.encryptedApiSecret;
+  const uid = req.body.uid;
+  const clientApiKey = await decryptKey(encryptedApiKey, clientPrivateKey);
+  const clientApiSecret = await decryptKey(
+    encryptedApiSecret,
+    clientPrivateKey
+  );
+  // ENCRYPT API KEY AND SECRET AND SEND TO DATABASE
+  sendEncryptedApiKeyToDB(dbPublicKey, clientApiKey, clientApiSecret, uid);
+  res.send("ok");
 });
 
 // ////////////////////////////////////////////////////

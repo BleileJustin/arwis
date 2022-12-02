@@ -30,7 +30,6 @@ const Auth = (props) => {
         method: "POST",
       }
     );
-    //const publicKeyPromise = await fetch("http://localhost:80/api/client-public-key");
     const publicKeyData = await getPublicKey.json();
     const publicKey = publicKeyData.publicKey;
     console.log(publicKey);
@@ -39,7 +38,6 @@ const Auth = (props) => {
     const encryptedApiSecret = encryptKey(enteredApiSecret, publicKey);
     const sendEncryptedApiKey = await fetch(
       `https://us-central1-arwisv1.cloudfunctions.net/app/api/encrypt-api-key/`,
-      //"http://localhost:80/api/encrypted-api-key",
       {
         method: "POST",
         body: JSON.stringify({

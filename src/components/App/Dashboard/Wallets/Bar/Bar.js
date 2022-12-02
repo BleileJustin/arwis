@@ -13,8 +13,8 @@ const Bar = (props) => {
   const [barExpanded, setBarExpanded] = useState(false);
   const [candles, setCandles] = useState();
 
-  //const url = `https://us-central1-arwisv1.cloudfunctions.net/app`;
-  const url = `http://127.0.0.1:5001/arwis1/us-central1/app`;
+  // const url = `https://us-central1-arwisv1.cloudfunctions.net/app`;
+  const url = `http://127.0.0.1:5001/arwisv1/us-central1/app`;
 
   const id = props.id;
 
@@ -37,10 +37,10 @@ const Bar = (props) => {
   };
 
   //GET WALLET DATA
-  const getWalletData = async (walletData) => {
+  const getWalletBalance = async (walletData) => {
     const walletDataJSON = await walletData.json();
-    const walletDataObj = walletDataJSON.walletData;
-    return walletDataObj;
+    const balance = walletDataJSON.walletData;
+    return balance;
   };
 
   //ON CONNECT
@@ -80,18 +80,20 @@ const Bar = (props) => {
       const candlesData = await candles.json();
       setCandles(candlesData.candles);
 
+      const currency = curPair.replace("USDT", "");
+
       const walletData = await fetch(`${url}/api/wallet/`, {
         method: "POST",
         body: JSON.stringify({
-          curPair: curPair,
+          currency: currency,
           uid: "justinxbleile@gmail.com",
         }),
         headers: {
           "Content-Type": "application/json",
         },
       });
-      const walletDataObj = await getWalletData(walletData);
-      console.log(walletDataObj);
+      const walletBalance = await getWalletBalance(walletData);
+      console.log(walletBalance);
 
       setBarJSX(
         <BarContainer isWalletBar={true}>
@@ -114,7 +116,7 @@ const Bar = (props) => {
             <h3 className={css.wallet_value_title}>Wallet Value:</h3>
             <div className={css.wallet_value_curpair_container}>
               <h3 className={css.wallet_value_crypto}>
-                {`0 ${curPair.replace("USDT", "")}`}
+                {walletBalance} {currency}
               </h3>
               <h4 className={css.wallet_value_fiat}>
                 {"0"} {"USD"}
