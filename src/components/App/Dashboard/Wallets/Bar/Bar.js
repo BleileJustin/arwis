@@ -13,8 +13,8 @@ const Bar = (props) => {
   const [barExpanded, setBarExpanded] = useState(false);
   const [candles, setCandles] = useState();
 
-  // const url = `https://us-central1-arwisv1.cloudfunctions.net/app`;
-  const url = `http://127.0.0.1:5001/arwisv1/us-central1/app`;
+  const url = `https://us-central1-arwisv1.cloudfunctions.net/app`;
+  // const url = `http://127.0.0.1:5001/arwisv1/us-central1/app`;
 
   const id = props.id;
 

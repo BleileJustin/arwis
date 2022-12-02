@@ -7,6 +7,7 @@
 .pnp.js
 .firebaserc
 /.firebase
+/firebase-debug.log
 
 # testing
 /coverage

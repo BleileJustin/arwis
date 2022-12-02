@@ -25,8 +25,8 @@ const app = express();
 
 // ////////////////////////////////////////////////////
 // CORS CONFIGURATION AND SERVER & DATABASE INITIALIZATION
-// const origin = "https://arwisv1.web.app";
-const origin = "http://localhost:3000";
+ const origin = "https://arwisv1.web.app";
+// const origin = "http://localhost:3000";
 
 const corsOptions = {
   origin: origin,
