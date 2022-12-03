@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import css from "./Bar.module.css";
 import BarForm from "./BarForm/BarForm";
@@ -8,13 +8,15 @@ import BarContainer from "../../../../UI/BarContainer/BarContainer";
 import WalletChart from "./WalletChart/WalletChart";
 import Graph from "../../../../UI/Graph/Graph";
 
+import AuthContext from "../../../../../store/auth-context";
+
 const Bar = (props) => {
   const [barJSX, setBarJSX] = useState();
   const [barExpanded, setBarExpanded] = useState(false);
   const [candles, setCandles] = useState();
 
-  const url = `https://us-central1-arwisv1.cloudfunctions.net/app`;
-  // const url = `http://127.0.0.1:5001/arwisv1/us-central1/app`;
+  const authCtx = useContext(AuthContext);
+  const url = authCtx.url;
 
   const id = props.id;
 

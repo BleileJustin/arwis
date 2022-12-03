@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from "react";
 
 const AuthContext = React.createContext({
+  url: "",
+  email: "",
   token: "",
   isLoggedIn: false,
   login: (token) => {},
@@ -15,8 +17,17 @@ const retrieveToken = () => {
   };
 };
 
+const retrieveEmail = () => {
+  const storedEmail = localStorage.getItem("email");
+
+  return {
+    email: storedEmail,
+  };
+};
+
 export const AuthContextProvider = (props) => {
   const tokenData = retrieveToken();
+  const userEmail = retrieveEmail();
 
   let initalToken;
   if (tokenData) {
@@ -37,8 +48,10 @@ export const AuthContextProvider = (props) => {
     localStorage.setItem("token", token);
   };
 
-
   const contextValue = {
+    //url: "https://us-central1-arwisv1.cloudfunctions.net/app",
+    url: `http://127.0.0.1:5001/arwisv1/us-central1/app`,
+    email: userEmail,
     token: tokenData,
     isLoggedIn: userIsLoggedIn,
     login: loginHandler,

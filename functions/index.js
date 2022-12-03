@@ -25,8 +25,8 @@ const app = express();
 
 // ////////////////////////////////////////////////////
 // CORS CONFIGURATION AND SERVER & DATABASE INITIALIZATION
- const origin = "https://arwisv1.web.app";
-// const origin = "http://localhost:3000";
+// const origin = "https://arwisv1.web.app";
+const origin = "http://localhost:3000";
 
 const corsOptions = {
   origin: origin,
@@ -39,6 +39,23 @@ const initApp = admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 const db = getFirestore(initApp);
+
+// ////////////////////////////////////////////////////
+// USER DATA FUNCTIONS
+
+const calculatePortfolioValue = async (balances, prices) => {
+  let portfolioValue = 0;
+  for (const balance of balances) {
+    const free = balance.free;
+    const locked = balance.locked;
+    const total = parseFloat(free) + parseFloat(locked);
+    const price = prices[balance.asset + "/USDT"];
+    if (total > 0 && price) {
+      portfolioValue += total * parseFloat(price.last);
+    }
+  }
+  return portfolioValue;
+};
 
 // ////////////////////////////////////////////////////
 // API KEY ENCRYPTION HANDLING FUNCTIONS
@@ -115,6 +132,33 @@ const dbPrivateKey = dbConfEncKeyPair.pvkey;
 // BINANCE API
 
 // // PRIVATE API
+
+// GET PORTFOLIO VALUE
+const getPortfolioValueFromBinance = async (apiKey, apiSecret) => {
+  const binance = new ccxt.binanceus({
+    apiKey: apiKey,
+    secret: apiSecret,
+  });
+  const balances = await binance.fetchBalance();
+  const prices = await publicBinance.fetchTickers();
+  const balancesArray = balances.info.balances;
+
+  const portfolioValue = await calculatePortfolioValue(balancesArray, prices);
+  return portfolioValue;
+};
+
+// PORTFOLIO VALUE ROUTE
+app.post("/api/portfolio-value", express.json(), async (req, res) => {
+  const api = await getEncryptedApiKeyFromDBAndDecrypt(
+    req.body.uid,
+    dbPrivateKey
+  );
+  const apiKey = api.apiKey;
+  const apiSecret = api.apiSecret;
+  const portfolioValue = await getPortfolioValueFromBinance(apiKey, apiSecret);
+  res.send({ portfolioValue });
+});
+
 // GET WALLET BALANCE
 app.post("/api/wallet", express.json(), async (req, res) => {
   const api = await getEncryptedApiKeyFromDBAndDecrypt(
@@ -128,7 +172,6 @@ app.post("/api/wallet", express.json(), async (req, res) => {
   const currency = req.body.currency;
   const allBalance = await authedBinance.fetchBalance();
   const walletBalance = allBalance.total[currency];
-  console.log(walletBalance);
   res.send({ walletData: walletBalance });
 });
 // // PUBLIC API
