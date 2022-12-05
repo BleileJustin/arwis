@@ -4,11 +4,10 @@ import css from "./PortfolioValue.module.css";
 const PortfolioValue = (props) => {
   // CHANGE TO PROPS.CHILDREN
   const [portfolioValue, setPortfolioValue] = useState("  . . .");
-  const getPortfolioValue = async () => {
-    return await props.getPortfolioValue();
-  };
+
+  
   const portfolioValueHandler = async () => {
-    const portfolioValue = await getPortfolioValue();
+    const portfolioValue = await props.getPortfolioValue();
     setPortfolioValue(portfolioValue.toFixed(2));
   };
   useEffect(() => {

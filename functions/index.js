@@ -146,6 +146,35 @@ const getPortfolioValueFromBinance = async (apiKey, apiSecret) => {
   return portfolioValue;
 };
 
+// GET PORTFOLIO DISTRIBUTION PERCENTAGE FOR EACH ASSET
+const getPortfolioDistributionFromBinance = async (apiKey, apiSecret) => {
+  const binance = new ccxt.binanceus({
+    apiKey: apiKey,
+    secret: apiSecret,
+  });
+  const balances = await binance.fetchBalance();
+  const prices = await publicBinance.fetchTickers();
+  const balancesArray = balances.info.balances;
+
+  const portfolioValue = await calculatePortfolioValue(balancesArray, prices);
+  const portfolioDistribution = [];
+  for (const balance of balancesArray) {
+    const free = balance.free;
+    const locked = balance.locked;
+    const total = parseFloat(free) + parseFloat(locked);
+    const price = prices[balance.asset + "/USDT"];
+    if (total > 0 && price) {
+      const assetValue = total * parseFloat(price.last);
+      const assetPercentage = (assetValue / portfolioValue) * 100;
+      portfolioDistribution.push({
+        asset: balance.asset,
+        percentage: assetPercentage,
+      });
+    }
+  }
+  return portfolioDistribution;
+};
+
 // PORTFOLIO VALUE ROUTE
 app.post("/api/portfolio-value", express.json(), async (req, res) => {
   const api = await getEncryptedApiKeyFromDBAndDecrypt(
@@ -156,6 +185,22 @@ app.post("/api/portfolio-value", express.json(), async (req, res) => {
   const apiSecret = api.apiSecret;
   const portfolioValue = await getPortfolioValueFromBinance(apiKey, apiSecret);
   res.send({ portfolioValue });
+});
+
+// PORTFOLIO DISTRIBUTION ROUTE
+app.post("/api/portfolio-distribution", express.json(), async (req, res) => {
+  const api = await getEncryptedApiKeyFromDBAndDecrypt(
+    req.body.uid,
+    dbPrivateKey
+  );
+  const apiKey = api.apiKey;
+  const apiSecret = api.apiSecret;
+  const portfolioDistribution = await getPortfolioDistributionFromBinance(
+    apiKey,
+    apiSecret
+  );
+
+  res.send({ portfolioDistribution });
 });
 
 // GET WALLET BALANCE
@@ -188,7 +233,6 @@ app.get("/api/binance/:curPair", async (req, res) => {
 });
 
 // GET CANDLESTICK DATA
-
 app.post("/api/binance/candles", express.json(), async (req, res) => {
   if (publicBinance.has.fetchOHLCV) {
     // milliseconds
@@ -207,7 +251,6 @@ app.post("/api/binance/candles", express.json(), async (req, res) => {
 app.post("/api/client-public-key", async (req, res) => {
   res.send({ publicKey: clientPublicKey });
 });
-// kdsal;
 
 // GET AND DECRYPT API KEY AND SECRET FROM CLIENT
 app.post("/api/encrypt-api-key", express.json(), async (req, res) => {

@@ -17,17 +17,17 @@ const retrieveToken = () => {
   };
 };
 
-const retrieveEmail = () => {
-  const storedEmail = localStorage.getItem("email");
+// const retrieveEmail = () => {
+//   const storedEmail = localStorage.getItem("email");
 
-  return {
-    email: storedEmail,
-  };
-};
+//   return {
+//     email: storedEmail,
+//   };
+// };
 
 export const AuthContextProvider = (props) => {
   const tokenData = retrieveToken();
-  const userEmail = retrieveEmail();
+  //const userEmail = retrieveEmail();
 
   let initalToken;
   if (tokenData) {
@@ -49,9 +49,9 @@ export const AuthContextProvider = (props) => {
   };
 
   const contextValue = {
-    //url: "https://us-central1-arwisv1.cloudfunctions.net/app",
+    // url: "https://us-central1-arwisv1.cloudfunctions.net/app",
     url: `http://127.0.0.1:5001/arwisv1/us-central1/app`,
-    email: userEmail,
+    email: "justinxbleile@gmail.com",
     token: tokenData,
     isLoggedIn: userIsLoggedIn,
     login: loginHandler,

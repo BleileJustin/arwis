@@ -15,7 +15,7 @@ const Analytics = () => {
   console.log("ANALYTICS");
   const getPortfolioValue = async () => {
     console.log("GET PORTFOLIO VALUE");
-    const response = await fetch(`${authCtx.url}/api/portfolio-value`, {
+    const response = await fetch(`${authCtx.url}/api/portfolio-value/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,6 +29,22 @@ const Analytics = () => {
     return data.portfolioValue;
   };
 
+  const getPortfolioDistribution = async () => {
+    console.log("GET PORTFOLIO DISTRIBUTION");
+    const response = await fetch(`${authCtx.url}/api/portfolio-distribution/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        uid: "justinxbleile@gmail.com",
+      }),
+    });
+    const data = await response.json();
+    console.log(data);
+    return data.portfolioDistribution;
+  };
+
   return (
     <>
       <BarContainer>
@@ -38,7 +54,7 @@ const Analytics = () => {
         <Portfolio></Portfolio>
         <div className={css.analytics_right_half_container}>
           <TradeList></TradeList>
-          <Distribution></Distribution>
+          <Distribution getPortfolioDistribution={getPortfolioDistribution}></Distribution>
         </div>
       </Section>
     </>
