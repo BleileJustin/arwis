@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useLayoutEffect, useRef } from "react";
 
 import css from "./Bar.module.css";
 import BarForm from "./BarForm/BarForm";
@@ -18,6 +18,7 @@ const Bar = (props) => {
   const [dropdownIsEnabled, setDropdownIsEnabled] = useState(true);
   const [candleInterval, setCandleInterval] = useState("1h");
   const [curPairState, setCurPairState] = useState("");
+  const isFirstRender = useRef(true);
 
   const authCtx = useContext(AuthContext);
   const url = authCtx.url;
@@ -150,7 +151,11 @@ const Bar = (props) => {
       setDropdownIsEnabled(true);
     }
   };
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     getCandlestickData(curPairState, candleInterval);
     console.log(candleInterval);
   }, [candleInterval, curPairState]);
