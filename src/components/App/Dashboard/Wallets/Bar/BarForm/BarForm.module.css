@@ -24,6 +24,18 @@
     padding: .3em .8em 0 1em;
 }
 
+.loading{
+    display: flex;
+    font-size: 1.1em;
+    letter-spacing: .2em;
+    height: 2em;
+    background-color: transparent;
+    padding: .3em .8em 0 1em;
+    font-family: Aldrich;
+    color: aliceblue;
+    align-items: center;
+}
+
 
 
 select{

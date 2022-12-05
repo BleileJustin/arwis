@@ -3,7 +3,7 @@ import css from "./PortfolioValue.module.css";
 
 const PortfolioValue = (props) => {
   // CHANGE TO PROPS.CHILDREN
-  const [portfolioValue, setPortfolioValue] = useState("...");
+  const [portfolioValue, setPortfolioValue] = useState("  . . .");
   const getPortfolioValue = async () => {
     return await props.getPortfolioValue();
   };
@@ -15,7 +15,7 @@ const PortfolioValue = (props) => {
     portfolioValueHandler();
     const interval = setInterval(() => {
       portfolioValueHandler();
-    }, 10000 * 3); // 1000 = 1 second
+    }, 1000 * 60); // 1000 = 1 second
     return () => clearInterval(interval);
   });
 

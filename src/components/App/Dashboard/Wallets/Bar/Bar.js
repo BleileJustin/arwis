@@ -1,4 +1,5 @@
-import { useState, useContext } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useContext, useEffect } from "react";
 
 import css from "./Bar.module.css";
 import BarForm from "./BarForm/BarForm";
@@ -14,6 +15,9 @@ const Bar = (props) => {
   const [barJSX, setBarJSX] = useState();
   const [barExpanded, setBarExpanded] = useState(false);
   const [candles, setCandles] = useState();
+  const [dropdownIsEnabled, setDropdownIsEnabled] = useState(true);
+  const [candleInterval, setCandleInterval] = useState("1h");
+  const [curPairState, setCurPairState] = useState("");
 
   const authCtx = useContext(AuthContext);
   const url = authCtx.url;
@@ -41,12 +45,32 @@ const Bar = (props) => {
   //GET WALLET DATA
   const getWalletBalance = async (walletData) => {
     const walletDataJSON = await walletData.json();
-    const balance = walletDataJSON.walletData;
-    return balance;
+    const balance = walletDataJSON.walletBalance;
+    const balanceToUsd = walletDataJSON.walletBalanceToUsd;
+    return { balance: balance, balanceToUsd: balanceToUsd };
+  };
+  //GET CANDLESTICK DATA
+  const getCandlestickData = async (curPair, interval) => {
+    setCandleInterval(interval);
+    const candles = await fetch(`${url}/api/binance/candles/`, {
+      method: "POST",
+      body: JSON.stringify({
+        interval: candleInterval,
+        curPair: curPair,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const candlesJSON = await candles.json();
+    setCandles(candlesJSON.candles);
   };
 
   //ON CONNECT
   const onConnect = async (curPair) => {
+    setCandleInterval("1h");
+    setCurPairState(curPair);
+    setDropdownIsEnabled(false);
     //Get list of current wallets
     const walletList = props.getWalletList(curPair);
     let isDuplicate = false;
@@ -73,15 +97,7 @@ const Bar = (props) => {
       const percentColor =
         lastPercent.charAt(0) === "-" ? "rgb(225, 50, 85)" : "rgb(5, 255, 0)";
 
-      const candles = await fetch(`${url}/api/binance/candles/${curPair}/`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const candlesData = await candles.json();
-      setCandles(candlesData.candles);
-
+      await getCandlestickData(curPair, candleInterval);
       const currency = curPair.replace("USDT", "");
 
       const walletData = await fetch(`${url}/api/wallet/`, {
@@ -95,7 +111,8 @@ const Bar = (props) => {
         },
       });
       const walletBalance = await getWalletBalance(walletData);
-      console.log(walletBalance);
+      const balance = walletBalance.balance;
+      const balanceToUsd = walletBalance.balanceToUsd;
 
       setBarJSX(
         <BarContainer isWalletBar={true}>
@@ -118,10 +135,10 @@ const Bar = (props) => {
             <h3 className={css.wallet_value_title}>Wallet Value:</h3>
             <div className={css.wallet_value_curpair_container}>
               <h3 className={css.wallet_value_crypto}>
-                {walletBalance} {currency}
+                {balance} {currency}
               </h3>
               <h4 className={css.wallet_value_fiat}>
-                {"0"} {"USD"}
+                {balanceToUsd} {"USD"}
               </h4>
             </div>
           </div>
@@ -130,24 +147,70 @@ const Bar = (props) => {
       );
     } else {
       alert("Validation: Please choose a valid currency pair(Non duplicate)");
+      setDropdownIsEnabled(true);
     }
   };
+  useEffect(() => {
+    getCandlestickData(curPairState, candleInterval);
+    console.log(candleInterval);
+  }, [candleInterval, curPairState]);
+  console.log("RENDER");
 
   return barJSX ? (
     <>
       {barJSX}
       <Section barIsExpanded={barExpanded}>
         <Graph>
+          <div className={css.candle_interval_buttons}>
+            <button
+              className={css.candle_interval_button}
+              onClick={async () => await getCandlestickData(curPairState, "1m")}
+            >
+              1M
+            </button>
+            <button
+              className={css.candle_interval_button}
+              onClick={async () => await getCandlestickData(curPairState, "5m")}
+            >
+              5M
+            </button>
+            <button
+              className={css.candle_interval_button}
+              onClick={() => getCandlestickData(curPairState, "15m")}
+            >
+              15M
+            </button>
+            <button
+              className={css.candle_interval_button}
+              onClick={() => getCandlestickData(curPairState, "1h")}
+            >
+              1H
+            </button>
+            <button
+              className={css.candle_interval_button}
+              onClick={() => getCandlestickData(curPairState, "1d")}
+            >
+              1D
+            </button>
+            <button
+              className={css.candle_interval_button}
+              onClick={() => getCandlestickData(curPairState, "1w")}
+            >
+              1W
+            </button>
+          </div>
           <WalletChart data={candles}></WalletChart>
         </Graph>
-
         <Algorithms></Algorithms>
       </Section>
     </>
   ) : (
     <BarContainer isWalletBar={true}>
       <button className={css.delete_bar} onClick={deleteBar}></button>
-      <BarForm onConnect={onConnect}></BarForm>
+      <BarForm
+        onConnect={onConnect}
+        dropdownIsEnabled={dropdownIsEnabled}
+      ></BarForm>
     </BarContainer>
   );
 };

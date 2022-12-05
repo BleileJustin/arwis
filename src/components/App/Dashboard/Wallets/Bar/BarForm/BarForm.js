@@ -18,6 +18,7 @@ const BarForm = (props) => {
         className={css.cur_pair}
         form="wallet_form"
         onChange={(e) => setDropdownState(e.target.value)}
+        disabled={!props.dropdownIsEnabled}
       >
         <option value="select">Pair</option>
         <option value="BTCUSDT">BTC/USDT</option>
@@ -27,7 +28,11 @@ const BarForm = (props) => {
         <option value="ADAUSDT">ADA/USDT</option>
         <option value="DOGEUSDT">DOGE/USDT</option>
       </select>
-      <input type="submit" value="Connect" className={css.connect} />
+      {props.dropdownIsEnabled ? (
+        <input type="submit" value="Connect" className={css.connect} />
+      ) : (
+        <h2 className={css.loading}>...Loading</h2>
+      )}
     </form>
   );
 };

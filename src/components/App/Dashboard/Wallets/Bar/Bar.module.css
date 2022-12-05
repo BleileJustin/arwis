@@ -89,3 +89,26 @@
     font-size: 1em;
     line-height: .5;
 }
+
+.candle_interval_button {
+    border: none;
+    color: aliceblue;
+    font-family: Aldrich;
+    font-size: .8em;
+    padding: .3em;
+    cursor: pointer;
+    outline: none;
+    background-color: #1d1e2480;
+    cursor: pointer;
+}
+
+.candle_interval_buttons {
+    background-color: #1d1e2480;
+    display: flex;
+    justify-content: space-between;
+    width: 78%;
+    align-self: flex-start;
+    padding-top: .2em;
+
+
+}

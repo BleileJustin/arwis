@@ -4,8 +4,10 @@ import React, { useLayoutEffect, useRef } from "react";
 const WalletChart = (props) => {
   const parseData = () => {
     const arr = props.data.map((candle) => {
+      const candleTime = candle[0].toString().slice(0, 10);
+      const candleTimeInt = parseInt(candleTime);
       const candleObj = {};
-      candleObj.time = candle[0];
+      candleObj.time = candleTimeInt;
       candleObj.open = candle[1];
       candleObj.high = candle[2];
       candleObj.low = candle[3];
@@ -17,6 +19,7 @@ const WalletChart = (props) => {
   };
 
   const data = parseData();
+  console.log(data);
 
   const notInitialRender = useRef(0);
   const chartContainerRef = useRef();
@@ -38,11 +41,14 @@ const WalletChart = (props) => {
       // Setting the border color for the vertical axis
       chart.priceScale().applyOptions({
         borderColor: "#71649C",
+        percentage: true,
       });
 
       // Setting the border color for the horizontal axis
       chart.timeScale().applyOptions({
         borderColor: "#71649C",
+        timeVisible: true,
+        secondsVisible: false,
       });
 
       // Adjust the starting bar width (essentially the horizontal zoom)
@@ -82,10 +88,18 @@ const WalletChart = (props) => {
         minimumFractionDigits: fractionDigits(),
       }).format;
 
+      // Format tick intervals
+      const myTickFormatter = Intl.NumberFormat(currentLocale, {
+        style: "currency",
+        currency: "USD", // Currency for tick intervals
+        minimumFractionDigits: fractionDigits(),
+      }).format;
+
       // Apply the custom priceFormatter to the chart
       chart.applyOptions({
         localization: {
           priceFormatter: myPriceFormatter,
+          tickFormatter: myTickFormatter,
         },
       });
 
@@ -94,7 +108,7 @@ const WalletChart = (props) => {
         crosshair: {
           // Change mode from default 'magnet' to 'normal'.
           // Allows the crosshair to move freely without snapping to datapoints
-          mode: CrosshairMode.Normal,
+          mode: CrosshairMode.Magnet,
 
           // Vertical crosshair line (showing Date in Label)
           vertLine: {
@@ -126,6 +140,13 @@ const WalletChart = (props) => {
         position: "back", // place the area series behind the candlesticks
       });
       areaSeries.setData(lineData);
+      areaSeries.applyOptions({
+        priceFormat: {
+          type: "custom",
+          minMove: 0.00000001,
+          formatter: (price) => parseFloat(price).toFixed(8),
+        },
+      });
 
       // Create the Main Series (Candlesticks)
       const mainSeries = chart.addCandlestickSeries();
@@ -149,8 +170,8 @@ const WalletChart = (props) => {
         borderVisible: false,
         priceFormat: {
           type: "custom",
-          precision: 0.000000001,
           minMove: 0.00000001,
+          formatter: (price) => parseFloat(price).toFixed(8),
         },
       });
       mainSeries.priceScale().applyOptions({
@@ -159,12 +180,20 @@ const WalletChart = (props) => {
           top: 0.1,
           bottom: 0.2,
         },
+        snapToTicks: true,
       });
-      notInitialRender.current++;
-    } else {
+      // Prevent Repeat Chart Creation
+      return () => {
+        chart.remove();
+      };
+    }
+    if (props.data !== data) {
+      notInitialRender.current = 1;
+    } else if (props.data === data) {
       notInitialRender.current++;
     }
-  }, [data]);
+  });
+
   return (
     <div
       id="container"

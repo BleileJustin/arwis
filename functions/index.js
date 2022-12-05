@@ -7,7 +7,6 @@
 // UPDATE SERVICE ACCOUNT PATH BEFORE DEPLOYING
 const serviceAccount = require("./arwisv1-firebase-adminsdk-diedy-c15bf5cfc5.json");
 // Server and Database Packages
-const port = 80;
 const express = require("express");
 const cors = require("cors");
 const functions = require("firebase-functions");
@@ -172,7 +171,13 @@ app.post("/api/wallet", express.json(), async (req, res) => {
   const currency = req.body.currency;
   const allBalance = await authedBinance.fetchBalance();
   const walletBalance = allBalance.total[currency];
-  res.send({ walletData: walletBalance });
+  const prices = await publicBinance.fetchTickers();
+  const price = prices[currency + "/USDT"];
+
+  const walletBalanceToUsd = (walletBalance * price.last).toFixed(4);
+  console.log(walletBalanceToUsd);
+
+  res.send({ walletBalance, walletBalanceToUsd });
 });
 // // PUBLIC API
 // GET TICKER DATA
@@ -184,10 +189,13 @@ app.get("/api/binance/:curPair", async (req, res) => {
 
 // GET CANDLESTICK DATA
 
-app.get("/api/binance/candles/:curPair", async (req, res) => {
+app.post("/api/binance/candles/", express.json(), async (req, res) => {
   if (publicBinance.has.fetchOHLCV) {
     // milliseconds
-    const candles = await publicBinance.fetchOHLCV(req.params.curPair, "1m");
+    const candles = await publicBinance.fetchOHLCV(
+      req.body.curPair,
+      req.body.interval
+    );
     res.send({ candles: candles });
   }
 });
@@ -236,7 +244,3 @@ app.use("/instance/:userid", async (req, res) => {
 // ////////////////////////////////////////////////////
 
 exports.app = functions.https.onRequest(app);
-
-app.listen(port, () => {
-  console.log(`app listening at port: ${port}`);
-});
