@@ -189,7 +189,7 @@ app.get("/api/binance/:curPair", async (req, res) => {
 
 // GET CANDLESTICK DATA
 
-app.post("/api/binance/candles/", express.json(), async (req, res) => {
+app.post("/api/binance/candles", express.json(), async (req, res) => {
   if (publicBinance.has.fetchOHLCV) {
     // milliseconds
     const candles = await publicBinance.fetchOHLCV(
