@@ -1,10 +1,13 @@
 import Bar from "./Bar/Bar";
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+
+import AuthContext from "../../../../store/auth-context";
 
 import css from "./Wallets.module.css";
 
 const Wallets = () => {
   const [wallets, setWallets] = useState([]);
+  const authCtx = useContext(AuthContext);
 
   let content = {};
 
@@ -12,6 +15,7 @@ const Wallets = () => {
     const assignedCurPairWallet = {
       ...wallets[wallets.length - 1],
       curPair: curPair,
+      isFromDB: false,
     };
     const walletList = [...wallets];
     walletList.splice([...wallets].length - 1, 1, assignedCurPairWallet);
@@ -45,8 +49,32 @@ const Wallets = () => {
     });
   };
 
+  // GET WALLETS FROM DB
+
+  useEffect(() => {
+    const getWallets = async () => {
+      const response = await fetch(`${authCtx.url}/api/get-wallets/`, {
+        method: "POST",
+        body: JSON.stringify({
+          email: authCtx.email,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      const walletList = data.wallets.map((wallet) => {
+        return { id: Math.random(), curPair: wallet.curPair, isFromDB: true };
+      });
+      setWallets(walletList);
+    };
+    getWallets();
+  }, [authCtx.url, authCtx.email]);
+
   content = wallets.map((bar) => (
     <Bar
+      curPair={bar.curPair}
+      isFromDB={bar.isFromDB}
       key={bar.id}
       id={bar.id}
       onDeleteBar={deleteBarHandler}

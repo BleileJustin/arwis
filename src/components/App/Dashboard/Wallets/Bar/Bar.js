@@ -25,6 +25,10 @@ const Bar = (props) => {
 
   const id = props.id;
 
+  console.log("PROPS");
+  console.log(props);
+  console.log("PROPS END");
+
   //EXPANDBAR
   const expandBar = () => {
     setBarExpanded((current) => !current);
@@ -52,7 +56,6 @@ const Bar = (props) => {
   };
   //GET CANDLESTICK DATA
   const getCandlestickData = async (curPair, interval) => {
-
     const candles = await fetch(`${url}/api/binance/candles/`, {
       method: "POST",
       body: JSON.stringify({
@@ -67,8 +70,23 @@ const Bar = (props) => {
     setCandles(candlesJSON.candles);
   };
 
+  // CONNECT WALLET FROM DB
+
   //ON CONNECT
   const onConnect = async (curPair) => {
+    if (!props.isFromDB) {
+      await fetch(`${url}/api/set-wallet/`, {
+        method: "POST",
+        body: JSON.stringify({
+          email: authCtx.email,
+          wallet: { curPair: curPair },
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    }
+
     setCandleInterval("1h");
     setCurPairState(curPair);
     setDropdownIsEnabled(false);
@@ -83,7 +101,7 @@ const Bar = (props) => {
     });
 
     //if curPair exists and does not equal select and isDuplicate returns false
-    if (curPair && curPair !== "select" && !isDuplicate) {
+    if ((curPair && curPair !== "select" && !isDuplicate) || props.isFromDB) {
       props.setWalletCurPair(curPair);
       const ticker = await fetch(`${url}/api/binance/${curPair}/`, {
         method: "GET",
@@ -152,6 +170,9 @@ const Bar = (props) => {
     }
   };
   useLayoutEffect(() => {
+    if (props.isFromDB) {
+      onConnect(props.curPair);
+    }
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;

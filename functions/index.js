@@ -38,6 +38,7 @@ const initApp = admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
 const db = getFirestore(initApp);
+const arrayUnion = admin.firestore.FieldValue.arrayUnion;
 
 // ////////////////////////////////////////////////////
 // USER DATA FUNCTIONS
@@ -175,6 +176,67 @@ const getPortfolioDistributionFromBinance = async (apiKey, apiSecret) => {
   return portfolioDistribution;
 };
 
+// INSTANCE OF WALLET IN DATABASE
+// ////////////////////////////////////////////////////
+const setWalletInDB = async (uid, wallet) => {
+  const snapshot = db.collection("users").doc(uid);
+  // PUSH NEW WALLET TO DATABASE
+  snapshot.set(
+    { wallets: arrayUnion(wallet) },
+    {
+      merge: true,
+    }
+  );
+};
+
+// GET WALLET FROM DATABASE
+const getWalletsFromDB = async (uid) => {
+  console.log("GETTING WALLET FROM DB");
+  console.log(uid);
+  const snapshot = db.collection("users").doc(uid);
+  const doc = await snapshot.get();
+  const wallets = doc.data().wallets;
+  return wallets;
+};
+
+app.post("/api/set-wallet", express.json(), async (req, res) => {
+  const wallet = req.body.wallet;
+  const email = req.body.email;
+  await setWalletInDB(email, wallet);
+  res.status(200).send();
+});
+
+app.post("/api/get-wallets", express.json(), async (req, res) => {
+  const email = req.body.email;
+  const wallets = await getWalletsFromDB(email);
+  res.send({ wallets });
+});
+
+// GET WALLET BALANCE
+app.post("/api/wallet", express.json(), async (req, res) => {
+  const api = await getEncryptedApiKeyFromDBAndDecrypt(
+    req.body.uid,
+    dbPrivateKey
+  );
+  const authedBinance = new ccxt.binanceus({
+    apiKey: api.apiKey,
+    secret: api.apiSecret,
+  });
+  const currency = req.body.currency;
+  const allBalance = await authedBinance.fetchBalance();
+  const walletBalance = allBalance.total[currency];
+  const prices = await publicBinance.fetchTickers();
+  const price = prices[currency + "/USDT"];
+
+  const walletBalanceToUsd = (walletBalance * price.last).toFixed(4);
+  console.log(walletBalanceToUsd);
+
+  res.send({ walletBalance, walletBalanceToUsd });
+});
+
+// ////////////////////////////////////////////////////
+// PORTFOLIO VALUE AND DISTRIBUTION ROUTES
+
 // PORTFOLIO VALUE ROUTE
 app.post("/api/portfolio-value", express.json(), async (req, res) => {
   const api = await getEncryptedApiKeyFromDBAndDecrypt(
@@ -203,28 +265,9 @@ app.post("/api/portfolio-distribution", express.json(), async (req, res) => {
   res.send({ portfolioDistribution });
 });
 
-// GET WALLET BALANCE
-app.post("/api/wallet", express.json(), async (req, res) => {
-  const api = await getEncryptedApiKeyFromDBAndDecrypt(
-    req.body.uid,
-    dbPrivateKey
-  );
-  const authedBinance = new ccxt.binanceus({
-    apiKey: api.apiKey,
-    secret: api.apiSecret,
-  });
-  const currency = req.body.currency;
-  const allBalance = await authedBinance.fetchBalance();
-  const walletBalance = allBalance.total[currency];
-  const prices = await publicBinance.fetchTickers();
-  const price = prices[currency + "/USDT"];
-
-  const walletBalanceToUsd = (walletBalance * price.last).toFixed(4);
-  console.log(walletBalanceToUsd);
-
-  res.send({ walletBalance, walletBalanceToUsd });
-});
+// ////////////////////////////////////////////////////
 // // PUBLIC API
+
 // GET TICKER DATA
 app.get("/api/binance/:curPair", async (req, res) => {
   const ticker = await publicBinance.fetchTicker(req.params.curPair);
