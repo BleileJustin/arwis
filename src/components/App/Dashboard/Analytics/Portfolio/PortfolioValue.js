@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
-import css from "./PortfolioValue.module.css";
 
 const PortfolioValue = (props) => {
   // CHANGE TO PROPS.CHILDREN
   const [portfolioValue, setPortfolioValue] = useState("  . . .");
 
-  
   const portfolioValueHandler = async () => {
     const portfolioValue = await props.getPortfolioValue();
     setPortfolioValue(portfolioValue.toFixed(2));
@@ -22,7 +20,7 @@ const PortfolioValue = (props) => {
 
   return (
     <h2
-      className={css.portfolio_value_heading}
+      className={props.portfolioValueHeadingClass}
     >{`Portfolio Value: $${portfolioValue}`}</h2>
   );
 };

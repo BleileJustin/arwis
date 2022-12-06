@@ -23,6 +23,8 @@ const Distribution = (props) => {
     recievedData.forEach((item) => {
       labels.push(item.asset);
       percentages.push(item.percentage.toFixed(0));
+      //sort percentages in descending order
+      percentages.sort((a, b) => b - a);
     });
 
     setChartData({
@@ -72,69 +74,3 @@ const Distribution = (props) => {
   );
 };
 export default Distribution;
-
-// const data = [ {asset: "BTC", percentage: 45} ]
-
-// const [myChartData, setMyChartData] = useState({
-//   type: "doughnut",
-//   data: {
-//     labels: (function () {
-//       const labels = [];
-//       data.forEach((item) => {
-//         labels.push(item.asset);
-//       });
-//       return labels;
-//     })(),
-//     datasets: [
-//       {
-//         label: "Portfolio Distribution",
-//         data: function () {
-//           const data = [];
-//           data.forEach((item) => {
-//             data.push(item.percentage);
-//           });
-//           return data;
-//         },
-//         backgroundColor: function () {
-//           const colors = [];
-//           data.forEach((item) => {
-//             colors.push(
-//               `#${Math.floor(Math.random() * 16777215).toString(16)}`
-//             );
-//           });
-//           return colors;
-//         },
-//         borderColor: function () {
-//           const colors = [];
-//           data.forEach((item) => {
-//             colors.push(
-//               `#${Math.floor(Math.random() * 16777215).toString(16)}`
-//             );
-//           });
-//           return colors;
-//         },
-//         borderWidth: 1,
-//       },
-//     ],
-//   },
-//   options: {
-//     title: {
-//       display: true,
-//       text: "Portfolio Distribution",
-//     },
-//     animation: {
-//       animateScale: true,
-//       animateRotate: true,
-//     },
-
-//     legend: {
-//       display: true,
-//       position: "bottom",
-
-//       labels: {
-//         boxWidth: 10,
-//         padding: 12,
-//       },
-//     },
-//   },
-// });

@@ -48,13 +48,35 @@ const Analytics = () => {
   return (
     <>
       <BarContainer>
-        <PortfolioValue getPortfolioValue={getPortfolioValue}></PortfolioValue>
+        <div className={css.analytics_bar_left_half_container}>
+          <PortfolioValue
+            getPortfolioValue={getPortfolioValue}
+            portfolioValueHeadingClass={css.portfolio_value_heading}
+          ></PortfolioValue>
+        </div>
+        <div className={css.analytics_bar_half_container}>
+          <div className={css.analytics_bar_quarter_container}>
+            <h2 className={css.portfolio_value_heading}>Distribution</h2>
+          </div>
+          <div className={css.analytics_bar_quarter_container}>
+            <h2 className={css.portfolio_value_heading}>Trade List</h2>
+          </div>
+        </div>
       </BarContainer>
+
       <Section barIsExpanded={true}>
-        <Portfolio></Portfolio>
+        <div className={css.analytics_left_half_container}>
+          <Portfolio></Portfolio>
+        </div>
         <div className={css.analytics_right_half_container}>
-          <TradeList></TradeList>
-          <Distribution getPortfolioDistribution={getPortfolioDistribution}></Distribution>
+          <div className={css.analytics_left_quarter_container}>
+            <Distribution
+              getPortfolioDistribution={getPortfolioDistribution}
+            ></Distribution>
+          </div>
+          <div className={css.analytics_right_quarter_container}>
+            <TradeList></TradeList>
+          </div>
         </div>
       </Section>
     </>

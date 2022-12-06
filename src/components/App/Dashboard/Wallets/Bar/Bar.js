@@ -52,11 +52,11 @@ const Bar = (props) => {
   };
   //GET CANDLESTICK DATA
   const getCandlestickData = async (curPair, interval) => {
-    setCandleInterval(interval);
+
     const candles = await fetch(`${url}/api/binance/candles/`, {
       method: "POST",
       body: JSON.stringify({
-        interval: candleInterval,
+        interval: interval,
         curPair: curPair,
       }),
       headers: {
@@ -181,25 +181,27 @@ const Bar = (props) => {
             </button>
             <button
               className={css.candle_interval_button}
-              onClick={() => getCandlestickData(curPairState, "15m")}
+              onClick={async () =>
+                await getCandlestickData(curPairState, "15m")
+              }
             >
               15M
             </button>
             <button
               className={css.candle_interval_button}
-              onClick={() => getCandlestickData(curPairState, "1h")}
+              onClick={async () => await getCandlestickData(curPairState, "1h")}
             >
               1H
             </button>
             <button
               className={css.candle_interval_button}
-              onClick={() => getCandlestickData(curPairState, "1d")}
+              onClick={async () => await getCandlestickData(curPairState, "1d")}
             >
               1D
             </button>
             <button
               className={css.candle_interval_button}
-              onClick={() => getCandlestickData(curPairState, "1w")}
+              onClick={async () => await getCandlestickData(curPairState, "1w")}
             >
               1W
             </button>
