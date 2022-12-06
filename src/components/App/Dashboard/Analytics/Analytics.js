@@ -55,11 +55,11 @@ const Analytics = () => {
           ></PortfolioValue>
         </div>
         <div className={css.analytics_bar_half_container}>
-          <div className={css.analytics_bar_quarter_container}>
-            <h2 className={css.portfolio_value_heading}>Distribution</h2>
+          <div className={css.analytics_bar_quarter_container_left}>
+            <h2 className={css.quarter_widget_heading}>Distribution</h2>
           </div>
-          <div className={css.analytics_bar_quarter_container}>
-            <h2 className={css.portfolio_value_heading}>Trade List</h2>
+          <div className={css.analytics_bar_quarter_container_right}>
+            <h2 className={css.quarter_widget_heading}>Trade List</h2>
           </div>
         </div>
       </BarContainer>
