@@ -151,16 +151,18 @@ const WalletChart = (props) => {
       // Create the Main Series (Candlesticks)
       const mainSeries = chart.addCandlestickSeries();
       mainSeries.setData(data);
-      new ResizeObserver((entries) => {
-        if (
-          entries.length === 0 ||
-          entries[0].target !== chartContainerRef.current
-        ) {
-          return;
+
+      // RESIZE OBSERVER
+
+      // Create a ResizeObserver to resize the chart when the container element size changes
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          const { width, height } = entry.contentRect;
+          chart.resize(width, height);
         }
-        const newRect = entries[0].contentRect;
-        chart.applyOptions({ height: newRect.height, width: newRect.width });
-      }).observe(chartContainerRef.current);
+      });
+      // Observe the chart container element
+      resizeObserver.observe(chartContainerRef.current);
 
       mainSeries.applyOptions({
         wickUpColor: "rgb(5, 255, 0)",
@@ -184,6 +186,7 @@ const WalletChart = (props) => {
       });
       // Prevent Repeat Chart Creation
       return () => {
+        resizeObserver.disconnect();
         chart.remove();
       };
     }

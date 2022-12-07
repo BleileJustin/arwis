@@ -12,6 +12,7 @@
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "express": "^4.18.2",
+    "fancy-canvas": "^2.0.2",
     "firebase-admin": "^11.3.0",
     "firebase-functions": "^4.1.0",
     "html-to-react": "^1.5.0",
