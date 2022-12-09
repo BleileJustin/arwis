@@ -15,7 +15,6 @@ const Wallets = () => {
     const assignedCurPairWallet = {
       ...wallets[wallets.length - 1],
       curPair: curPair,
-      isFromDB: false,
     };
     const walletList = [...wallets];
     walletList.splice([...wallets].length - 1, 1, assignedCurPairWallet);

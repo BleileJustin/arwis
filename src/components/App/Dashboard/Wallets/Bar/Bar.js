@@ -15,9 +15,11 @@ const Bar = (props) => {
   const [barJSX, setBarJSX] = useState();
   const [barExpanded, setBarExpanded] = useState(false);
   const [candles, setCandles] = useState();
-  const [dropdownIsEnabled, setDropdownIsEnabled] = useState(true);
-  const [candleInterval, setCandleInterval] = useState("1h");
-  const [curPairState, setCurPairState] = useState("");
+  const [intervalAndCurPairState, setIntervalAndCurPairState] = useState({
+    candleIntervale: "1h",
+    curPairState: "",
+    dropdwonIsEnabled: true,
+  });
   const isFirstRender = useRef(true);
 
   const authCtx = useContext(AuthContext);
@@ -28,11 +30,6 @@ const Bar = (props) => {
   console.log("PROPS");
   console.log(props);
   console.log("PROPS END");
-
-  //EXPANDBAR
-  const expandBar = () => {
-    setBarExpanded((current) => !current);
-  };
 
   //DELETE BAR
   const deleteBar = () => {
@@ -66,6 +63,7 @@ const Bar = (props) => {
         "Content-Type": "application/json",
       },
     });
+    console.log("CANDLES");
     const candlesJSON = await candles.json();
     setCandles(candlesJSON.candles);
   };
@@ -85,11 +83,15 @@ const Bar = (props) => {
           "Content-Type": "application/json",
         },
       });
+      console.log("SET WALLET");
     }
 
-    setCandleInterval("1h");
-    setCurPairState(curPair);
-    setDropdownIsEnabled(false);
+    setIntervalAndCurPairState({
+      candleInterval: "1h",
+      curPairState: curPair,
+      dropdwonIsEnabled: false,
+    });
+
     //Get list of current wallets
     const walletList = props.getWalletList(curPair);
     let isDuplicate = false;
@@ -109,6 +111,7 @@ const Bar = (props) => {
           "Content-Type": "application/json",
         },
       });
+      console.log("TICKER");
       const tickerData = await getTickerData(ticker);
       const lastPrice = tickerData.lastPrice;
       const lastPercent = tickerData.lastPercent;
@@ -116,7 +119,7 @@ const Bar = (props) => {
       const percentColor =
         lastPercent.charAt(0) === "-" ? "rgb(225, 50, 85)" : "rgb(5, 255, 0)";
 
-      await getCandlestickData(curPair, candleInterval);
+      await getCandlestickData(curPair, intervalAndCurPairState.candleInterval);
       const currency = curPair.replace("USDT", "");
 
       const walletData = await fetch(`${url}/api/wallet/`, {
@@ -132,6 +135,7 @@ const Bar = (props) => {
       const walletBalance = await getWalletBalance(walletData);
       const balance = walletBalance.balance;
       const balanceToUsd = walletBalance.balanceToUsd;
+      console.log("BALANCE");
 
       setBarJSX(
         <BarContainer isWalletBar={true}>
@@ -161,12 +165,20 @@ const Bar = (props) => {
               </h4>
             </div>
           </div>
-          <button className={css.expand_bar} onClick={expandBar}></button>
+          <button
+            className={css.expand_bar}
+            onClick={() => {
+              setBarExpanded(!barExpanded);
+            }}
+          ></button>
         </BarContainer>
       );
     } else {
       alert("Validation: Please choose a valid currency pair(Non duplicate)");
-      setDropdownIsEnabled(true);
+      setIntervalAndCurPairState({
+        ...intervalAndCurPairState,
+        dropdwonIsEnabled: true,
+      });
     }
   };
   useLayoutEffect(() => {
@@ -177,9 +189,7 @@ const Bar = (props) => {
       isFirstRender.current = false;
       return;
     }
-    getCandlestickData(curPairState, candleInterval);
-    console.log(candleInterval);
-  }, [candleInterval, curPairState]);
+  }, []);
   console.log("RENDER");
 
   return barJSX ? (
@@ -190,39 +200,67 @@ const Bar = (props) => {
           <div className={css.candle_interval_buttons}>
             <button
               className={css.candle_interval_button}
-              onClick={async () => await getCandlestickData(curPairState, "1m")}
+              onClick={async () =>
+                await getCandlestickData(
+                  intervalAndCurPairState.curPairState,
+                  "1m"
+                )
+              }
             >
               1M
             </button>
             <button
               className={css.candle_interval_button}
-              onClick={async () => await getCandlestickData(curPairState, "5m")}
+              onClick={async () =>
+                await getCandlestickData(
+                  intervalAndCurPairState.curPairState,
+                  "5m"
+                )
+              }
             >
               5M
             </button>
             <button
               className={css.candle_interval_button}
               onClick={async () =>
-                await getCandlestickData(curPairState, "15m")
+                await getCandlestickData(
+                  intervalAndCurPairState.curPairState,
+                  "15m"
+                )
               }
             >
               15M
             </button>
             <button
               className={css.candle_interval_button}
-              onClick={async () => await getCandlestickData(curPairState, "1h")}
+              onClick={async () =>
+                await getCandlestickData(
+                  intervalAndCurPairState.curPairState,
+                  "1h"
+                )
+              }
             >
               1H
             </button>
             <button
               className={css.candle_interval_button}
-              onClick={async () => await getCandlestickData(curPairState, "1d")}
+              onClick={async () =>
+                await getCandlestickData(
+                  intervalAndCurPairState.curPairState,
+                  "1d"
+                )
+              }
             >
               1D
             </button>
             <button
               className={css.candle_interval_button}
-              onClick={async () => await getCandlestickData(curPairState, "1w")}
+              onClick={async () =>
+                await getCandlestickData(
+                  intervalAndCurPairState.curPairState,
+                  "1w"
+                )
+              }
             >
               1W
             </button>
@@ -237,7 +275,7 @@ const Bar = (props) => {
       <button className={css.delete_bar} onClick={deleteBar}></button>
       <BarForm
         onConnect={onConnect}
-        dropdownIsEnabled={dropdownIsEnabled}
+        dropdownIsEnabled={intervalAndCurPairState.dropdwonIsEnabled}
       ></BarForm>
     </BarContainer>
   );

@@ -24,12 +24,9 @@ const Auth = (props) => {
     const enteredApiKey = apiKeyInputRef.current.value;
     const enteredApiSecret = apiSecretInputRef.current.value;
     //ENCRYPT AND SEND APIKEY AND APISECRET TO SERVER
-    const getPublicKey = await fetch(
-      `https://us-central1-arwisv1.cloudfunctions.net/app/api/client-public-key/`,
-      {
-        method: "POST",
-      }
-    );
+    const getPublicKey = await fetch(`${authCtx.url}/api/client-public-key/`, {
+      method: "POST",
+    });
     const publicKeyData = await getPublicKey.json();
     const publicKey = publicKeyData.publicKey;
     console.log(publicKey);
@@ -37,7 +34,7 @@ const Auth = (props) => {
     const encryptedApiKey = encryptKey(enteredApiKey, publicKey);
     const encryptedApiSecret = encryptKey(enteredApiSecret, publicKey);
     const sendEncryptedApiKey = await fetch(
-      `https://us-central1-arwisv1.cloudfunctions.net/app/api/encrypt-api-key/`,
+      `${authCtx.url}/api/encrypt-api-key/`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -53,6 +50,19 @@ const Auth = (props) => {
     const promiseStatus = await sendEncryptedApiKey.text();
     console.log(`Encrypt key: ${promiseStatus}`);
   };
+  const startPortfolioValueDBRecord = async (email) => {
+    const response = await fetch(`${authCtx.url}/api/set-portfolio-value/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+      }),
+    });
+    const data = await response.status;
+    console.log(`Start Portfolio Value: ${data}`);
+  };
 
   //const authFormValidation = () => {};
 
@@ -65,7 +75,8 @@ const Auth = (props) => {
 
     //AUTHENTICATION FOR SIGNUP AND LOGIN
     if (isSignup) {
-      apiKeyHandler(enteredEmail);
+      await apiKeyHandler(enteredEmail);
+      await startPortfolioValueDBRecord(enteredEmail);
       url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${config.APIKEY}`;
     } else {
       url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${config.APIKEY}`;

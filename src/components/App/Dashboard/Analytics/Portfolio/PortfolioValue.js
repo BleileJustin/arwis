@@ -8,7 +8,11 @@ const PortfolioValue = (props) => {
     const portfolioValue = await props.getPortfolioValue();
     setPortfolioValue(portfolioValue.toFixed(2));
   };
+
+
+
   useEffect(() => {
+    //startPortfolioValueDBRecord();
     portfolioValueHandler();
     const interval = setInterval(() => {
       portfolioValueHandler();

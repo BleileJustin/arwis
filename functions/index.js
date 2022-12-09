@@ -237,6 +237,30 @@ app.post("/api/wallet", express.json(), async (req, res) => {
 // ////////////////////////////////////////////////////
 // PORTFOLIO VALUE AND DISTRIBUTION ROUTES
 
+// SET PORTFOLIO VALUE IN DATABASE
+const setPortfolioValueInDB = async (uid) => {
+  const snapshot = db.collection("users").doc(uid);
+  const api = await getEncryptedApiKeyFromDBAndDecrypt(uid, dbPrivateKey);
+
+  setInterval(async () => {
+    const portfolioValue = await getPortfolioValueFromBinance(
+      api.apiKey,
+      api.apiSecret
+    );
+    const portfolioValueRecord = {
+      portfolioValue: portfolioValue,
+      timestamp: Date.now(),
+    };
+    console.log("SETTING PORTFOLIO VALUE IN DB");
+    snapshot.set(
+      { portfolioValue: arrayUnion(portfolioValueRecord) },
+      {
+        merge: true,
+      }
+    );
+  }, 1000 * 30); // 5 MINUTES
+};
+
 // PORTFOLIO VALUE ROUTE
 app.post("/api/portfolio-value", express.json(), async (req, res) => {
   const api = await getEncryptedApiKeyFromDBAndDecrypt(
@@ -247,6 +271,13 @@ app.post("/api/portfolio-value", express.json(), async (req, res) => {
   const apiSecret = api.apiSecret;
   const portfolioValue = await getPortfolioValueFromBinance(apiKey, apiSecret);
   res.send({ portfolioValue });
+});
+
+// SET PORTFOLIO VALUE IN DATABASE ROUTE
+app.post("/api/set-portfolio-value", express.json(), async (req, res) => {
+  const email = req.body.email;
+  await setPortfolioValueInDB(email);
+  res.status(200).send();
 });
 
 // PORTFOLIO DISTRIBUTION ROUTE
@@ -309,7 +340,6 @@ app.post("/api/encrypt-api-key", express.json(), async (req, res) => {
   sendEncryptedApiKeyToDB(dbPublicKey, clientApiKey, clientApiSecret, uid);
   res.send("ok");
 });
-
 // ////////////////////////////////////////////////////
 // INSTANCE
 // const startInstance = async (uid) => {
