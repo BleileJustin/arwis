@@ -1,7 +1,6 @@
 import css from "./AuthForm.module.css";
 import { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { config } from "../../../config/config";
 import encryptKey from "../../../utils/encrypt-key.js";
 
 import AuthContext from "../../../store/auth-context";
@@ -77,9 +76,9 @@ const Auth = (props) => {
     if (isSignup) {
       await apiKeyHandler(enteredEmail);
       await startPortfolioValueDBRecord(enteredEmail);
-      url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${config.APIKEY}`;
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_APIKEY}`;
     } else {
-      url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${config.APIKEY}`;
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_APIKEY}`;
     }
     const sendCred = await fetch(url, {
       method: "POST",
