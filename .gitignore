@@ -12,9 +12,6 @@
 # testing
 /coverage
 
-# production
-/build
-
 # misc
 .DS_Store
 .env.local
@@ -27,8 +24,13 @@ yarn-debug.log*
 yarn-error.log*
 
 # secure
-/src/config
 /server/node_modules
 /server/package-lock.json
 /server/.env
 /server/arwisv1-firebase-adminsdk-diedy-c15bf5cfc5.json
+
+/arwis/src/config
+/arwis/build
+/arwis/node_modules
+/arwis/package-lock.json
+/arwis/.env

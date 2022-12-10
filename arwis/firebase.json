@@ -1,0 +1,40 @@
+{
+  "hosting": {
+    "public": "./build",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  },
+  "rewrites": [
+    {
+      "source": "/api",
+      "destination": "api"
+    },
+    {
+      "source": "/instance",
+      "destination": "instance"
+    },
+    {
+      "source": "/api/client-public-key",
+      "function": "api/client-public-key"
+    },
+    {
+      "source": "/api/encrypted-api-key",
+      "destination": "api/encrypted-api-key"
+    },
+    {
+      "source": "/api/binance",
+      "destination": "api/binance"
+    },
+    {
+      "source": "/api/binance/candles",
+      "destination": "api/binance/candles"
+    },
+    {
+      "source": "/api/get-wallet-data",
+      "destination": "api/get-wallet-data"
+    }
+  ]
+}
