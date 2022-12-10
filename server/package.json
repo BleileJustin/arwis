@@ -4,8 +4,7 @@
   "description": "api endpoints for arwis web app to communicate with binace api and database",
   "main": "index.js",
   "scripts": {
-    "test": "test",
-    ""
+    "test": "test"
   },
   "author": "",
   "license": "ISC",
