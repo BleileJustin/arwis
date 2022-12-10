@@ -1,4 +1,4 @@
-import JSEncrypt from "jsencrypt/lib/index.js";
+import JSEncrypt from "jsencrypt";
 
 const encryptKey = (key, publicKey) => {
   const encrypt = new JSEncrypt();
