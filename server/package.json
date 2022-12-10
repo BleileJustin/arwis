@@ -13,6 +13,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "firebase-admin": "^11.3.0",
+    "mongodb": "^4.12.1",
     "node-jsencrypt": "^1.0.0"
   }
 }

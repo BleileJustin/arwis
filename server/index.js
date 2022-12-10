@@ -1,11 +1,9 @@
 const origin = "https://arwisv1.web.app";
 // const origin = "http://localhost:3000";
-// Firebase Admin SDK
+
 // Server and Database Packages
 const express = require("express");
 const cors = require("cors");
-// const functions = require("firebase-functions");
-const admin = require("firebase-admin");
 // Exchange packages
 const ccxt = require("ccxt");
 const publicBinance = new ccxt.binanceus();
@@ -27,13 +25,27 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-const serviceAccount = process.env.ARWIS_DB_ADMIN_SDK;
-const { getFirestore } = require("firebase-admin/firestore");
-const initApp = admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
-const db = getFirestore(initApp);
-const arrayUnion = admin.firestore.FieldValue.arrayUnion;
+// ////////////////////////////////////////////////////
+// MONGODB
+
+async function listDatabases(client) {
+  const databasesList = await client.db().admin().listDatabases();
+
+  console.log("Databases:");
+  databasesList.databases.forEach((db) => console.log(` - ${db.name}`));
+}
+
+const mongoUri = process.env.MONGO_URL;
+const mongoClient = require("mongodb").MongoClient;
+const client = new mongoClient(mongoUri);
+
+try {
+  await client.connect();
+
+  await listDatabases(client);
+} catch (e) {
+  console.error(e);
+}
 
 // ////////////////////////////////////////////////////
 // USER DATA FUNCTIONS
@@ -80,24 +92,24 @@ const sendEncryptedApiKeyToDB = async (
 ) => {
   const userApiKey = await encryptKey(clientApiKey, dbPublicKey);
   const userApiSecret = await encryptKey(clientApiSecret, dbPublicKey);
-  const snapshot = db.collection("users").doc(uid);
-  snapshot.set(
-    { apiKey: userApiKey, apiSecret: userApiSecret },
-    {
-      merge: true,
-    }
-  );
+  //   const snapshot = db.collection("users").doc(uid);
+  //   snapshot.set(
+  //     { apiKey: userApiKey, apiSecret: userApiSecret },
+  //     {
+  //       merge: true,
+  //     }
+  //   );
 };
 // GET ENCRYPTED USER API KEY AND SECRET FROM DB AND DECRYPT
-const getEncryptedApiKeyFromDBAndDecrypt = async (uid, privateKey) => {
-  const snapshot = db.collection("users").doc(uid);
-  const doc = await snapshot.get();
-  const encryptedApiKey = doc.data().apiKey;
-  const encryptedApiSecret = doc.data().apiSecret;
-  const apiKey = decryptKey(encryptedApiKey, privateKey);
-  const apiSecret = decryptKey(encryptedApiSecret, privateKey);
-  return { apiKey, apiSecret };
-};
+// const getEncryptedApiKeyFromDBAndDecrypt = async (uid, privateKey) => {
+//   const snapshot = db.collection("users").doc(uid);
+//   const doc = await snapshot.get();
+//   const encryptedApiKey = doc.data().apiKey;
+//   const encryptedApiSecret = doc.data().apiSecret;
+//   const apiKey = decryptKey(encryptedApiKey, privateKey);
+//   const apiSecret = decryptKey(encryptedApiSecret, privateKey);
+//   return { apiKey, apiSecret };
+// };
 
 // GENERATE RSA ENCRYPTION KEYPAIR FOR CLIENT AND DATABASE
 const generateKeyPair = () => {
@@ -172,123 +184,123 @@ const getPortfolioDistributionFromBinance = async (apiKey, apiSecret) => {
 
 // INSTANCE OF WALLET IN DATABASE
 // ////////////////////////////////////////////////////
-const setWalletInDB = async (uid, wallet) => {
-  const snapshot = db.collection("users").doc(uid);
-  // PUSH NEW WALLET TO DATABASE
-  snapshot.set(
-    { wallets: arrayUnion(wallet) },
-    {
-      merge: true,
-    }
-  );
-};
+// const setWalletInDB = async (uid, wallet) => {
+//   const snapshot = db.collection("users").doc(uid);
+//   // PUSH NEW WALLET TO DATABASE
+//   snapshot.set(
+//     { wallets: arrayUnion(wallet) },
+//     {
+//       merge: true,
+//     }
+//   );
+// };
 
 // GET WALLET FROM DATABASE
-const getWalletsFromDB = async (uid) => {
-  console.log("GETTING WALLET FROM DB");
-  console.log(uid);
-  const snapshot = db.collection("users").doc(uid);
-  const doc = await snapshot.get();
-  const wallets = doc.data().wallets;
-  return wallets;
-};
+// const getWalletsFromDB = async (uid) => {
+//   console.log("GETTING WALLET FROM DB");
+//   console.log(uid);
+//   const snapshot = db.collection("users").doc(uid);
+//   const doc = await snapshot.get();
+//   const wallets = doc.data().wallets;
+//   return wallets;
+// };
 
-app.post("/api/set-wallet", express.json(), async (req, res) => {
-  const wallet = req.body.wallet;
-  const email = req.body.email;
-  await setWalletInDB(email, wallet);
-  res.status(200).send();
-});
+// app.post("/api/set-wallet", express.json(), async (req, res) => {
+//   const wallet = req.body.wallet;
+//   const email = req.body.email;
+//   await setWalletInDB(email, wallet);
+//   res.status(200).send();
+// });
 
-app.post("/api/get-wallets", express.json(), async (req, res) => {
-  const email = req.body.email;
-  const wallets = await getWalletsFromDB(email);
-  res.send({ wallets });
-});
+// app.post("/api/get-wallets", express.json(), async (req, res) => {
+//   const email = req.body.email;
+//   const wallets = await getWalletsFromDB(email);
+//   res.send({ wallets });
+// });
 
 // GET WALLET BALANCE
-app.post("/api/wallet", express.json(), async (req, res) => {
-  const api = await getEncryptedApiKeyFromDBAndDecrypt(
-    req.body.uid,
-    dbPrivateKey
-  );
-  const authedBinance = new ccxt.binanceus({
-    apiKey: api.apiKey,
-    secret: api.apiSecret,
-  });
-  const currency = req.body.currency;
-  const allBalance = await authedBinance.fetchBalance();
-  const walletBalance = allBalance.total[currency];
-  const prices = await publicBinance.fetchTickers();
-  const price = prices[currency + "/USDT"];
+// // app.post("/api/wallet", express.json(), async (req, res) => {
+// //   const api = await getEncryptedApiKeyFromDBAndDecrypt(
+// //     req.body.uid,
+// //     dbPrivateKey
+// //   );
+//   const authedBinance = new ccxt.binanceus({
+//     apiKey: api.apiKey,
+//     secret: api.apiSecret,
+//   });
+//   const currency = req.body.currency;
+//   const allBalance = await authedBinance.fetchBalance();
+//   const walletBalance = allBalance.total[currency];
+//   const prices = await publicBinance.fetchTickers();
+//   const price = prices[currency + "/USDT"];
 
-  const walletBalanceToUsd = (walletBalance * price.last).toFixed(4);
-  console.log(walletBalanceToUsd);
+//   const walletBalanceToUsd = (walletBalance * price.last).toFixed(4);
+//   console.log(walletBalanceToUsd);
 
-  res.send({ walletBalance, walletBalanceToUsd });
-});
+//   res.send({ walletBalance, walletBalanceToUsd });
+// });
 
 // ////////////////////////////////////////////////////
 // PORTFOLIO VALUE AND DISTRIBUTION ROUTES
 
 // SET PORTFOLIO VALUE IN DATABASE
-const setPortfolioValueInDB = async (uid) => {
-  const snapshot = db.collection("users").doc(uid);
-  const api = await getEncryptedApiKeyFromDBAndDecrypt(uid, dbPrivateKey);
+// const setPortfolioValueInDB = async (uid) => {
+//   const snapshot = db.collection("users").doc(uid);
+//   const api = await getEncryptedApiKeyFromDBAndDecrypt(uid, dbPrivateKey);
 
-  setInterval(async () => {
-    const portfolioValue = await getPortfolioValueFromBinance(
-      api.apiKey,
-      api.apiSecret
-    );
-    const portfolioValueRecord = {
-      portfolioValue: portfolioValue,
-      timestamp: Date.now(),
-    };
-    console.log("SETTING PORTFOLIO VALUE IN DB");
-    snapshot.set(
-      { portfolioValue: arrayUnion(portfolioValueRecord) },
-      {
-        merge: true,
-      }
-    );
-  }, 1000 * 60 * 5); // 5 MINUTES
-};
+//   setInterval(async () => {
+//     const portfolioValue = await getPortfolioValueFromBinance(
+//       api.apiKey,
+//       api.apiSecret
+//     );
+//     const portfolioValueRecord = {
+//       portfolioValue: portfolioValue,
+//       timestamp: Date.now(),
+//     };
+//     console.log("SETTING PORTFOLIO VALUE IN DB");
+//     snapshot.set(
+//       { portfolioValue: arrayUnion(portfolioValueRecord) },
+//       {
+//         merge: true,
+//       }
+//     );
+//   }, 1000 * 60 * 5); // 5 MINUTES
+// };
 
 // PORTFOLIO VALUE ROUTE
-app.post("/api/portfolio-value", express.json(), async (req, res) => {
-  const api = await getEncryptedApiKeyFromDBAndDecrypt(
-    req.body.uid,
-    dbPrivateKey
-  );
-  const apiKey = api.apiKey;
-  const apiSecret = api.apiSecret;
-  const portfolioValue = await getPortfolioValueFromBinance(apiKey, apiSecret);
-  res.send({ portfolioValue });
-});
+// app.post("/api/portfolio-value", express.json(), async (req, res) => {
+//   const api = await getEncryptedApiKeyFromDBAndDecrypt(
+//     req.body.uid,
+//     dbPrivateKey
+//   );
+//   const apiKey = api.apiKey;
+//   const apiSecret = api.apiSecret;
+//   const portfolioValue = await getPortfolioValueFromBinance(apiKey, apiSecret);
+//   res.send({ portfolioValue });
+// });
 
 // SET PORTFOLIO VALUE IN DATABASE ROUTE
-app.post("/api/set-portfolio-value", express.json(), async (req, res) => {
-  const email = req.body.email;
-  await setPortfolioValueInDB(email);
-  res.status(200).send();
-});
+// app.post("/api/set-portfolio-value", express.json(), async (req, res) => {
+//   const email = req.body.email;
+//   await setPortfolioValueInDB(email);
+//   res.status(200).send();
+// });
 
 // PORTFOLIO DISTRIBUTION ROUTE
-app.post("/api/portfolio-distribution", express.json(), async (req, res) => {
-  const api = await getEncryptedApiKeyFromDBAndDecrypt(
-    req.body.uid,
-    dbPrivateKey
-  );
-  const apiKey = api.apiKey;
-  const apiSecret = api.apiSecret;
-  const portfolioDistribution = await getPortfolioDistributionFromBinance(
-    apiKey,
-    apiSecret
-  );
+// app.post("/api/portfolio-distribution", express.json(), async (req, res) => {
+//   const api = await getEncryptedApiKeyFromDBAndDecrypt(
+//     req.body.uid,
+//     dbPrivateKey
+//   );
+//   const apiKey = api.apiKey;
+//   const apiSecret = api.apiSecret;
+//   const portfolioDistribution = await getPortfolioDistributionFromBinance(
+//     apiKey,
+//     apiSecret
+//   );
 
-  res.send({ portfolioDistribution });
-});
+//   res.send({ portfolioDistribution });
+// });
 
 // ////////////////////////////////////////////////////
 // // PUBLIC API
