@@ -1,7 +1,6 @@
 const origin = "https://arwisv1.web.app";
 // const origin = "http://localhost:3000";
 // Firebase Admin SDK
-const serviceAccount = require("./arwisv1-firebase-adminsdk-diedy-c15bf5cfc5.json");
 // Server and Database Packages
 const express = require("express");
 const cors = require("cors");
@@ -28,6 +27,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+const serviceAccount = process.env.ARWIS_DB_ADMIN_SDK;
 const { getFirestore } = require("firebase-admin/firestore");
 const initApp = admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
