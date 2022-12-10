@@ -39,14 +39,16 @@ const mongoUri = process.env.MONGO_URL;
 const mongoClient = require("mongodb").MongoClient;
 const client = new mongoClient(mongoUri);
 
-try {
-  await client.connect();
+const tryClient = async () => {
+  try {
+    await client.connect();
 
-  await listDatabases(client);
-} catch (e) {
-  console.error(e);
-}
-
+    await listDatabases(client);
+  } catch (e) {
+    console.error(e);
+  }
+};
+tryClient();
 // ////////////////////////////////////////////////////
 // USER DATA FUNCTIONS
 
@@ -366,12 +368,3 @@ app.use("/instance/:userid", async (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
-
-// ////////////////////////////////////////////////////
-
-/* eslint-disable max-len */
-/* eslint-disable new-cap */
-/* eslint-disable comma-dangle */
-/* eslint-disable indent */
-/* eslint-disable space-before-function-paren */
-/* eslint-disable object-curly-spacing */
