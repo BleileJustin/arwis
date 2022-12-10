@@ -119,9 +119,8 @@ const clientKeyPair = generateKeyPair();
 const clientPublicKey = clientKeyPair.publicKey;
 const clientPrivateKey = clientKeyPair.privateKey;
 
-const dbConfEncKeyPair = functions.config().enckey;
-const dbPublicKey = dbConfEncKeyPair.pbkey;
-const dbPrivateKey = dbConfEncKeyPair.pvkey;
+const dbPublicKey = process.env.DB_PUBLIC_KEY;
+const dbPrivateKey = process.env.DB_PRIVATE_KEY;
 
 // ////////////////////////////////////////////////////
 // BINANCE API
