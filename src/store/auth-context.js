@@ -49,8 +49,8 @@ export const AuthContextProvider = (props) => {
   };
 
   const contextValue = {
-    // url: "https://us-central1-arwisv1.cloudfunctions.net/app",
-    url: `http://127.0.0.1:5001/arwisv1/us-central1/app`,
+    url: "https://us-central1-arwisv1.cloudfunctions.net/app",
+    // url: `http://127.0.0.1:5001/arwisv1/us-central1/app`,
     email: "justinxbleile@gmail.com",
     token: tokenData,
     isLoggedIn: userIsLoggedIn,

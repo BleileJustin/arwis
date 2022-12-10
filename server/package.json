@@ -1,0 +1,18 @@
+{
+  "name": "arwis-server",
+  "version": "1.0.0",
+  "description": "api endpoints for arwis web app to communicate with binace api and database",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ccxt": "^2.2.91",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "firebase-admin": "^11.3.0",
+    "node-jsencrypt": "^1.0.0"
+  }
+}

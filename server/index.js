@@ -1,15 +1,11 @@
-/* eslint-disable max-len */
-/* eslint-disable new-cap */
-/* eslint-disable comma-dangle */
-/* eslint-disable indent */
-/* eslint-disable space-before-function-paren */
-/* eslint-disable object-curly-spacing */
-// UPDATE SERVICE ACCOUNT PATH BEFORE DEPLOYING
+const origin = "https://arwisv1.web.app";
+// const origin = "http://localhost:3000";
+// Firebase Admin SDK
 const serviceAccount = require("./arwisv1-firebase-adminsdk-diedy-c15bf5cfc5.json");
 // Server and Database Packages
 const express = require("express");
 const cors = require("cors");
-const functions = require("firebase-functions");
+// const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 // Exchange packages
 const ccxt = require("ccxt");
@@ -19,13 +15,12 @@ const crypto = require("crypto");
 const JSEncrypt = require("node-jsencrypt");
 
 const app = express();
+const port = process.env.PORT || 5000;
 
 // const encPbKey = functions.config().enckey.pbkey;
 
 // ////////////////////////////////////////////////////
 // CORS CONFIGURATION AND SERVER & DATABASE INITIALIZATION
-// const origin = "https://arwisv1.web.app";
-const origin = "http://localhost:3000";
 
 const corsOptions = {
   origin: origin,
@@ -258,7 +253,7 @@ const setPortfolioValueInDB = async (uid) => {
         merge: true,
       }
     );
-  }, 1000 * 30); // 5 MINUTES
+  }, 1000 * 60 * 5); // 5 MINUTES
 };
 
 // PORTFOLIO VALUE ROUTE
@@ -357,6 +352,15 @@ app.use("/instance/:userid", async (req, res) => {
   res.send(`INSTANCE CREATED FOR ${uid}`);
 });
 
+app.listen(port, () => {
+  console.log(`Server is running on port: ${port}`);
+});
+
 // ////////////////////////////////////////////////////
 
-exports.app = functions.https.onRequest(app);
+/* eslint-disable max-len */
+/* eslint-disable new-cap */
+/* eslint-disable comma-dangle */
+/* eslint-disable indent */
+/* eslint-disable space-before-function-paren */
+/* eslint-disable object-curly-spacing */

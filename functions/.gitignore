@@ -1,9 +1,0 @@
-node_modules/
-package-lock.json
-
-.eslintrc.js
-ui-debug.log
-firebase-debug.log
-
-.runtimeconfig.json
-arwisv1-firebase-adminsdk-diedy-c15bf5cfc5.json
