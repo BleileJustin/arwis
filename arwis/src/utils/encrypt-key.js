@@ -1,4 +1,4 @@
-import { JSEncrypt } from "jsencrypt/lib/";
+import { JSEncrypt } from "jsencrypt/bin/";
 
 const encryptKey = (key, publicKey) => {
   const encrypt = new JSEncrypt();
