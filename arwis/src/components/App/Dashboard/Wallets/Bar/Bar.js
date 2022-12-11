@@ -168,7 +168,7 @@ const Bar = (props) => {
           <button
             className={css.expand_bar}
             onClick={() => {
-              setBarExpanded(!barExpanded);
+              setBarExpanded((barExpanded) => !barExpanded);
             }}
           ></button>
         </BarContainer>

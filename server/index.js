@@ -274,7 +274,6 @@ app.post("/api/wallet", express.json(), async (req, res) => {
 
 // SET PORTFOLIO VALUE IN DATABASE
 const setPortfolioValueInDB = async (email) => {
-
   try {
     const api = await getEncryptedApiKeyFromDBAndDecrypt(email, dbPrivateKey);
     const collection = client.db("arwis").collection("users");
