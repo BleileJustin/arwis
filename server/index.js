@@ -1,4 +1,4 @@
-const origin = "arwis.up.railway.app";
+const origin = "https://arwis.up.railway.app/";
 // const origin = "https://arwisv1.web.app";
 // const origin = "http://localhost:3000";
 
