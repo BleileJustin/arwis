@@ -13,7 +13,6 @@ const Auth = (props) => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const apiKeyInputRef = useRef();
-
   const apiSecretInputRef = useRef();
 
   const toggleSignupVsLogin = () => {
