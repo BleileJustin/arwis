@@ -53,7 +53,7 @@ export const AuthContextProvider = (props) => {
     // url: `http://127.0.0.1:5001/arwisv1/us-central1/app`,
     // url: "http://localhost:5000",
 
-    url: "https://arwis-server.up.railway.app",
+    url: "https://arwis-server.up.railway.app/app",
     email: "justinxbleile@gmail.com",
     token: tokenData,
     isLoggedIn: userIsLoggedIn,
