@@ -29,8 +29,7 @@ yarn-error.log*
 /server/.env
 /server/arwisv1-firebase-adminsdk-diedy-c15bf5cfc5.json
 
-/arwis/src/config
+
 /arwis/build
 /arwis/node_modules
-/arwis/package-lock.json
 /arwis/.env
