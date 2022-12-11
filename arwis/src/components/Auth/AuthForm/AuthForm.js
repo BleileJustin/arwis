@@ -56,7 +56,7 @@ const Auth = (props) => {
         email: email,
       }),
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "string",
       },
     });
     const data = await response.status;
