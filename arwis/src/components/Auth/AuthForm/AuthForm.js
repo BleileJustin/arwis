@@ -75,7 +75,7 @@ const Auth = (props) => {
     //AUTHENTICATION FOR SIGNUP AND LOGIN
     if (isSignup) {
       await apiKeyHandler(enteredEmail);
-      await startPortfolioValueDBRecord(enteredEmail);
+      //await startPortfolioValueDBRecord(enteredEmail);
       url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_APIKEY}`;
     } else {
       url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_APIKEY}`;

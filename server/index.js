@@ -338,6 +338,10 @@ app.post("/api/encrypt-api-key", express.json(), async (req, res) => {
 //   console.log(`Server is running on port: ${port}`);
 // });
 
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
