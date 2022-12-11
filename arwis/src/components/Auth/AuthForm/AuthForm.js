@@ -59,7 +59,7 @@ const Auth = (props) => {
         "Content-Type": "string",
       },
     });
-    const data = await response.status;
+    const data = await response.text();
     console.log(`Start Portfolio Value: ${data}`);
   };
 
