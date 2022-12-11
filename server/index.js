@@ -1,7 +1,8 @@
 const origin = "https://arwis.up.railway.app";
 // const origin = "https://arwisv1.web.app";
-// const origin = "http://localhost:5000";
+// const origin = "http://localhost:3000";
 
+require("dotenv").config();
 // Server and Database Packages
 const express = require("express");
 const cors = require("cors");
@@ -13,7 +14,7 @@ const crypto = require("crypto");
 const JSEncrypt = require("node-jsencrypt");
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 // ////////////////////////////////////////////////////
 // CORS CONFIGURATION AND SERVER & DATABASE INITIALIZATION
 
