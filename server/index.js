@@ -1,9 +1,8 @@
 const origin = "https://arwis.up.railway.app";
-// const origin = "https://arwisv1.web.app";
 // const origin = "http://localhost:3000";
 
-require("dotenv").config();
 // Server and Database Packages
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 // Exchange packages
@@ -24,8 +23,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// ////////////////////////////////////////////////////
-// MONGODB
+// MONGODB CONNECTION
 
 const mongoUri = process.env.MONGO_URL;
 const mongoClient = require("mongodb").MongoClient;
@@ -191,7 +189,7 @@ const getPortfolioDistributionFromBinance = async (apiKey, apiSecret) => {
   }
 };
 
-// INSTANCE OF WALLET IN DATABASE
+// SET INSTANCE OF WALLET IN DATABASE
 // ////////////////////////////////////////////////////
 const setWalletInDB = async (email, wallet) => {
   const collection = client.db("arwis").collection("users");
@@ -201,7 +199,6 @@ const setWalletInDB = async (email, wallet) => {
       { $set: { wallets: [wallet] } },
       { upsert: true }
     );
-    console.log(result);
   } catch (e) {
     console.log(e);
   }
@@ -265,7 +262,6 @@ app.post("/api/wallet", express.json(), async (req, res) => {
     const price = prices[currency + "/USDT"];
 
     const walletBalanceToUsd = (walletBalance * price.last).toFixed(4);
-    console.log(walletBalanceToUsd);
 
     res.send({ walletBalance, walletBalanceToUsd });
   } catch (e) {
@@ -385,7 +381,7 @@ app.post("/api/binance/candles", express.json(), async (req, res) => {
 });
 
 // ////////////////////////////////////////////////////
-// API KEY HANDLING/ AuthForm.js ENDPOINTS
+// API KEY ENCRYPTION HANDLING/ AuthForm.js ENDPOINTS
 
 // SEND PUBLIC ENCRYPTION KEY TO CLIENT
 app.post("/api/client-public-key", (req, res) => {
@@ -411,14 +407,6 @@ app.post("/api/encrypt-api-key", express.json(), async (req, res) => {
   } catch (e) {
     console.log(e);
   }
-});
-
-// app.listen(port, () => {
-//   console.log(`Server is running on port: ${port}`);
-// });
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
 });
 
 app.listen(port, () => {

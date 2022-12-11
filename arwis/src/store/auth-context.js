@@ -17,14 +17,6 @@ const retrieveToken = () => {
   };
 };
 
-// const retrieveEmail = () => {
-//   const storedEmail = localStorage.getItem("email");
-
-//   return {
-//     email: storedEmail,
-//   };
-// };
-
 export const AuthContextProvider = (props) => {
   const tokenData = retrieveToken();
   //const userEmail = retrieveEmail();
