@@ -49,19 +49,19 @@ const Auth = (props) => {
     const promiseStatus = await sendEncryptedApiKey.text();
     console.log(`Encrypt key: ${promiseStatus}`);
   };
-  const startPortfolioValueDBRecord = async (email) => {
-    const response = await fetch(`${authCtx.url}/api/set-portfolio-value/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-      }),
-    });
-    const data = await response.status;
-    console.log(`Start Portfolio Value: ${data}`);
-  };
+  // const startPortfolioValueDBRecord = async (email) => {
+  //   const response = await fetch(`${authCtx.url}/api/set-portfolio-value/`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       email: email,
+  //     }),
+  //   });
+  //   const data = await response.status;
+  //   console.log(`Start Portfolio Value: ${data}`);
+  // };
 
   //const authFormValidation = () => {};
 
