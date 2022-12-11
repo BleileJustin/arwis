@@ -42,7 +42,7 @@ connectDB();
 // ////////////////////////////////////////////////////
 // USER DATA FUNCTIONS
 
-const calculatePortfolioValue = async (balances, prices) => {
+const calculatePortfolioValue = (balances, prices) => {
   let portfolioValue = 0;
   for (const balance of balances) {
     const free = balance.free;
@@ -80,28 +80,36 @@ const sendEncryptedApiKeyToDB = async (
   dbPublicKey,
   clientApiKey,
   clientApiSecret,
-  uid
+  email
 ) => {
-  const userApiKey = await encryptKey(clientApiKey, dbPublicKey);
-  const userApiSecret = await encryptKey(clientApiSecret, dbPublicKey);
-  const collection = client.db("arwis").collection("users");
-  collection.updateOne(
-    { uid },
-    { apiKey: userApiKey, apiSecret: userApiSecret },
-    {
-      merge: true,
-    }
-  );
+  try {
+    const userApiKey = await encryptKey(clientApiKey, dbPublicKey);
+    const userApiSecret = await encryptKey(clientApiSecret, dbPublicKey);
+
+    const collection = client.db("arwis").collection("users");
+
+    collection.updateOne(
+      { email: email },
+      { $set: { apiKey: userApiKey, apiSecret: userApiSecret } },
+      { upsert: true }
+    );
+  } catch (e) {
+    console.log(e);
+  }
 };
 // GET ENCRYPTED USER API KEY AND SECRET FROM DB AND DECRYPT
-const getEncryptedApiKeyFromDBAndDecrypt = async (uid, privateKey) => {
+const getEncryptedApiKeyFromDBAndDecrypt = async (email, privateKey) => {
   const collection = client.db("arwis").collection("users");
-  const user = await collection.find({ email: uid }).toArray();
-  const encryptedApiKey = user[0].apiKey;
-  const encryptedApiSecret = user[0].apiSecret;
-  const apiKey = decryptKey(encryptedApiKey, privateKey);
-  const apiSecret = decryptKey(encryptedApiSecret, privateKey);
-  return { apiKey, apiSecret };
+  try {
+    const user = await collection.find({ email: email }).toArray();
+    const encryptedApiKey = user[0].apiKey;
+    const encryptedApiSecret = user[0].apiSecret;
+    const apiKey = decryptKey(encryptedApiKey, privateKey);
+    const apiSecret = decryptKey(encryptedApiSecret, privateKey);
+    return { apiKey, apiSecret };
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 // GENERATE RSA ENCRYPTION KEYPAIR FOR CLIENT AND DATABASE
@@ -138,12 +146,16 @@ const getPortfolioValueFromBinance = async (apiKey, apiSecret) => {
     apiKey: apiKey,
     secret: apiSecret,
   });
-  const balances = await binance.fetchBalance();
-  const prices = await publicBinance.fetchTickers();
-  const balancesArray = balances.info.balances;
+  try {
+    const balances = await binance.fetchBalance();
+    const prices = await publicBinance.fetchTickers();
+    const balancesArray = balances.info.balances;
 
-  const portfolioValue = await calculatePortfolioValue(balancesArray, prices);
-  return portfolioValue;
+    const portfolioValue = calculatePortfolioValue(balancesArray, prices);
+    return portfolioValue;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 // GET PORTFOLIO DISTRIBUTION PERCENTAGE FOR EACH ASSET
@@ -152,142 +164,194 @@ const getPortfolioDistributionFromBinance = async (apiKey, apiSecret) => {
     apiKey: apiKey,
     secret: apiSecret,
   });
-  const balances = await binance.fetchBalance();
-  const prices = await publicBinance.fetchTickers();
-  const balancesArray = balances.info.balances;
+  try {
+    const balances = await binance.fetchBalance();
+    const prices = await publicBinance.fetchTickers();
+    const balancesArray = balances.info.balances;
 
-  const portfolioValue = await calculatePortfolioValue(balancesArray, prices);
-  const portfolioDistribution = [];
-  for (const balance of balancesArray) {
-    const free = balance.free;
-    const locked = balance.locked;
-    const total = parseFloat(free) + parseFloat(locked);
-    const price = prices[balance.asset + "/USDT"];
-    if (total > 0 && price) {
-      const assetValue = total * parseFloat(price.last);
-      const assetPercentage = (assetValue / portfolioValue) * 100;
-      portfolioDistribution.push({
-        asset: balance.asset,
-        percentage: assetPercentage,
-      });
+    const portfolioValue = calculatePortfolioValue(balancesArray, prices);
+    const portfolioDistribution = [];
+    for (const balance of balancesArray) {
+      const free = balance.free;
+      const locked = balance.locked;
+      const total = parseFloat(free) + parseFloat(locked);
+      const price = prices[balance.asset + "/USDT"];
+      if (total > 0 && price) {
+        const assetValue = total * parseFloat(price.last);
+        const assetPercentage = (assetValue / portfolioValue) * 100;
+        portfolioDistribution.push({
+          asset: balance.asset,
+          percentage: assetPercentage,
+        });
+      }
     }
+    return portfolioDistribution;
+  } catch (e) {
+    console.log(e);
   }
-  return portfolioDistribution;
 };
 
 // INSTANCE OF WALLET IN DATABASE
 // ////////////////////////////////////////////////////
-const setWalletInDB = async (uid, wallet) => {
+const setWalletInDB = async (email, wallet) => {
   const collection = client.db("arwis").collection("users");
-  const result = await collection.updateOne(
-    { email: "justinxbleile@gmail.com" },
-    { $set: { wallets: [wallet] } }
-  );
-  console.log(result);
+  try {
+    const result = await collection.updateOne(
+      { email: "justinxbleile@gmail.com" },
+      { $set: { wallets: [wallet] } },
+      { upsert: true }
+    );
+    console.log(result);
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 // GET WALLET FROM DATABASE
-const getWalletsFromDB = async (uid) => {
+const getWalletsFromDB = async (email) => {
   const collection = client.db("arwis").collection("users");
-  const user = await collection
-    .find({ email: "justinxbleile@gmail.com" })
-    .toArray();
-
-  return user[0].wallets;
+  try {
+    const user = await collection
+      .find({ email: "justinxbleile@gmail.com" })
+      .toArray();
+    if (!user[0].wallets) {
+      return [];
+    } else {
+      return user[0].wallets;
+    }
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 app.post("/api/set-wallet", express.json(), async (req, res) => {
   const wallet = req.body.wallet;
   const email = req.body.email;
-  await setWalletInDB(email, wallet);
+  try {
+    await setWalletInDB(email, wallet);
+  } catch (e) {
+    console.log(e);
+  }
   res.status(200).send();
 });
 
 app.post("/api/get-wallets", express.json(), async (req, res) => {
   const email = req.body.email;
-  const wallets = await getWalletsFromDB(email);
-  res.send({ wallets });
+  try {
+    const wallets = await getWalletsFromDB(email);
+    res.send({ wallets });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 // GET WALLET BALANCE
 app.post("/api/wallet", express.json(), async (req, res) => {
-  const api = await getEncryptedApiKeyFromDBAndDecrypt(
-    req.body.uid,
-    dbPrivateKey
-  );
-  const authedBinance = new ccxt.binanceus({
-    apiKey: api.apiKey,
-    secret: api.apiSecret,
-  });
-  const currency = req.body.currency;
-  const allBalance = await authedBinance.fetchBalance();
-  const walletBalance = allBalance.total[currency];
-  const prices = await publicBinance.fetchTickers();
-  const price = prices[currency + "/USDT"];
+  try {
+    const api = await getEncryptedApiKeyFromDBAndDecrypt(
+      req.body.email,
+      dbPrivateKey
+    );
+    const authedBinance = new ccxt.binanceus({
+      apiKey: api.apiKey,
+      secret: api.apiSecret,
+    });
+    const currency = req.body.currency;
+    const allBalance = await authedBinance.fetchBalance();
 
-  const walletBalanceToUsd = (walletBalance * price.last).toFixed(4);
-  console.log(walletBalanceToUsd);
+    const walletBalance = allBalance.total[currency];
+    const prices = await publicBinance.fetchTickers();
 
-  res.send({ walletBalance, walletBalanceToUsd });
+    const price = prices[currency + "/USDT"];
+
+    const walletBalanceToUsd = (walletBalance * price.last).toFixed(4);
+    console.log(walletBalanceToUsd);
+
+    res.send({ walletBalance, walletBalanceToUsd });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 // ////////////////////////////////////////////////////
 // PORTFOLIO VALUE AND DISTRIBUTION ROUTES
 
 // SET PORTFOLIO VALUE IN DATABASE
-const setPortfolioValueInDB = async (uid) => {
-  //   const snapshot = db.collection("users").doc(uid);
+const setPortfolioValueInDB = async (email) => {
 
-  const api = await getEncryptedApiKeyFromDBAndDecrypt(uid, dbPrivateKey);
-  const collection = client.db("arwis").collection("users");
+  try {
+    const api = await getEncryptedApiKeyFromDBAndDecrypt(email, dbPrivateKey);
+    const collection = client.db("arwis").collection("users");
 
-  setInterval(async () => {
-    const portfolioValue = await getPortfolioValueFromBinance(
-      api.apiKey,
-      api.apiSecret
-    );
-    const portfolioValueRecord = {
-      portfolioValue: portfolioValue,
-      timestamp: Date.now(),
-    };
-    console.log("SETTING PORTFOLIO VALUE IN DB");
-    await collection.updateOne({ email: uid }, { $set: portfolioValueRecord });
-  }, 1000 * 60 * 5); // 5 MINUTES
+    setInterval(async () => {
+      const portfolioValue = await getPortfolioValueFromBinance(
+        api.apiKey,
+        api.apiSecret
+      );
+      const portfolioValueRecord = {
+        portfolioValue: portfolioValue,
+        timestamp: Date.now(),
+      };
+      console.log("SETTING PORTFOLIO VALUE IN DB");
+      await collection.updateOne(
+        { email: email },
+        { $set: portfolioValueRecord },
+        { upsert: true }
+      );
+    }, 1000 * 60 * 5); // 5 MINUTES
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 // PORTFOLIO VALUE ROUTE
 app.post("/api/portfolio-value", express.json(), async (req, res) => {
-  const api = await getEncryptedApiKeyFromDBAndDecrypt(
-    req.body.uid,
-    dbPrivateKey
-  );
-  const apiKey = api.apiKey;
-  const apiSecret = api.apiSecret;
-  const portfolioValue = await getPortfolioValueFromBinance(apiKey, apiSecret);
-  res.send({ portfolioValue });
+  try {
+    const api = await getEncryptedApiKeyFromDBAndDecrypt(
+      req.body.email,
+      dbPrivateKey
+    );
+    const apiKey = api.apiKey;
+    const apiSecret = api.apiSecret;
+    const portfolioValue = await getPortfolioValueFromBinance(
+      apiKey,
+      apiSecret
+    );
+    res.send({ portfolioValue });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 // SET PORTFOLIO VALUE IN DATABASE ROUTE
 app.post("/api/set-portfolio-value", express.json(), async (req, res) => {
-  const email = req.body.email;
-  await setPortfolioValueInDB(email);
-  res.status(200).send();
+  try {
+    const email = req.body.email;
+    await setPortfolioValueInDB(email);
+    res.status(200).send();
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 // PORTFOLIO DISTRIBUTION ROUTE
 app.post("/api/portfolio-distribution", express.json(), async (req, res) => {
-  const api = await getEncryptedApiKeyFromDBAndDecrypt(
-    req.body.uid,
-    dbPrivateKey
-  );
-  const apiKey = api.apiKey;
-  const apiSecret = api.apiSecret;
-  const portfolioDistribution = await getPortfolioDistributionFromBinance(
-    apiKey,
-    apiSecret
-  );
+  try {
+    const api = await getEncryptedApiKeyFromDBAndDecrypt(
+      req.body.email,
+      dbPrivateKey
+    );
+    const apiKey = api.apiKey;
+    const apiSecret = api.apiSecret;
+    const portfolioDistribution = await getPortfolioDistributionFromBinance(
+      apiKey,
+      apiSecret
+    );
 
-  res.send({ portfolioDistribution });
+    res.send({ portfolioDistribution });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 // ////////////////////////////////////////////////////
@@ -295,20 +359,28 @@ app.post("/api/portfolio-distribution", express.json(), async (req, res) => {
 
 // GET TICKER DATA
 app.get("/api/binance/:curPair", async (req, res) => {
-  const ticker = await publicBinance.fetchTicker(req.params.curPair);
-  const tickerData = JSON.stringify(ticker);
-  res.send(tickerData);
+  try {
+    const ticker = await publicBinance.fetchTicker(req.params.curPair);
+    const tickerData = JSON.stringify(ticker);
+    res.send(tickerData);
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 // GET CANDLESTICK DATA
 app.post("/api/binance/candles", express.json(), async (req, res) => {
-  if (publicBinance.has.fetchOHLCV) {
-    // milliseconds
-    const candles = await publicBinance.fetchOHLCV(
-      req.body.curPair,
-      req.body.interval
-    );
-    res.send({ candles: candles });
+  try {
+    if (publicBinance.has.fetchOHLCV) {
+      // milliseconds
+      const candles = await publicBinance.fetchOHLCV(
+        req.body.curPair,
+        req.body.interval
+      );
+      res.send({ candles: candles });
+    }
+  } catch (e) {
+    console.log(e);
   }
 });
 
@@ -316,7 +388,7 @@ app.post("/api/binance/candles", express.json(), async (req, res) => {
 // API KEY HANDLING/ AuthForm.js ENDPOINTS
 
 // SEND PUBLIC ENCRYPTION KEY TO CLIENT
-app.post("/api/client-public-key", async (req, res) => {
+app.post("/api/client-public-key", (req, res) => {
   res.send({ publicKey: clientPublicKey });
 });
 
@@ -324,15 +396,21 @@ app.post("/api/client-public-key", async (req, res) => {
 app.post("/api/encrypt-api-key", express.json(), async (req, res) => {
   const encryptedApiKey = req.body.encryptedApiKey;
   const encryptedApiSecret = req.body.encryptedApiSecret;
-  const uid = req.body.uid;
-  const clientApiKey = await decryptKey(encryptedApiKey, clientPrivateKey);
-  const clientApiSecret = await decryptKey(
-    encryptedApiSecret,
-    clientPrivateKey
-  );
+  const email = req.body.email;
+  const clientApiKey = decryptKey(encryptedApiKey, clientPrivateKey);
+  const clientApiSecret = decryptKey(encryptedApiSecret, clientPrivateKey);
   // ENCRYPT API KEY AND SECRET AND SEND TO DATABASE
-  sendEncryptedApiKeyToDB(dbPublicKey, clientApiKey, clientApiSecret, uid);
-  res.send("ok");
+  try {
+    await sendEncryptedApiKeyToDB(
+      dbPublicKey,
+      clientApiKey,
+      clientApiSecret,
+      email
+    );
+    res.send("ok");
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 // app.listen(port, () => {

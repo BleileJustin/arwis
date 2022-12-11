@@ -21,7 +21,7 @@ const Analytics = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        uid: "justinxbleile@gmail.com",
+        email: "justinxbleile@gmail.com",
       }),
     });
     const data = await response.json();
@@ -37,7 +37,7 @@ const Analytics = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        uid: "justinxbleile@gmail.com",
+        email: "justinxbleile@gmail.com",
       }),
     });
     const data = await response.json();

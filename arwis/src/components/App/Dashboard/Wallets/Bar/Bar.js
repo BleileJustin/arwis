@@ -126,7 +126,7 @@ const Bar = (props) => {
         method: "POST",
         body: JSON.stringify({
           currency: currency,
-          uid: "justinxbleile@gmail.com",
+          email: "justinxbleile@gmail.com",
         }),
         headers: {
           "Content-Type": "application/json",

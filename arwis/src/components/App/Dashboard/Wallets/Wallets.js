@@ -62,6 +62,7 @@ const Wallets = () => {
         },
       });
       const data = await response.json();
+      if (!data.wallets) return;
       const walletList = data.wallets.map((wallet) => {
         return { id: Math.random(), curPair: wallet.curPair, isFromDB: true };
       });

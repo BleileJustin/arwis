@@ -25,6 +25,8 @@ const Auth = (props) => {
     //ENCRYPT AND SEND APIKEY AND APISECRET TO SERVER
     const getPublicKey = await fetch(`${authCtx.url}/api/client-public-key/`, {
       method: "POST",
+    }).catch((err) => {
+      console.log(err);
     });
     const publicKeyData = await getPublicKey.json();
     const publicKey = publicKeyData.publicKey;
@@ -39,28 +41,33 @@ const Auth = (props) => {
         body: JSON.stringify({
           encryptedApiKey: encryptedApiKey,
           encryptedApiSecret: encryptedApiSecret,
-          uid: enteredEmail,
+          email: enteredEmail,
         }),
         headers: {
           "Content-Type": "application/json",
         },
       }
-    );
+    ).catch((err) => {
+      console.log(err);
+    });
+
     const promiseStatus = await sendEncryptedApiKey.text();
     console.log(`Encrypt key: ${promiseStatus}`);
   };
   const startPortfolioValueDBRecord = async (email) => {
-    const response = await fetch(`${authCtx.url}/api/set-portfolio-value/`, {
+    const response = await fetch(`${authCtx.url}/api/set-portfolio-value`, {
       method: "POST",
       body: JSON.stringify({
         email: email,
       }),
       headers: {
-        "Content-Type": "string",
+        "Content-Type": "application/json",
       },
+    }).catch((err) => {
+      console.log(err);
     });
-    const data = await response.text();
-    console.log(`Start Portfolio Value: ${data}`);
+    const data = await response;
+    console.log(data);
   };
 
   //const authFormValidation = () => {};
