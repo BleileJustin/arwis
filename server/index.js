@@ -13,7 +13,7 @@ const crypto = require("crypto");
 const JSEncrypt = require("node-jsencrypt");
 
 const app = express();
-const isDev = true;
+const isDev = false;
 //const port = process.env.PORT || 5000;
 // const encPbKey = functions.config().enckey.pbkey;
 const port = isDev ? 80 : 5000;
