@@ -13,10 +13,7 @@ const crypto = require("crypto");
 const JSEncrypt = require("node-jsencrypt");
 
 const app = express();
-const isDev = false;
-//const port = process.env.PORT || 5000;
-// const encPbKey = functions.config().enckey.pbkey;
-const port = isDev ? 80 : 5000;
+const port = process.env.PORT || 5000;
 // ////////////////////////////////////////////////////
 // CORS CONFIGURATION AND SERVER & DATABASE INITIALIZATION
 
@@ -336,6 +333,10 @@ app.post("/api/encrypt-api-key", express.json(), async (req, res) => {
   sendEncryptedApiKeyToDB(dbPublicKey, clientApiKey, clientApiSecret, uid);
   res.send("ok");
 });
+
+// app.listen(port, () => {
+//   console.log(`Server is running on port: ${port}`);
+// });
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
