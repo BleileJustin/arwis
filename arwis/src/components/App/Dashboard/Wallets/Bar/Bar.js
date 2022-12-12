@@ -16,7 +16,7 @@ const Bar = (props) => {
   const [barExpanded, setBarExpanded] = useState(false);
   const [candles, setCandles] = useState();
   const [intervalAndCurPairState, setIntervalAndCurPairState] = useState({
-    candleIntervale: "1h",
+    candleInterval: "1h",
     curPairState: "",
     dropdwonIsEnabled: true,
   });
