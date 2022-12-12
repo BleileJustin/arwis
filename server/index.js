@@ -195,7 +195,7 @@ const setWalletInDB = async (email, wallet) => {
   const collection = client.db("arwis").collection("users");
   try {
     const result = await collection.updateOne(
-      { email: "justinxbleile@gmail.com" },
+      { email: email },
       { $set: { wallets: [wallet] } },
       { upsert: true }
     );
@@ -208,9 +208,7 @@ const setWalletInDB = async (email, wallet) => {
 const getWalletsFromDB = async (email) => {
   const collection = client.db("arwis").collection("users");
   try {
-    const user = await collection
-      .find({ email: "justinxbleile@gmail.com" })
-      .toArray();
+    const user = await collection.find({ email: email }).toArray();
     if (!user[0].wallets) {
       return [];
     } else {
@@ -298,6 +296,32 @@ const setPortfolioValueInDB = async (email) => {
     console.log(e);
   }
 };
+
+// GET PORTFOLIO VALUE RECORDS FROM DATABASE
+const getPortfolioValueRecordsFromDB = async (email) => {
+  const collection = client.db("arwis").collection("users");
+  try {
+    const user = await collection.find({ email: email }).toArray();
+    if (!user[0].portfolioValueRecord) {
+      return [];
+    } else {
+      return user[0].portfolioValueRecord;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+// GET PORTFOLIO VALUE RECORDS FROM DATABASE ROUTE
+app.post("/api/portfolio-chart", express.json(), async (req, res) => {
+  const email = req.body.email;
+  try {
+    const portfolioValueRecord = await getPortfolioValueRecordsFromDB(email);
+    res.send({ portfolioValueRecord });
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 // PORTFOLIO VALUE ROUTE
 app.post("/api/portfolio-value", express.json(), async (req, res) => {

@@ -23,22 +23,13 @@
 
 }
 
-.analytics_right_quarter_container {
+.analytics_quarter_container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     width: 48%;
     height: 100%;
-    
-}
-
-.analytics_left_quarter_container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48%;
-    height: 100%;
-    
+  
 }
 
 

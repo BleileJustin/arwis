@@ -21,7 +21,7 @@ const Analytics = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: "justinxbleile@gmail.com",
+        email: authCtx.email,
       }),
     });
     const data = await response.json();
@@ -37,7 +37,7 @@ const Analytics = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: "justinxbleile@gmail.com",
+        email: authCtx.email,
       }),
     });
     const data = await response.json();
@@ -69,12 +69,12 @@ const Analytics = () => {
           <Portfolio></Portfolio>
         </div>
         <div className={css.analytics_right_half_container}>
-          <div className={css.analytics_left_quarter_container}>
+          <div className={css.analytics_quarter_container}>
             <Distribution
               getPortfolioDistribution={getPortfolioDistribution}
             ></Distribution>
           </div>
-          <div className={css.analytics_right_quarter_container}>
+          <div className={css.analytics_quarter_container}>
             <TradeList></TradeList>
           </div>
         </div>
