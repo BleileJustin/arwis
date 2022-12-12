@@ -290,7 +290,7 @@ const setPortfolioValueInDB = async (email) => {
       console.log("SETTING PORTFOLIO VALUE IN DB");
       await collection.updateOne(
         { email: email },
-        { $set: portfolioValueRecord },
+        { $push: { portfolioValueRecord: portfolioValueRecord } },
         { upsert: true }
       );
     }, 1000 * 60 * 5); // 5 MINUTES
