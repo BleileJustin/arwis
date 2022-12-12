@@ -13,7 +13,7 @@ const crypto = require("crypto");
 const JSEncrypt = require("node-jsencrypt");
 
 const app = express();
-const port = process.env.PORT || 5001;
+const port = 5001;
 // ////////////////////////////////////////////////////
 // CORS CONFIGURATION AND SERVER & DATABASE INITIALIZATION
 
