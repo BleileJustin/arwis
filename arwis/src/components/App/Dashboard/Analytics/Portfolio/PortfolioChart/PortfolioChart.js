@@ -36,10 +36,6 @@ const PortfolioChart = (props) => {
         borderColor: "#71649C",
         timeVisible: true,
         secondsVisible: false,
-      });
-
-      // Adjust the starting bar width (essentially the horizontal zoom)
-      chart.timeScale().applyOptions({
         barSpacing: 10,
       });
 
@@ -50,20 +46,37 @@ const PortfolioChart = (props) => {
       const myPriceFormatter = Intl.NumberFormat(currentLocale, {
         style: "currency",
         currency: "USD", // Currency for data points
+        minimumFractionDigits: 3,
       }).format;
 
-      // Format tick intervals
-      const myTickFormatter = Intl.NumberFormat(currentLocale, {
-        style: "currency",
-        currency: "USD", // Currency for tick intervals
+      // Format time to user's timezone
+      const myTimeFormatter = Intl.DateTimeFormat(currentLocale, {
+        hour: "numeric",
+        minute: "numeric",
+        day: "numeric",
+        hour12: true,
+      }).format;
+
+      const myTickMarkFormatter = Intl.DateTimeFormat(currentLocale, {
+        month: "numeric",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: false,
       }).format;
 
       // Apply the custom priceFormatter to the chart
       chart.applyOptions({
         localization: {
           priceFormatter: myPriceFormatter,
-          tickFormatter: myTickFormatter,
+          timeFormatter: myTimeFormatter,
         },
+        timeScale: {
+          timeVisible: true,
+          secondsVisible: false,
+          tickMarkFormatter: myTickMarkFormatter,
+        },
+
         layout: {
           fontFamily: "'Roboto', sans-serif",
         },
@@ -91,10 +104,8 @@ const PortfolioChart = (props) => {
 
       // Purple Gradient below Candles
       const lineData = data.map((datapoint) => {
-        const stringTime = datapoint.timestamp.toString().slice(0, 10);
-        const parsedTime = parseInt(stringTime);
         return {
-          time: parsedTime,
+          time: datapoint.timestamp,
           value: datapoint.portfolioValue,
         };
       });
@@ -133,7 +144,6 @@ const PortfolioChart = (props) => {
         priceFormat: {
           type: "custom",
           minMove: 0.00000001,
-          formatter: (price) => parseFloat(price).toFixed(8),
         },
       });
       areaSeries.priceScale().applyOptions({

@@ -41,7 +41,20 @@ const Wallets = () => {
     // Onclick of + retrieve bar state
   };
 
-  const deleteBarHandler = (barId) => {
+  const deleteBarHandler = async (barId) => {
+    const curPair = wallets.filter((wallet) => wallet.id === barId)[0].curPair;
+    console.log(curPair);
+    await fetch(`${authCtx.url}/api/delete-wallet/`, {
+      method: "POST",
+      body: JSON.stringify({
+        email: authCtx.email,
+        curPair: curPair,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
     setWallets((prevBars) => {
       const updatedBars = prevBars.filter((bar) => bar.id !== barId);
       return updatedBars;

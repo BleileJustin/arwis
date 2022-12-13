@@ -9,8 +9,6 @@ const PortfolioValue = (props) => {
     setPortfolioValue(portfolioValue.toFixed(2));
   };
 
-
-
   useEffect(() => {
     //startPortfolioValueDBRecord();
     portfolioValueHandler();

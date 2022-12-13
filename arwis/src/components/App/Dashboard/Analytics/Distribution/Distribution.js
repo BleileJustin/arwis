@@ -18,6 +18,14 @@ const Distribution = (props) => {
     return recievedData;
   };
 
+  const generateSteppeColors = (num) => {
+    const starterColor = Math.floor(Math.random() * 360);
+    for (let i = 0; i < num; i++) {
+      colors.push(`hsl(${(i + starterColor) * (200 / num)}, 100%, 50%)`);
+    }
+    return colors;
+  };
+
   const setDistributionData = async () => {
     const recievedData = await portfolioDistributionHandler();
     recievedData.forEach((item) => {
@@ -26,6 +34,7 @@ const Distribution = (props) => {
       //sort percentages in descending order
       percentages.sort((a, b) => b - a);
     });
+    generateSteppeColors(recievedData.length);
 
     setChartData({
       labels: labels,
@@ -33,16 +42,9 @@ const Distribution = (props) => {
         {
           data: percentages,
 
-          backgroundColor: () => {
-            recievedData.forEach((item) => {
-              colors.push(
-                `#${Math.floor(Math.random() * 16777615).toString(16)}`
-              );
-            });
-            return colors;
-          },
+          backgroundColor: colors,
 
-          borderColor: colors,
+          borderColor: "gray",
           borderWidth: 1,
         },
       ],

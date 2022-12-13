@@ -4,10 +4,8 @@ import React, { useLayoutEffect, useRef } from "react";
 const WalletChart = (props) => {
   const parseData = () => {
     const arr = props.data.map((candle) => {
-      const candleTime = candle[0].toString().slice(0, 10);
-      const candleTimeInt = parseInt(candleTime);
       const candleObj = {};
-      candleObj.time = candleTimeInt;
+      candleObj.time = candle[0];
       candleObj.open = candle[1];
       candleObj.high = candle[2];
       candleObj.low = candle[3];
@@ -88,23 +86,32 @@ const WalletChart = (props) => {
         minimumFractionDigits: fractionDigits(),
       }).format;
 
-      // Format tick intervals
-      const myTickFormatter = Intl.NumberFormat(currentLocale, {
-        style: "currency",
-        currency: "USD", // Currency for tick intervals
-        minimumFractionDigits: fractionDigits(),
+      const myTimeFormatter = Intl.DateTimeFormat(currentLocale, {
+        hour: "numeric",
+        minute: "numeric",
+        day: "numeric",
+        hour12: true,
+      }).format;
+
+      const timeTickMarkFormatter = Intl.DateTimeFormat(currentLocale, {
+        month: "numeric",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: false,
       }).format;
 
       // Apply the custom priceFormatter to the chart
       chart.applyOptions({
         localization: {
           priceFormatter: myPriceFormatter,
-          tickFormatter: myTickFormatter,
+          timeFormatter: myTimeFormatter,
         },
-      });
-
-      // Customizing the Crosshair
-      chart.applyOptions({
+        timeScale: {
+          timeVisible: true,
+          secondsVisible: false,
+          tickMarkFormatter: timeTickMarkFormatter,
+        },
         crosshair: {
           // Change mode from default 'magnet' to 'normal'.
           // Allows the crosshair to move freely without snapping to datapoints

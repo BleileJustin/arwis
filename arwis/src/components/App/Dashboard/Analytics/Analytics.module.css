@@ -12,12 +12,12 @@
 .analytics_right_half_container {
     display: flex;
     justify-content: space-between;
-    width: 48%;
+    width: 45%;
     
 }
 
 .analytics_left_half_container {
-    width: 48%;
+    width: 45%;
     height: 100%;
     
 
@@ -73,7 +73,7 @@
   .portfolio_value_heading {
     display: flex;
     align-items: center;
-    margin-left: 2%;
+    margin-left: 5%;
     padding-top: .2em;
     font-family: Aldrich;
     color: aliceblue;

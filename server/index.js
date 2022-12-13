@@ -196,7 +196,21 @@ const setWalletInDB = async (email, wallet) => {
   try {
     const result = await collection.updateOne(
       { email: email },
-      { $set: { wallets: [wallet] } },
+      { $push: { wallets: wallet } },
+      { upsert: true }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const deleteWalletFromDB = async (email, wallet) => {
+  const collection = client.db("arwis").collection("users");
+
+  try {
+    const result = await collection.updateOne(
+      { email: email },
+      { $pull: { wallets: { curPair: wallet } } },
       { upsert: true }
     );
   } catch (e) {
@@ -224,6 +238,22 @@ app.post("/api/set-wallet", express.json(), async (req, res) => {
   const email = req.body.email;
   try {
     await setWalletInDB(email, wallet);
+  } catch (e) {
+    console.log(e);
+  }
+  res.status(200).send();
+});
+
+app.post("/api/delete-wallet", express.json(), async (req, res) => {
+  const curPair = req.body.curPair;
+  const email = req.body.email;
+  const collection = client.db("arwis").collection("users");
+  try {
+    const result = await collection.updateOne(
+      { email: email },
+      { $pull: { wallets: { curPair: curPair } } },
+      { upsert: true }
+    );
   } catch (e) {
     console.log(e);
   }
