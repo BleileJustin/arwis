@@ -110,6 +110,16 @@ const getEncryptedApiKeyFromDBAndDecrypt = async (email, privateKey) => {
   }
 };
 
+// DELETE USER FROM DATABASE
+const deleteUserFromDB = async (email) => {
+  const collection = client.db("arwis").collection("users");
+  try {
+    await collection.deleteOne({ email: email });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 // GENERATE RSA ENCRYPTION KEYPAIR FOR CLIENT AND DATABASE
 const generateKeyPair = () => {
   const keyPair = crypto.generateKeyPairSync("rsa", {
@@ -435,6 +445,17 @@ app.post("/api/binance/candles", express.json(), async (req, res) => {
 
 // ////////////////////////////////////////////////////
 // API KEY ENCRYPTION HANDLING/ AuthForm.js ENDPOINTS
+
+// DELETE USER ROUTE
+app.post("/api/delete-user", express.json(), async (req, res) => {
+  try {
+    const email = req.body.email;
+    deleteUserDataFromDB(email);
+    res.status(200).send();
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 // SEND PUBLIC ENCRYPTION KEY TO CLIENT
 app.post("/api/client-public-key", (req, res) => {
