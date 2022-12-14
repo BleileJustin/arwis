@@ -1,5 +1,5 @@
 import Bar from "./Bar/Bar";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 
 import AuthContext from "../../../../store/auth-context";
 
@@ -8,6 +8,7 @@ import css from "./Wallets.module.css";
 const Wallets = () => {
   const [wallets, setWallets] = useState([]);
   const authCtx = useContext(AuthContext);
+  const scrollRef = useRef();
 
   let content = {};
 
@@ -25,7 +26,7 @@ const Wallets = () => {
     return [...wallets];
   };
 
-  const addBarHandler = () => {
+  const addBarHandler = async () => {
     console.log(wallets);
     if (!wallets.length || wallets[wallets.length - 1].curPair) {
       setWallets((prevBars) => {
@@ -95,14 +96,22 @@ const Wallets = () => {
       getWalletList={getWalletList}
     ></Bar>
   ));
+  content.push(
+    <div
+      key="bottomOfScroll"
+      ref={scrollRef}
+    ></div>
+  );
 
   return (
-    <div className={css.wallets}>
-      <div className={css.scroll_wrapper}>
-        <ul>{content}</ul>
-        <button className={css.add_bar} onClick={addBarHandler} />
+    <>
+      <div className={css.wallets}>
+        <div className={css.scroll_wrapper}>
+          <ul>{content}</ul>
+        </div>
       </div>
-    </div>
+      <button className={css.add_bar} onClick={addBarHandler} />
+    </>
   );
 };
 

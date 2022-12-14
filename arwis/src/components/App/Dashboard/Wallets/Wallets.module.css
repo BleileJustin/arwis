@@ -1,7 +1,7 @@
 .wallets {
     display: flex;
     flex-direction: column;
-    height: 80%;
+    height: 50%;
     margin-top: 1rem;
     overflow-y: scroll;
     }
@@ -16,15 +16,22 @@
     align-self: center;
     color: aliceblue;
     background: url(../../../../assets/icons/plus_icon.png);
-    background-size: 5vh;
-    height: 5vh;
-    width: 5vh;
-    margin-top: 1.2em;
+    background-size: 4vh;
+    height: 4vh;
+    width: 4vh;
+    padding: 1vh;
+
     cursor: pointer;
 }
 
 ::-webkit-scrollbar {
     background: transparent;
-    width: 0px
+    width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-top: solid 50px transparent;
+    background: #252630;
+    border-radius: 10px;
 }
 

@@ -22,6 +22,7 @@ const BarForm = (props) => {
       >
         <option value="select">Pair</option>
         <option value="BTCUSDT">BTC/USDT</option>
+        <option value="LTCUSDT">LTC/USDT</option>
         <option value="ETHUSDT">ETH/USDT</option>
         <option value="VETUSDT">VET/USDT</option>
         <option value="BNBUSDT">BNB/USDT</option>

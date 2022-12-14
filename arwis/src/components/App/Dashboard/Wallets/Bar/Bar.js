@@ -72,38 +72,38 @@ const Bar = (props) => {
 
   //ON CONNECT
   const onConnect = async (curPair) => {
-    if (!props.isFromDB) {
-      await fetch(`${url}/api/set-wallet/`, {
-        method: "POST",
-        body: JSON.stringify({
-          email: authCtx.email,
-          wallet: { curPair: curPair },
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      console.log("SET WALLET");
-    }
-
+    
     setIntervalAndCurPairState({
       candleInterval: "1h",
       curPairState: curPair,
       dropdwonIsEnabled: false,
     });
-
+    
     //Get list of current wallets
     const walletList = props.getWalletList(curPair);
     let isDuplicate = false;
-
+    
     walletList.forEach((wallet) => {
       wallet.curPair === curPair || isDuplicate
-        ? (isDuplicate = true)
-        : (isDuplicate = false);
+      ? (isDuplicate = true)
+      : (isDuplicate = false);
     });
-
+    
     //if curPair exists and does not equal select and isDuplicate returns false
     if ((curPair && curPair !== "select" && !isDuplicate) || props.isFromDB) {
+      if (!props.isFromDB) {
+        await fetch(`${url}/api/set-wallet/`, {
+          method: "POST",
+          body: JSON.stringify({
+            email: authCtx.email,
+            wallet: { curPair: curPair },
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        console.log("SET WALLET");
+      }
       props.setWalletCurPair(curPair);
       const ticker = await fetch(`${url}/api/binance/${curPair}/`, {
         method: "GET",
@@ -195,7 +195,7 @@ const Bar = (props) => {
   return barJSX ? (
     <>
       {barJSX}
-      <Section barIsExpanded={barExpanded}>
+      <Section isWalletSection={true} barIsExpanded={barExpanded}>
         <Graph>
           <div className={css.candle_interval_buttons}>
             <button
