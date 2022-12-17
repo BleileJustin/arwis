@@ -97,7 +97,7 @@ const sendEncryptedApiKeyToDB = async (
 };
 // GET ENCRYPTED USER API KEY AND SECRET FROM DB AND DECRYPT
 const getEncryptedApiKeyFromDBAndDecrypt = async (email, privateKey) => {
-  const collection = client.db("arwis").collection("users");
+  const collection = await client.db("arwis").collection("users");
   try {
     const user = await collection.find({ email: email }).toArray();
     const encryptedApiKey = user[0].apiKey;
@@ -302,7 +302,7 @@ app.post("/api/wallet", express.json(), async (req, res) => {
 
     const price = prices[currency + "/USDT"];
 
-    const walletBalanceToUsd = (walletBalance * price.last).toFixed(4);
+    const walletBalanceToUsd = (walletBalance * price.last).toFixed(2);
 
     res.send({ walletBalance, walletBalanceToUsd });
   } catch (e) {

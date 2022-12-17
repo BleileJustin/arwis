@@ -85,6 +85,7 @@ const Bar = (props) => {
 
     //if curPair exists and does not equal select and isDuplicate returns false
     if ((curPair && curPair !== "select" && !isDuplicate) || props.isFromDB) {
+
       if (!props.isFromDB) {
         await fetch(`${url}/api/set-wallet/`, {
           method: "POST",

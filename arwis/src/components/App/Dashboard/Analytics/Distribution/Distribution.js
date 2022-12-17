@@ -20,9 +20,13 @@ const Distribution = (props) => {
   };
 
   const generateSteppedColors = (num) => {
-    const starterColor = 101;
+    const starterColor = [0, 255, 240];
     for (let i = 0; i < num; i++) {
-      colors.push(`hsl(${(i * 1.2 + starterColor) * (200 / num)}, 100%, 50%)`);
+      const color = `rgb(${starterColor[0]}, ${starterColor[1]}, ${starterColor[2]})`;
+      colors.push(color);
+      starterColor[0] += 25;
+      starterColor[1] -= 50;
+      starterColor[2] += 30;
     }
     return colors;
   };

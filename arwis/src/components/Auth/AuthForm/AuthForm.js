@@ -83,7 +83,7 @@ const Auth = (props) => {
     } else {
       url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_APIKEY}`;
     }
-    authCtx.setEmail(enteredEmail);
+
     const sendCred = await fetch(url, {
       method: "POST",
       body: JSON.stringify({
@@ -98,7 +98,7 @@ const Auth = (props) => {
 
     const data = await sendCred.json();
     if (sendCred.ok) {
-      authCtx.login(data.idToken);
+      authCtx.login(data.idToken, enteredEmail);
       navigate("/", { replace: true });
     } else {
       alert(data.error.message);
