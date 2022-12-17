@@ -12,7 +12,6 @@ const PortfolioChart = (props) => {
   useLayoutEffect(() => {
     if (notInitialRender.current === 1 && propsData) {
       const data = propsData.portfolioValueRecord;
-      console.log(data.portfolioValueRecord);
       const chart = createChart(chartContainerRef.current, {
         layout: {
           background: { color: "#222" },

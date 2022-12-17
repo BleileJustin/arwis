@@ -3,6 +3,7 @@ import React, { useCallback, useState } from "react";
 const AuthContext = React.createContext({
   url: "",
   email: "",
+  setEmail: (email) => {},
   token: "",
   isLoggedIn: false,
   login: (token) => {},
@@ -25,8 +26,8 @@ export const AuthContextProvider = (props) => {
   if (tokenData) {
     initalToken = tokenData.token;
   }
-
   const [token, setToken] = useState(initalToken);
+  const [email, setEmail] = useState("");
 
   const userIsLoggedIn = !!token;
 
@@ -40,11 +41,16 @@ export const AuthContextProvider = (props) => {
     localStorage.setItem("token", token);
   };
 
+  const emailHandler = (email) => {
+    setEmail(email);
+  };
+
   const contextValue = {
     // url: "http://localhost:5001",
     url: "https://arwis-server.up.railway.app",
 
-    email: "justinxbleile@gmail.com",
+    email: email,
+    setEmail: emailHandler,
     token: tokenData,
     isLoggedIn: userIsLoggedIn,
     login: loginHandler,

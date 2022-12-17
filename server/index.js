@@ -150,12 +150,13 @@ const dbPrivateKey = process.env.DB_PRIVATE_KEY;
 
 // GET PORTFOLIO VALUE
 const getPortfolioValueFromBinance = async (apiKey, apiSecret) => {
-  const binance = new ccxt.binanceus({
+  const authedBinance = new ccxt.binanceus({
     apiKey: apiKey,
     secret: apiSecret,
   });
+  authedBinance.setSandboxMode(true);
   try {
-    const balances = await binance.fetchBalance();
+    const balances = await authedBinance.fetchBalance();
     const prices = await publicBinance.fetchTickers();
     const balancesArray = balances.info.balances;
 
@@ -168,12 +169,13 @@ const getPortfolioValueFromBinance = async (apiKey, apiSecret) => {
 
 // GET PORTFOLIO DISTRIBUTION PERCENTAGE FOR EACH ASSET
 const getPortfolioDistributionFromBinance = async (apiKey, apiSecret) => {
-  const binance = new ccxt.binanceus({
+  const authedBinance = new ccxt.binanceus({
     apiKey: apiKey,
     secret: apiSecret,
   });
+  authedBinance.setSandboxMode(true);
   try {
-    const balances = await binance.fetchBalance();
+    const balances = await authedBinance.fetchBalance();
     const prices = await publicBinance.fetchTickers();
     const balancesArray = balances.info.balances;
 
@@ -291,6 +293,7 @@ app.post("/api/wallet", express.json(), async (req, res) => {
       apiKey: api.apiKey,
       secret: api.apiSecret,
     });
+    authedBinance.setSandboxMode(true);
     const currency = req.body.currency;
     const allBalance = await authedBinance.fetchBalance();
 

@@ -6,15 +6,12 @@ import "./index.css";
 import App from "./App";
 import { HashRouter } from "react-router-dom";
 import { AuthContextProvider } from "./store/auth-context";
-import { BotContextProvider } from "./store/bot-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <HashRouter>
-    <AuthContextProvider>
-      <BotContextProvider>
-        <App />
-      </BotContextProvider>
-    </AuthContextProvider>
-  </HashRouter>
+  <AuthContextProvider>
+    <HashRouter>
+      <App />
+    </HashRouter>
+  </AuthContextProvider>
 );

@@ -76,8 +76,6 @@ const Profile = () => {
       localStorage.removeItem("token");
       window.location.reload();
 
-      console.log("Account deleted");
-
       navigate("/", { replace: true });
       return;
     }

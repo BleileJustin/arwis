@@ -21,10 +21,14 @@ const BarForm = (props) => {
         disabled={!props.dropdownIsEnabled}
       >
         <option value="select">Pair</option>
-        <option value="BTCUSDT">BTC/USDT</option>
         <option value="LTCUSDT">LTC/USDT</option>
-        <option value="ETHUSDT">ETH/USDT</option>
         <option value="VETUSDT">VET/USDT</option>
+        <option value="VTHOUSDT">VTHO/USDT</option>
+        <option value="SOLUSDT">SOL/USDT</option>
+        <option value="LINKUSDT">LINK/USDT</option>
+        <option value="ETCUSDT">ETC/USDT</option>
+        <option value="BTCUSDT">BTC/USDT</option>
+        <option value="ETHUSDT">ETH/USDT</option>
         <option value="BNBUSDT">BNB/USDT</option>
         <option value="ADAUSDT">ADA/USDT</option>
         <option value="DOGEUSDT">DOGE/USDT</option>

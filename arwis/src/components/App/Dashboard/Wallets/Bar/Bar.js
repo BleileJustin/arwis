@@ -27,10 +27,6 @@ const Bar = (props) => {
 
   const id = props.id;
 
-  console.log("PROPS");
-  console.log(props);
-  console.log("PROPS END");
-
   //DELETE BAR
   const deleteBar = () => {
     props.onDeleteBar(id);
@@ -63,7 +59,6 @@ const Bar = (props) => {
         "Content-Type": "application/json",
       },
     });
-    console.log("CANDLES");
     const candlesJSON = await candles.json();
     setCandles(candlesJSON.candles);
   };
@@ -72,23 +67,22 @@ const Bar = (props) => {
 
   //ON CONNECT
   const onConnect = async (curPair) => {
-    
     setIntervalAndCurPairState({
       candleInterval: "1h",
       curPairState: curPair,
       dropdwonIsEnabled: false,
     });
-    
+
     //Get list of current wallets
     const walletList = props.getWalletList(curPair);
     let isDuplicate = false;
-    
+
     walletList.forEach((wallet) => {
       wallet.curPair === curPair || isDuplicate
-      ? (isDuplicate = true)
-      : (isDuplicate = false);
+        ? (isDuplicate = true)
+        : (isDuplicate = false);
     });
-    
+
     //if curPair exists and does not equal select and isDuplicate returns false
     if ((curPair && curPair !== "select" && !isDuplicate) || props.isFromDB) {
       if (!props.isFromDB) {
@@ -102,7 +96,6 @@ const Bar = (props) => {
             "Content-Type": "application/json",
           },
         });
-        console.log("SET WALLET");
       }
       props.setWalletCurPair(curPair);
       const ticker = await fetch(`${url}/api/binance/${curPair}/`, {
@@ -111,7 +104,7 @@ const Bar = (props) => {
           "Content-Type": "application/json",
         },
       });
-      console.log("TICKER");
+
       const tickerData = await getTickerData(ticker);
       const lastPrice = tickerData.lastPrice;
       const lastPercent = tickerData.lastPercent;
@@ -135,7 +128,6 @@ const Bar = (props) => {
       const walletBalance = await getWalletBalance(walletData);
       const balance = walletBalance.balance;
       const balanceToUsd = walletBalance.balanceToUsd;
-      console.log("BALANCE");
 
       setBarJSX(
         <BarContainer isWalletBar={true}>
@@ -190,7 +182,6 @@ const Bar = (props) => {
       return;
     }
   }, []);
-  console.log("RENDER");
 
   return barJSX ? (
     <>

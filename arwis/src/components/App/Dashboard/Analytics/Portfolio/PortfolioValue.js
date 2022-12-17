@@ -18,8 +18,6 @@ const PortfolioValue = (props) => {
     return () => clearInterval(interval);
   });
 
-  console.log("PortfolioValue-12: ", portfolioValue);
-
   return (
     <h2
       className={props.portfolioValueHeadingClass}

@@ -8,7 +8,9 @@ const HomePage = () => {
   return (
     <div className={css.home}>
       <Background />
-      <Navigation />
+      <div className={css.nav_container}>
+        <Navigation />
+      </div>
       <Dashboard />
     </div>
   );

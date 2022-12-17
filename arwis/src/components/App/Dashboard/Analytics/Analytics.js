@@ -12,9 +12,7 @@ import AuthContext from "../../../../store/auth-context";
 
 const Analytics = () => {
   const authCtx = useContext(AuthContext);
-  console.log("ANALYTICS");
   const getPortfolioValue = async () => {
-    console.log("GET PORTFOLIO VALUE");
     const response = await fetch(`${authCtx.url}/api/portfolio-value/`, {
       method: "POST",
       headers: {
@@ -25,12 +23,11 @@ const Analytics = () => {
       }),
     });
     const data = await response.json();
-    console.log(data);
+
     return data.portfolioValue;
   };
 
   const getPortfolioDistribution = async () => {
-    console.log("GET PORTFOLIO DISTRIBUTION");
     const response = await fetch(`${authCtx.url}/api/portfolio-distribution/`, {
       method: "POST",
       headers: {
@@ -41,12 +38,12 @@ const Analytics = () => {
       }),
     });
     const data = await response.json();
-    console.log(data);
+
     return data.portfolioDistribution;
   };
 
   return (
-    <>
+    <div className={css.analytics}>
       <BarContainer>
         <div className={css.analytics_bar_left_half_container}>
           <PortfolioValue
@@ -79,7 +76,7 @@ const Analytics = () => {
           </div>
         </div>
       </Section>
-    </>
+    </div>
   );
 };
 

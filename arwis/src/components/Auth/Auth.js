@@ -20,6 +20,39 @@ const Auth = () => {
           </h4>
         </div>
         <AuthForm></AuthForm>
+        <div>
+          <h4 className={css.sub_heading} style={{ marginTop: "2%" }}>
+            Built with <br />
+            <a style={{ color: "#61DBFB" }} href="https://reactjs.org">
+              ReactJS
+            </a>
+            ,{" "}
+            <a style={{ color: "#3c873a" }} href="https://nodejs.org/">
+              NodeJS
+            </a>
+            ,{" "}
+            <a style={{ color: "black" }} href="https://expressjs.com/">
+              Express
+            </a>
+            ,{" "}
+            <a style={{ color: "#4db33d" }} href="https://mongodb.com/">
+              MongoDB
+            </a>
+            ,{" "}
+            <a style={{ color: "#da4dff" }} href="https://railway.app/">
+              Railway
+            </a>
+            <br />
+            <br />
+            View source code on <br />
+            <a
+              style={{ color: "black" }}
+              href="https://github.com/bleilejustin/arwis"
+            >
+              Github
+            </a>
+          </h4>
+        </div>
       </div>
     </div>
   );

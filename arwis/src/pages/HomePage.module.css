@@ -1,7 +1,12 @@
-.home{
+.home {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     height: 100vh;
     width: 100%;
+}
+.nav_container {
+  display: flex;
+  height: 97vh;
+  padding-left: 18px;
 }

@@ -12,12 +12,11 @@ const Navigation = () => {
     <div className={css.navigation}>
       <img src={logo} alt="logo" className={css.logo}></img>
       <div className={css.nav_button_container}>
-        <button className={css.nav_button} onClick={() => navigate("/")}>
-          Home
-        </button>
-        <button className={css.nav_button} onClick={() => navigate("/profile")}>
-          Profile
-        </button>
+        <button className={css.home} onClick={() => navigate("/")}></button>
+        <button
+          className={css.setting}
+          onClick={() => navigate("/profile")}
+        ></button>
       </div>
       <button className={css.nav_button} onClick={() => authCtx.logout()}>
         Log Out

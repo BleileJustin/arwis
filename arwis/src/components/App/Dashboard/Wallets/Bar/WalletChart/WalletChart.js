@@ -17,7 +17,6 @@ const WalletChart = (props) => {
   };
 
   const data = parseData();
-  console.log(data);
 
   const notInitialRender = useRef(0);
   const chartContainerRef = useRef();

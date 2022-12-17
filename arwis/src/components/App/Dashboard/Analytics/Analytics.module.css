@@ -1,12 +1,6 @@
+
 .analytics {
-    display: flex;
-    justify-content: space-evenly;
-    border-radius: 10px;
-    height: 50vh;
-    width: 100%;
-    background-color: #1d1e2480;
-    box-shadow: 4px 4px 4px hsla(0, 0%, 0%, 0.25);
-    box-shadow:-4px -4px 4px hsl(240, 25%, 34%);
+  margin-right: 4px;
 }
 
 .analytics_right_half_container {
@@ -38,7 +32,6 @@
     justify-content: space-between;
     width: 48%;
     height: 100%;
-    
 }
 
 .analytics_bar_left_half_container {
@@ -55,8 +48,6 @@
     height: 100%;
     align-items: center;
     justify-content: center;
-    
-
   }
 
   .analytics_bar_quarter_container_right {
@@ -66,8 +57,6 @@
     height: 100%;
     align-items: center;
     justify-content: center;
-    
-
   }
 
   .portfolio_value_heading {

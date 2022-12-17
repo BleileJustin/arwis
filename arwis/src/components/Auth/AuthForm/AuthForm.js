@@ -30,7 +30,6 @@ const Auth = (props) => {
     });
     const publicKeyData = await getPublicKey.json();
     const publicKey = publicKeyData.publicKey;
-    console.log(publicKey);
 
     const encryptedApiKey = encryptKey(enteredApiKey, publicKey);
     const encryptedApiSecret = encryptKey(enteredApiSecret, publicKey);
@@ -51,11 +50,10 @@ const Auth = (props) => {
       console.log(err);
     });
 
-    const promiseStatus = await sendEncryptedApiKey.text();
-    console.log(`Encrypt key: ${promiseStatus}`);
+    await sendEncryptedApiKey.text();
   };
   const startPortfolioValueDBRecord = async (email) => {
-    const response = await fetch(`${authCtx.url}/api/set-portfolio-value`, {
+    await fetch(`${authCtx.url}/api/set-portfolio-value`, {
       method: "POST",
       body: JSON.stringify({
         email: email,
@@ -66,8 +64,6 @@ const Auth = (props) => {
     }).catch((err) => {
       console.log(err);
     });
-    const data = await response;
-    console.log(data);
   };
 
   //const authFormValidation = () => {};
@@ -87,6 +83,7 @@ const Auth = (props) => {
     } else {
       url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_APIKEY}`;
     }
+    authCtx.setEmail(enteredEmail);
     const sendCred = await fetch(url, {
       method: "POST",
       body: JSON.stringify({
@@ -155,6 +152,10 @@ const Auth = (props) => {
       <h1 className={css.title}>Log In</h1>
       <hr className={css.break_line}></hr>
       <form className={css.auth_form} onSubmit={submitForm}>
+        <div
+          className={css.text_input_field}
+          style={{ background: "transparent" }}
+        ></div>
         <input
           placeholder="Demo Email: arwisdemo@gmail.com"
           className={css.text_input_field}
@@ -168,7 +169,10 @@ const Auth = (props) => {
           type="password"
           ref={passwordInputRef}
         ></input>
-
+        <div
+          className={css.text_input_field}
+          style={{ background: "transparent" }}
+        ></div>
         <button className={css.submit_button} type="submit" value="submit">
           Submit
         </button>

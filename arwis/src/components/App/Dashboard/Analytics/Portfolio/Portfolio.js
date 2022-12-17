@@ -21,7 +21,6 @@ const Portfolio = () => {
     });
     const recievedData = await response.json();
     setData(recievedData);
-    console.log(recievedData);
     return recievedData;
   };
 

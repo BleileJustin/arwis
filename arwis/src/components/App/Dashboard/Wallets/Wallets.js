@@ -27,15 +27,13 @@ const Wallets = () => {
   };
 
   const addBarHandler = async () => {
-    console.log(wallets);
     if (!wallets.length || wallets[wallets.length - 1].curPair) {
       setWallets((prevBars) => {
         const prev = [...prevBars];
-        prev.push({ id: Math.random(), curPair: null });
+        prev.unshift({ id: Math.random(), curPair: null });
         return [...prev];
       });
     } else {
-      console.log(wallets);
       alert("Please connect prevbar");
     }
     //Validation: "Please Connect before creating a new WalletBar"
@@ -44,7 +42,6 @@ const Wallets = () => {
 
   const deleteBarHandler = async (barId) => {
     const curPair = wallets.filter((wallet) => wallet.id === barId)[0].curPair;
-    console.log(curPair);
     await fetch(`${authCtx.url}/api/delete-wallet/`, {
       method: "POST",
       body: JSON.stringify({
@@ -96,12 +93,7 @@ const Wallets = () => {
       getWalletList={getWalletList}
     ></Bar>
   ));
-  content.push(
-    <div
-      key="bottomOfScroll"
-      ref={scrollRef}
-    ></div>
-  );
+  content.push(<div key="bottomOfScroll" ref={scrollRef}></div>);
 
   return (
     <>
