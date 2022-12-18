@@ -6,7 +6,23 @@ const PortfolioValue = (props) => {
 
   const portfolioValueHandler = async () => {
     const portfolioValue = await props.getPortfolioValue();
-    setPortfolioValue(portfolioValue.toFixed(2));
+    //Add commas to portfolio value
+    const portfolioValueFixed = portfolioValue.toFixed(2);
+    const portfolioValueString = portfolioValueFixed.toString();
+    const portfolioValueArray = portfolioValueString.split("");
+    const portfolioValueArrayLength = portfolioValueArray.length;
+    let portfolioValueArrayIndex = portfolioValueArrayLength - 4;
+    let portfolioValueArrayIndexCounter = 0;
+    while (portfolioValueArrayIndex > 0) {
+      portfolioValueArrayIndexCounter++;
+      if (portfolioValueArrayIndexCounter === 3) {
+        portfolioValueArray.splice(portfolioValueArrayIndex, 0, ",");
+        portfolioValueArrayIndexCounter = 0;
+      }
+      portfolioValueArrayIndex--;
+    }
+    const portfolioValueWithCommas = portfolioValueArray.join("");
+    setPortfolioValue(portfolioValueWithCommas);
   };
 
   useEffect(() => {

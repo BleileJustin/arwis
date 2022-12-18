@@ -1,4 +1,9 @@
 import React, { useCallback, useState } from "react";
+// //////////////////////////////////////////
+
+const url = "http://localhost:5001";
+// const url = "https://arwis-server.up.railway.app"
+
 
 const AuthContext = React.createContext({
   url: "",
@@ -47,9 +52,7 @@ export const AuthContextProvider = (props) => {
   };
 
   const contextValue = {
-    // url: "http://localhost:5001",
-    url: "https://arwis-server.up.railway.app",
-
+    url: url,
     email: tokenData.email,
     token: tokenData.token,
     isLoggedIn: userIsLoggedIn,
