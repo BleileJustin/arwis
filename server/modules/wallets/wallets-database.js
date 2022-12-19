@@ -3,9 +3,9 @@
 const setWalletInDB = async (email, wallet, client) => {
   const collection = client.db("arwis").collection("users");
   try {
-    const result = await collection.updateOne(
+    await collection.updateOne(
       { email: email },
-      { $push: { wallets: wallet } },
+      { $push: { wallets: { $each: [wallet], $position: 0 } } },
       { upsert: true }
     );
   } catch (e) {
@@ -24,7 +24,6 @@ const deleteWalletFromDB = async (email, curPair, client) => {
   } catch (e) {
     console.log(e);
   }
-  res.status(200).send();
 };
 
 // GET WALLET FROM DATABASE

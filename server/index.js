@@ -1,8 +1,8 @@
 // API
 // //////////////////////////////////////////
 
-const origin = "https://arwis.up.railway.app";
-// const origin = "http://localhost:3000";
+// const origin = "https://arwis.up.railway.app";
+const origin = "http://localhost:3000";
 
 // Server and Database Packages
 require("dotenv").config();
@@ -83,6 +83,7 @@ app.post("/api/delete-wallet", express.json(), async (req, res) => {
     req.body.curPair,
     client
   );
+  res.status(200).send();
 });
 
 app.post("/api/get-wallets", express.json(), async (req, res) => {
@@ -116,6 +117,9 @@ app.post("/api/wallet", express.json(), async (req, res) => {
     const price = prices[currency + "/USDT"];
 
     const allBalance = await authedBinance.fetchBalance();
+    if (!allBalance[currency]) {
+      return res.send({ walletBalance: 0, walletBalanceToUsd: 0 });
+    }
     const walletBalance = allBalance.total[currency];
     const walletBalanceToUsd = (walletBalance * price.last).toFixed(2);
 
@@ -252,6 +256,18 @@ app.post("/api/encrypt-api-key", express.json(), async (req, res) => {
     encryptedApiSecret,
     clientPrivateKey
   );
+  const authedBinance = new ccxt.binanceus({
+    apiKey: clientApiKey,
+    secret: clientApiSecret,
+  });
+  authedBinance.setSandboxMode(true);
+  try {
+    await authedBinance.fetchBalance();
+  } catch (e) {
+    console.log(e);
+    return res.send("error");
+  }
+
   // ENCRYPT API KEY AND SECRET AND SEND TO DATABASE
   try {
     await databaseApikeyManager.sendEncryptedApiKeyToDB(

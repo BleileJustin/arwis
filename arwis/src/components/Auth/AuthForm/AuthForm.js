@@ -50,7 +50,10 @@ const Auth = (props) => {
       console.log(err);
     });
 
-    await sendEncryptedApiKey.text();
+    const result = await sendEncryptedApiKey.text();
+    console.log(result);
+    console.log(sendEncryptedApiKey);
+    return result;
   };
   const startPortfolioValueDBRecord = async (email) => {
     await fetch(`${authCtx.url}/api/set-portfolio-value`, {
@@ -77,7 +80,12 @@ const Auth = (props) => {
 
     //AUTHENTICATION FOR SIGNUP AND LOGIN
     if (isSignup) {
-      await apiKeyHandler(enteredEmail);
+      const validApiKey = await apiKeyHandler(enteredEmail);
+      console.log(validApiKey);
+      if (validApiKey === "error") {
+        alert("Invalid API Key or API Secret");
+        return;
+      }
       await startPortfolioValueDBRecord(enteredEmail);
       url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_APIKEY}`;
     } else {

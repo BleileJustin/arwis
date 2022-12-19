@@ -1,4 +1,8 @@
 // GET PORTFOLIO VALUE RECORDS FROM DATABASE
+
+const databaseApikeyManager = require("../../modules/database_manager/database-apikey-manager.js");
+const portfolio = require("../../modules/portfolio/portfolio-analytics.js");
+
 const getPortfolioValueRecordsFromDB = async (email, client) => {
   const collection = client.db("arwis").collection("users");
   try {
@@ -16,7 +20,10 @@ const getPortfolioValueRecordsFromDB = async (email, client) => {
 // SET PORTFOLIO VALUE IN DATABASE
 const setPortfolioValueInDB = async (email, client) => {
   try {
-    const api = await getEncryptedApiKeyFromDBAndDecrypt(email, dbPrivateKey);
+    const api = await databaseApikeyManager.getEncryptedApiKeyFromDBAndDecrypt(
+      email,
+      dbPrivateKey
+    );
     const collection = client.db("arwis").collection("users");
 
     setInterval(async () => {

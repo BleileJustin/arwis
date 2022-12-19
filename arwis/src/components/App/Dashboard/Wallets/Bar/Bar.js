@@ -43,6 +43,7 @@ const Bar = (props) => {
   //GET WALLET DATA
   const getWalletBalance = async (walletData) => {
     const walletDataJSON = await walletData.json();
+    console.log(walletDataJSON);
     const balance = walletDataJSON.walletBalance;
     const balanceToUsd = walletDataJSON.walletBalanceToUsd;
     return { balance: balance, balanceToUsd: balanceToUsd };
@@ -85,7 +86,6 @@ const Bar = (props) => {
 
     //if curPair exists and does not equal select and isDuplicate returns false
     if ((curPair && curPair !== "select" && !isDuplicate) || props.isFromDB) {
-
       if (!props.isFromDB) {
         await fetch(`${url}/api/set-wallet/`, {
           method: "POST",
