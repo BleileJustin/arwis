@@ -22,7 +22,8 @@ const setPortfolioValueInDB = async (email, client, dbPrivateKey) => {
   try {
     const api = await databaseApikeyManager.getEncryptedApiKeyFromDBAndDecrypt(
       email,
-      dbPrivateKey
+      dbPrivateKey,
+      client
     );
     const collection = client.db("arwis").collection("users");
 
