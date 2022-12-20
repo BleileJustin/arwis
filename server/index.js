@@ -168,7 +168,11 @@ app.post("/api/portfolio-value", express.json(), async (req, res) => {
 app.post("/api/set-portfolio-value", express.json(), async (req, res) => {
   try {
     const email = req.body.email;
-    await databasePortfolioManager.setPortfolioValueInDB(email, client);
+    await databasePortfolioManager.setPortfolioValueInDB(
+      email,
+      client,
+      dbPrivateKey
+    );
     res.status(200).send();
   } catch (e) {
     console.log(e);
