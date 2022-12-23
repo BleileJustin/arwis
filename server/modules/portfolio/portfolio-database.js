@@ -19,6 +19,7 @@ const getPortfolioValueRecordsFromDB = async (email, client) => {
 
 // SET PORTFOLIO VALUE IN DATABASE
 const setPortfolioValueInDB = async (email, client, dbPrivateKey) => {
+
   try {
     const api = await databaseApikeyManager.getEncryptedApiKeyFromDBAndDecrypt(
       email,

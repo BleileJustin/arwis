@@ -4,7 +4,6 @@ import Algorithm from "./Algorithm/Algorithm";
 import { useState } from "react";
 
 const Algorithms = (props) => {
-
   const [algoList, setAlgoList] = useState([]);
   //LIFT STATE^ UP TO PERSIST IT
 
@@ -54,6 +53,7 @@ const Algorithms = (props) => {
           onDeleteAlgo={deleteAlgoHandler}
           setAlgo={setAlgo}
           getAlgoList={sendAlgoListToChild}
+          curPair={props.curPair}
         ></Algorithm>
       )))
     : console.log("err");

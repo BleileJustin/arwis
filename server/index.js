@@ -22,7 +22,10 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
+// //////////////////////////////////////////
+// FUNCTIONS TESTER
 
+// //////////////////////////////////////////
 // MONGODB DATABASE INITIALIZATION
 
 const mongoUri = process.env.MONGO_URL;
@@ -59,7 +62,33 @@ const clientPrivateKey = clientKeyPair.privateKey;
 
 const dbPublicKey = process.env.DB_PUBLIC_KEY;
 const dbPrivateKey = process.env.DB_PRIVATE_KEY;
+// //////////////////////////////////////////
+// ALGORITHM ENDPOINTS
+const {
+  startBollingerBands,
+} = require("./modules/algorithms/bollingerbands/start-bollinger-bands.js");
 
+app.post("/api/algo/start/BBands/", express.json(), async (req, res) => {
+  const email = req.body.email;
+  const curPair = req.body.curPair;
+  const interval = req.body.variables["Freq:"];
+  const period = parseInt(req.body.variables["Period:"]);
+  const standardDev = parseInt(req.body.variables["StdDev:"]);
+  const amount = req.body.variables["Amount:"];
+  try {
+    const bollingerBands = await startBollingerBands(
+      interval,
+      curPair,
+      period,
+      standardDev
+    );
+    res.send({ bollingerBands });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+// //////////////////////////////////////////
 //IMPORTED MODULES
 const portfolio = require("./modules/portfolio/portfolio-analytics.js");
 const databaseApikeyManager = require("./modules/database_manager/database-apikey-manager.js");

@@ -43,7 +43,6 @@ const Bar = (props) => {
   //GET WALLET DATA
   const getWalletBalance = async (walletData) => {
     const walletDataJSON = await walletData.json();
-    console.log(walletDataJSON);
     const balance = walletDataJSON.walletBalance;
     const balanceToUsd = walletDataJSON.walletBalanceToUsd;
     return { balance: balance, balanceToUsd: balanceToUsd };
@@ -109,7 +108,7 @@ const Bar = (props) => {
       const tickerData = await getTickerData(ticker);
       const lastPrice = tickerData.lastPrice;
       const lastPercent = tickerData.lastPercent;
-      const priceString = lastPrice.toString();
+      const priceString = lastPrice.toFixed(2).toString();
       const percentColor =
         lastPercent.charAt(0) === "-" ? "rgb(225, 50, 85)" : "rgb(5, 255, 0)";
 
@@ -259,7 +258,7 @@ const Bar = (props) => {
           </div>
           <WalletChart data={candles}></WalletChart>
         </Graph>
-        <Algorithms></Algorithms>
+        <Algorithms curPair={props.curPair}></Algorithms>
       </Section>
     </>
   ) : (

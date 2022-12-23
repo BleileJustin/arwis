@@ -50,6 +50,8 @@ const PortfolioChart = (props) => {
 
       // Format time to user's timezone
       const myTimeFormatter = Intl.DateTimeFormat(currentLocale, {
+        year: "2-digit",
+        month: "numeric",
         hour: "numeric",
         minute: "numeric",
         day: "numeric",

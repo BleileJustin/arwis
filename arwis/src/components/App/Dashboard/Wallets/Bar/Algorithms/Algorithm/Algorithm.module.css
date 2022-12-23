@@ -25,31 +25,33 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+
   align-items: center;
   width: 100%;
 }
 
+
+
 select {
     font-family: Aldrich;
-    font-size: .6em;
     background-color: transparent;
     color: aliceblue;
-
 }
 
 .algo_form_item {
     display: flex;
     flex-direction: column;
-    width: 20%;
+    width: 15%;
     height: 100%;
+    align-items: flex-end;
   }
 
 .algo_form_item_active {
     display: flex;
     flex-direction: column;
-    width: 10%;
+    width: 15%;
     height: 100%;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
 }
 
@@ -73,13 +75,14 @@ select {
   display: flex;
   justify-content: flex-start;
   padding-bottom: 5%;
+  text-align: right;
   
 }
 
 .algo_content{
   padding-top: 4%;
   font-size: 1.4em;
-  text-align: center;
+  text-align: end;
 }
 
 
@@ -122,12 +125,24 @@ input:-webkit-autofill:active {
   font-size: 1.9em;
 }
 
-.algo_form_select {
+.algo_form_select, .algo_form_next{
+    box-sizing: border-box;
     height: 20px;
-    width: 98%;
+    width: 90%;
     border: 1px solid aliceblue;
+    background-color: transparent;
+    color: aliceblue;
+    font-size: 1em;
+    padding-left: 5%;
+    align-self: center;
+    letter-spacing: .1em;
 }
 
+.algo_form_next{
+  margin-top: 4px;
+  padding: 0;
+}
+ 
 .text_input_bar {
     padding-top: 2%;
     padding-right: 5%;
@@ -200,6 +215,7 @@ input:-webkit-autofill:active {
     width: 3vh;
     background-size: 3vh;
     cursor: pointer;
+    align-self: flex-start;
     
   }
 

@@ -1,5 +1,4 @@
-import "technicalindicators/dist/browser.es6.js";
-import { BollingerBands } from "technicalindicators";
+const BollingerBands = require("technicalindicators").BollingerBands;
 
 const calculateBollingerBands = (data, period, stdDev) => {
   var input = {
@@ -17,4 +16,6 @@ const getBollingerBands = (data, period, stdDev) => {
   return bollingerbands;
 };
 
-export default getBollingerBands;
+module.exports = {
+  getBollingerBands,
+};

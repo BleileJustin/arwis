@@ -89,6 +89,8 @@ const WalletChart = (props) => {
         hour: "numeric",
         minute: "numeric",
         day: "numeric",
+        month: "numeric",
+        year: "2-digit",
         hour12: true,
       }).format;
 
