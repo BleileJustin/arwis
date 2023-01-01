@@ -7,9 +7,7 @@ const PortfolioValue = (props) => {
   const portfolioValueHandler = async () => {
     const portfolioValue = await props.getPortfolioValue();
     //Add commas to portfolio value
-    const portfolioValueFixed = portfolioValue.toFixed(2);
-    const portfolioValueString = portfolioValueFixed.toString();
-    const portfolioValueArray = portfolioValueString.split("");
+    const portfolioValueArray = portfolioValue.toFixed(2).toString().split("");
     const portfolioValueArrayLength = portfolioValueArray.length;
     let portfolioValueArrayIndex = portfolioValueArrayLength - 4;
     let portfolioValueArrayIndexCounter = 0;

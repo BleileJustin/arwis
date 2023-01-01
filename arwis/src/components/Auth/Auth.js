@@ -21,8 +21,27 @@ const Auth = () => {
         </div>
         <AuthForm></AuthForm>
         <div>
-          <h4 className={css.sub_heading} style={{ marginTop: "2%" }}>
-            Built with <br />
+          <h4
+            className={css.sub_heading}
+            style={{ marginTop: "2%", fontSize: "1em" }}
+          >
+            Currently only supports Binance Testnet API Keys from:
+            <br />
+            <a
+              style={{ color: "#F3BA2F" }}
+              href="https://testnet.binance.vision/"
+            >
+              Login with github and generate API Keys
+            </a>
+            <br />
+            <br />
+            <a
+              style={{ color: "black" }}
+              href="https://github.com/bleilejustin/arwis"
+            >
+              Source code
+            </a>{" "}
+            built with <br />
             <a style={{ color: "#61DBFB" }} href="https://reactjs.org">
               ReactJS
             </a>
@@ -43,14 +62,6 @@ const Auth = () => {
               Railway
             </a>
             <br />
-            <br />
-            View source code on <br />
-            <a
-              style={{ color: "black" }}
-              href="https://github.com/bleilejustin/arwis"
-            >
-              Github
-            </a>
           </h4>
         </div>
       </div>

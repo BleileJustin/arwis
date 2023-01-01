@@ -97,7 +97,7 @@ const AlgorithmForm = (props) => {
             </div>
             <div className={css.algo_form_item}>
               <h4 className={css.algo_title}>Freq:</h4>
-              <select className={css.algo_form_select}>
+              <select className={css.algo_form_select} defaultValue="1m">
                 <option value="1m">1m</option>
                 <option value="5m">5m</option>
                 <option value="15m">15m</option>
@@ -123,20 +123,20 @@ const AlgorithmForm = (props) => {
               <h4 className={css.algo_title}>StdDev:</h4>
               <input
                 className={css.algo_form_select}
-                type="number"
-                min="1"
+                type="float"
+                min="0"
                 max="100"
-                defaultValue="2"
+                defaultValue="1.6"
               />
             </div>
             <div className={css.algo_form_item}>
-              <h4 className={css.algo_title}>Amt:</h4>
+              <h4 className={css.algo_title}>% Amt:</h4>
               <input
                 className={css.algo_form_select}
                 type="number"
                 min="1"
                 max="100"
-                defaultValue="1"
+                defaultValue="10"
               />
             </div>
             <div className={css.algo_form_item}></div>

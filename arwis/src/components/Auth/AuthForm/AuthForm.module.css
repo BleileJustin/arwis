@@ -26,9 +26,7 @@
     font-size: large;
     text-align: center;
     color: aliceblue;
-    
     background-color: #4C4F5F48;
-    
     height: 26px;
     width: 100%;
     margin: 5px;
@@ -38,7 +36,7 @@
 .submit_button {
     border: .5px solid aliceblue;
     padding-top: 1%;
-    margin-top: 8%;;
+    margin-top: 6%;;
     font-family: Aldrich;
     background-color: transparent;
     color: aliceblue;

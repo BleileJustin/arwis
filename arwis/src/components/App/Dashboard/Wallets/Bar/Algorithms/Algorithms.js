@@ -54,6 +54,7 @@ const Algorithms = (props) => {
           setAlgo={setAlgo}
           getAlgoList={sendAlgoListToChild}
           curPair={props.curPair}
+          sendAlgoData={props.sendAlgoData}
         ></Algorithm>
       )))
     : console.log("err");

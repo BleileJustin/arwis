@@ -2,24 +2,40 @@ import { createChart, LineStyle, CrosshairMode } from "lightweight-charts";
 import React, { useLayoutEffect, useRef } from "react";
 
 const WalletChart = (props) => {
-  const parseData = () => {
-    const arr = props.data.map((candle) => {
-      const candleObj = {};
-      candleObj.time = candle[0];
-      candleObj.open = candle[1];
-      candleObj.high = candle[2];
-      candleObj.low = candle[3];
-      candleObj.close = candle[4];
-      candleObj.volume = candle[5];
-      return candleObj;
-    });
-    return arr;
-  };
-
-  const data = parseData();
+  const data = props.data.map((candle) => {
+    const candleObj = {};
+    candleObj.time = candle[0];
+    candleObj.open = candle[1];
+    candleObj.high = candle[2];
+    candleObj.low = candle[3];
+    candleObj.close = candle[4];
+    candleObj.volume = candle[5];
+    return candleObj;
+  });
 
   const notInitialRender = useRef(0);
   const chartContainerRef = useRef();
+  console.log("WALLETCHART");
+  console.log(props.algoData);
+  console.log("WALLETCHART");
+
+  const upperBands = [];
+  const middleBands = [];
+  const lowerBands = [];
+  const timeStamps = [];
+
+  const parseBollingerBands = () => {
+    props.algoData.bollingerBands.forEach((band) => {
+      upperBands.push(band.upper);
+      middleBands.push(band.middle);
+      lowerBands.push(band.lower);
+      timeStamps.push(band.timeStamp);
+    });
+  };
+
+  if (props.algoData) {
+    parseBollingerBands();
+  }
 
   useLayoutEffect(() => {
     if (notInitialRender.current === 1) {
@@ -46,20 +62,9 @@ const WalletChart = (props) => {
         borderColor: "#71649C",
         timeVisible: true,
         secondsVisible: false,
-      });
-
-      // Adjust the starting bar width (essentially the horizontal zoom)
-      chart.timeScale().applyOptions({
         barSpacing: 10,
       });
       //
-
-      // Changing the font
-      chart.applyOptions({
-        layout: {
-          fontFamily: "'Roboto', sans-serif",
-        },
-      });
 
       // Get the current users primary locale
       const currentLocale = window.navigator.languages[0];
@@ -104,6 +109,9 @@ const WalletChart = (props) => {
 
       // Apply the custom priceFormatter to the chart
       chart.applyOptions({
+        layout: {
+          fontFamily: "'Roboto', sans-serif",
+        },
         localization: {
           priceFormatter: myPriceFormatter,
           timeFormatter: myTimeFormatter,
@@ -133,6 +141,56 @@ const WalletChart = (props) => {
           },
         },
       });
+
+      // Create the Bollinger Bands Series
+      const upperBandsSeries = chart.addLineSeries({
+        color: "aliceblue",
+        lineWidth: 1,
+        lineStyle: LineStyle.Solid,
+        priceLineVisible: false,
+        lastValueVisible: false,
+        crosshairMarkerVisible: false,
+        position: "overlay",
+      });
+      const middleBandsSeries = chart.addLineSeries({
+        color: "aliceblue",
+        lineWidth: 1,
+        lineStyle: LineStyle.Solid,
+        priceLineVisible: false,
+        lastValueVisible: false,
+        crosshairMarkerVisible: false,
+        position: "overlay",
+      });
+      const lowerBandsSeries = chart.addLineSeries({
+        color: "aliceblue",
+        lineWidth: 1,
+        lineStyle: LineStyle.Solid,
+        priceLineVisible: false,
+        lastValueVisible: false,
+        crosshairMarkerVisible: false,
+        position: "overlay",
+      });
+
+      upperBandsSeries.setData(
+        upperBands.map((band, index) => ({
+          time: timeStamps[index],
+          value: band,
+        }))
+      );
+      middleBandsSeries.setData(
+        middleBands.map((band, index) => ({
+          time: timeStamps[index],
+          value: band,
+        }))
+      );
+      lowerBandsSeries.setData(
+        lowerBands.map((band, index) => ({
+          time: timeStamps[index],
+          value: band,
+        }))
+      );
+
+      // Create the Bollinger Bands Series
 
       // Purple Gradient below Candles
       const lineData = data.map((datapoint) => ({

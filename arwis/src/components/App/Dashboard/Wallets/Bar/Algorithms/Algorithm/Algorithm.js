@@ -46,7 +46,9 @@ const Algorithm = (props) => {
         }
       );
       const data = await response.json();
+      props.sendAlgoData(data);
       console.log(data);
+      
     } catch (error) {
       console.log(error);
     }
