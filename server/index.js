@@ -1,8 +1,8 @@
 // API
 // //////////////////////////////////////////
 
-const origin = "https://arwis.up.railway.app";
-// const origin = "http://localhost:3000";
+// const origin = "https://arwis.up.railway.app";
+const origin = "http://localhost:3000";
 
 // Server and Database Packages
 require("dotenv").config();
@@ -74,13 +74,23 @@ app.post("/api/algo/start/BBands/", express.json(), async (req, res) => {
   const interval = req.body.variables["Freq:"];
   const period = parseInt(req.body.variables["Period:"]);
   const standardDev = parseInt(req.body.variables["StdDev:"]);
-  const amount = req.body.variables["Amount:"];
+  const amount = req.body.variables["% Amt:"];
+
+  const api = await databaseApikeyManager.getEncryptedApiKeyFromDBAndDecrypt(
+    req.body.email,
+    dbPrivateKey,
+    client
+  );
   try {
     const bollingerBands = await startBollingerBands(
       interval,
       curPair,
       period,
-      standardDev
+      standardDev,
+      api.apiKey,
+      api.apiSecret,
+      amount,
+      email
     );
     res.send({ bollingerBands });
   } catch (e) {

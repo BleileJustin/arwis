@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from "react";
 // //////////////////////////////////////////
 
-const url = "https://arwis-server.up.railway.app";
-// const url = "http://localhost:5001";
+// const url = "https://arwis-server.up.railway.app";
+const url = "http://localhost:5001";
 
 const AuthContext = React.createContext({
   url: "",

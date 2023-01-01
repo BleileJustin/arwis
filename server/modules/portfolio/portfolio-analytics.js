@@ -23,12 +23,14 @@ const getPortfolioValueFromBinance = async (apiKey, apiSecret) => {
 const calculatePortfolioValue = (balances, prices) => {
   let portfolioValue = 0;
   for (const balance of balances) {
-    const free = balance.free;
-    const locked = balance.locked;
-    const total = parseFloat(free) + parseFloat(locked);
-    const price = prices[balance.asset + "/USDT"];
-    if (total > 0 && price) {
-      portfolioValue += total * parseFloat(price.last);
+    if (balance.asset === "USDT") {
+      portfolioValue += parseFloat(balance.free) + parseFloat(balance.locked);
+    } else {
+      const total = parseFloat(balance.free) + parseFloat(balance.locked);
+      const price = prices[balance.asset + "/USDT"];
+      if (total > 0 && price) {
+        portfolioValue += total * parseFloat(price.last);
+      }
     }
   }
   return portfolioValue;

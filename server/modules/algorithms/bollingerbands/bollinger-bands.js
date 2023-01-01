@@ -1,19 +1,20 @@
 const BollingerBands = require("technicalindicators").BollingerBands;
 
-const calculateBollingerBands = (data, period, stdDev) => {
-  var input = {
+const getBollingerBands = (data, period, stdDev, timeStamps, isNew) => {
+  const input = {
     period: period,
     values: data,
     stdDev: stdDev,
   };
-  const bollingerbands = BollingerBands.calculate(input);
-  return bollingerbands;
-};
 
-const getBollingerBands = (data, period, stdDev) => {
-  //const candlesClose = data.map((candle) => candle.close);
-  const bollingerbands = calculateBollingerBands(data, period, stdDev);
-  return bollingerbands;
+  const bollingerBands = BollingerBands.calculate(input);
+
+  bollingerBands.forEach((band, index) => {
+    const i = index + period - 1;
+    band.timeStamp = timeStamps[i];
+    band.isNew = isNew;
+  });
+  return bollingerBands;
 };
 
 module.exports = {
