@@ -97,12 +97,12 @@ const startBollingerBands = async (
         true
       );
       const pb = newBollingerBands[newBollingerBands.length - 1].pb;
-      if (pb > 1.5) {
+      if (pb > 1.2) {
         const order = await trade(curPair, "sell", amount, apiKey, apiSecret);
         console.log("Sell signal: Price is above upper band.");
         console.log(order);
         console.log(pb);
-      } else if (pb < 0.8) {
+      } else if (pb < 0.2) {
         const order = await trade(curPair, "buy", amount, apiKey, apiSecret);
         console.log("Buy signal: Price is below lower band.");
         console.log(order);
