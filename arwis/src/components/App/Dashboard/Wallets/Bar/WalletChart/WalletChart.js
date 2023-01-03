@@ -15,10 +15,6 @@ const WalletChart = (props) => {
 
   const notInitialRender = useRef(0);
   const chartContainerRef = useRef();
-  console.log("WALLETCHART");
-  console.log(props.algoData);
-  console.log("WALLETCHART");
-
   const upperBands = [];
   const middleBands = [];
   const lowerBands = [];

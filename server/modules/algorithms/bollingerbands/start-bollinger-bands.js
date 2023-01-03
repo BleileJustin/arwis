@@ -1,15 +1,19 @@
 const { getBollingerBands } = require("./bollinger-bands");
 const { trade } = require("../../trade/trade");
+const { setBBAlgoDB } = require("./bollinger-bands-database");
 const ccxt = require("ccxt");
 //Bollinger Bands needs historical dataset then new datapoint is added every 5 minutes
 const startBollingerBands = async (
+  id,
   interval,
   curPair,
   period,
   standardDev,
   apiKey,
   apiSecret,
-  amount
+  amount,
+  email,
+  client
 ) => {
   const publicBinance = new ccxt.binanceus();
   try {
@@ -59,8 +63,18 @@ const startBollingerBands = async (
       case "1w":
         intervalMs = 1000 * 60 * 60 * 24 * 7;
     }
+    const algoData = {
+      id: id,
+      curPair: curPair,
+      interval: interval,
+      period: period,
+      standardDev: standardDev,
+      amount: amount,
+    };
 
-    setInterval(async () => {
+    await setBBAlgoDB(email, client, algoData);
+
+    const start = async () => {
       const newCandle = await publicBinance.fetchOHLCV(
         curPair,
         interval,
@@ -83,12 +97,12 @@ const startBollingerBands = async (
         true
       );
       const pb = newBollingerBands[newBollingerBands.length - 1].pb;
-      if (pb > 1) {
+      if (pb > 1.5) {
         const order = await trade(curPair, "sell", amount, apiKey, apiSecret);
         console.log("Sell signal: Price is above upper band.");
         console.log(order);
         console.log(pb);
-      } else if (pb < 0) {
+      } else if (pb < 0.8) {
         const order = await trade(curPair, "buy", amount, apiKey, apiSecret);
         console.log("Buy signal: Price is below lower band.");
         console.log(order);
@@ -97,6 +111,10 @@ const startBollingerBands = async (
         console.log("Hold signal: Price is between upper and lower bands.");
         console.log(pb);
       }
+    };
+    start();
+    setInterval(async () => {
+      start();
     }, intervalMs);
 
     return historicalBollingerBands;

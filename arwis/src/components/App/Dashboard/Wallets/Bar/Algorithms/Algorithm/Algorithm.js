@@ -1,4 +1,5 @@
-import { useState, useContext } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useContext, useEffect } from "react";
 import css from "./Algorithm.module.css";
 
 import AuthContext from "../../../../../../../store/auth-context";
@@ -31,52 +32,71 @@ const Algorithm = (props) => {
       Object.assign(serverObj, item);
     });
     try {
-      const response = await fetch(
-        `${authCtx.url}/api/algo/start/${algoFormArr[0].value}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: authCtx.email,
-            curPair: props.curPair,
-            variables: serverObj,
-          }),
-        }
-      );
-      const data = await response.json();
-      props.sendAlgoData(data);
-      console.log(data);
-      
+      await fetch(`${authCtx.url}/api/algo/start/${algoFormArr[0].value}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id,
+          email: authCtx.email,
+          curPair: props.curPair,
+          variables: serverObj,
+        }),
+      });
+
+      // Sends data all the way to the WalletChart component
+      // const data = await response.json();
+      // props.sendAlgoData(data);
     } catch (error) {
       console.log(error);
     }
   };
 
   const onAlgoSubmit = async (formArr) => {
-    if (formArr) {
-      await startAlgo(formArr);
-      setActiveState((prevState) => ({
-        ...prevState,
-        active: true,
-      }));
-      props.setAlgo(formArr[0].value);
-      const remainingBoxes = 6 - formArr.length;
-      formArr.forEach((item) => {
-        algoVariables.push(
-          <div className={css.algo_form_item} key={item.label}>
-            <h4 className={css.algo_title}>{item.label}</h4>
-            <h4 className={css.algo_content}>{item.value}</h4>
-          </div>
-        );
-      });
-      for (let i = 0; i < remainingBoxes; i++) {
-        algoVariables.push(
-          <div className={css.algo_form_item} key={i}>
-            <div className={css.spacer_line}></div>
-          </div>
-        );
+    console.log(formArr);
+    if (props.algo.algoData || formArr) {
+      if (formArr) {
+        await startAlgo(formArr);
+        props.setAlgo(formArr[0].value);
+        const remainingBoxes = 6 - formArr.length;
+        formArr.forEach((item) => {
+          algoVariables.push(
+            <div className={css.algo_form_item} key={item.label}>
+              <h4 className={css.algo_title}>{item.label}</h4>
+              <h4 className={css.algo_content}>{item.value}</h4>
+            </div>
+          );
+        });
+        for (let i = 0; i < remainingBoxes; i++) {
+          algoVariables.push(
+            <div className={css.algo_form_item} key={i}>
+              <div className={css.spacer_line}></div>
+            </div>
+          );
+        }
+        setActiveState((prevState) => ({
+          ...prevState,
+          active: true,
+        }));
+      } else if (props.algo.algoData) {
+        const remainingBoxes = 6 - props.algo.algoData.length;
+        props.algo.algoData.forEach((item) => {
+          console.log(item);
+          algoVariables.push(
+            <div className={css.algo_form_item} key={item.label}>
+              <h4 className={css.algo_title}>{item.label}</h4>
+              <h4 className={css.algo_content}>{item.value}</h4>
+            </div>
+          );
+        });
+        for (let i = 0; i < remainingBoxes; i++) {
+          algoVariables.push(
+            <div className={css.algo_form_item} key={i}>
+              <div className={css.spacer_line}></div>
+            </div>
+          );
+        }
       }
 
       setAlgoDom(
@@ -109,6 +129,13 @@ const Algorithm = (props) => {
       alert("Validation: please complete form before submiting");
     }
   };
+
+  useEffect(() => {
+    if (props.algo.algoData) {
+      onAlgoSubmit();
+    }
+  }, [props.algo.algoData]);
+
   return algoDom ? (
     algoDom
   ) : (

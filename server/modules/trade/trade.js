@@ -6,27 +6,34 @@ const trade = async (curPair, side, amountPerc, key, secret) => {
     secret: secret,
   });
   authedBinance.setSandboxMode(true);
-  let currency = "";
+  const getMarkets = await authedBinance.loadMarkets();
+
+  const marketCurPair = curPair.replace("USDT", "/USDT");
+  const min = getMarkets[marketCurPair].limits.amount.min;
+  const currency = curPair.replace("USDT", "");
+  const allBalances = await authedBinance.fetchBalance();
+  let amount = "";
   if (side === "buy") {
-    currency = "USDT";
+    const usdTBalance = allBalances.USDT.free;
+    const price = await authedBinance.fetchTicker(curPair);
+    const balanceInBase = usdTBalance / price.last;
+    amount = balanceInBase * parseInt(amountPerc) * 0.01;
   } else if (side === "sell") {
-    currency = curPair.replace("USDT", "");
-  }
-  try {
-    const allBalances = await authedBinance.fetchBalance();
     const balance = allBalances[currency].free;
-    console.log(balance);
-    console.log(amountPerc);
-    const amount = authedBinance.amountToPrecision(
-      curPair,
-      (parseInt(balance) * parseInt(amountPerc)) / 100
-    );
-    console.log(amount + "amt");
+    amount = balance * parseInt(amountPerc) * 0.01;
+  }
+
+  try {
+    const amountDigits = min.toString().split(".")[1].length;
+    const amountToFloat = parseFloat(amount).toFixed(amountDigits);
+    const amountInt = parseFloat(amountToFloat);
+
+    console.log(amountInt);
     const order = await authedBinance.createOrder(
       curPair,
       "market",
       side,
-      amount
+      amountInt
     );
     return order;
   } catch (e) {

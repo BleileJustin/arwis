@@ -37,46 +37,8 @@ Trades on the Binance.US exchange
 <br/>
 <br/>
 
-# Available Scripts
-
-## In the ./functions directory, you can run:
-
-### `npm run serve`
-
-Runs the server in a firebase test emulator
-<br/>
-<br/>
-<br/>
-
-## In the project directory, you can run:
-
-### `npm run fire`
-
-Runs `npm run build` and `firebase deploy`\
-Builds the app for production to the `build` folder.\
-Deploys firebase hosting and functions
-<br/>
-<br/>
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-<br/>
-<br/>
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-<br/>
-<br/>
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-
-Your app is ready to be deployed!
+To Do,
+Write active algorithms in db
+Read active algorithm from db on start
+Delete algorithm stops algorithm
+"Active:" switch starts and stops algorithm
