@@ -44,7 +44,7 @@ const setPortfolioValueInDB = async (email, client, dbPrivateKey) => {
         { $push: { portfolioValueRecord: portfolioValueRecord } },
         { upsert: true }
       );
-    }, 1000 * 60 * 15); // 1 hour
+    }, 1000 * 60 * 15); // 15 minutes
   } catch (e) {
     console.log(e);
   }
