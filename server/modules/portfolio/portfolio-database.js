@@ -37,6 +37,8 @@ const setPortfolioValueInDB = async (email, client, dbPrivateKey) => {
         timestamp: Date.now(),
       };
       console.log("SETTING PORTFOLIO VALUE IN DB");
+      console.log(email);
+      console.log(" ");
       await collection.updateOne(
         { email: email },
         { $push: { portfolioValueRecord: portfolioValueRecord } },
