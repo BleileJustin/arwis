@@ -121,20 +121,20 @@ const startBollingerBands = async (
       const pb = newBollingerBands[newBollingerBands.length - 1].pb;
 
       if (pb > 1.2) {
-        //const order = await trade(curPair, "sell", amount, apiKey, apiSecret);
-        //console.log(order);
+        const order = await trade(curPair, "sell", amount, apiKey, apiSecret);
         console.log("Sell signal: Price is above upper band.");
         console.log("email: " + email);
         console.log(pb);
         console.log("id: " + id);
+        console.log(order);
         console.log(" ");
       } else if (pb < 0.2) {
-        //const order = await trade(curPair, "buy", amount, apiKey, apiSecret);
-        //console.log(order);
+        const order = await trade(curPair, "buy", amount, apiKey, apiSecret);
         console.log("Buy signal: Price is below lower band.");
         console.log("email: " + email);
         console.log(pb);
         console.log("id: " + id);
+        console.log(order);
         console.log(" ");
       } else {
         console.log("Hold signal: Price is between upper and lower bands.");
