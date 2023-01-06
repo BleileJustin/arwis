@@ -19,7 +19,6 @@ const getPortfolioValueRecordsFromDB = async (email, client) => {
 
 // SET PORTFOLIO VALUE IN DATABASE
 const setPortfolioValueInDB = async (email, client, dbPrivateKey) => {
-
   try {
     const api = await databaseApikeyManager.getEncryptedApiKeyFromDBAndDecrypt(
       email,
@@ -43,7 +42,7 @@ const setPortfolioValueInDB = async (email, client, dbPrivateKey) => {
         { $push: { portfolioValueRecord: portfolioValueRecord } },
         { upsert: true }
       );
-    }, 1000 * 60 * 5); // 5 MINUTES
+    }, 1000 * 60 * 60); // 1 hour
   } catch (e) {
     console.log(e);
   }

@@ -3,6 +3,26 @@ const { trade } = require("../../trade/trade");
 const { setBBAlgoDB } = require("./bollinger-bands-database");
 const ccxt = require("ccxt");
 //Bollinger Bands needs historical dataset then new datapoint is added every 5 minutes
+let runningBollingerBands = {};
+
+const stopBollingerBands = async (id, email, client) => {
+  console.log("Stopping Algo...");
+  console.log(" ");
+
+  const collection = client.db("arwis").collection("users");
+  await collection.updateOne(
+    { email },
+    {
+      $pull: {
+        algorithms: { id: id },
+      },
+    }
+  );
+  clearInterval(runningBollingerBands[email][id]);
+  delete runningBollingerBands[email][id];
+  console.log(runningBollingerBands);
+};
+
 const startBollingerBands = async (
   id,
   interval,
@@ -64,12 +84,14 @@ const startBollingerBands = async (
         intervalMs = 1000 * 60 * 60 * 24 * 7;
     }
     const algoData = {
+      email: email,
       id: id,
       curPair: curPair,
       interval: interval,
       period: period,
       standardDev: standardDev,
       amount: amount,
+      active: "true",
     };
 
     await setBBAlgoDB(email, client, algoData);
@@ -97,32 +119,55 @@ const startBollingerBands = async (
         true
       );
       const pb = newBollingerBands[newBollingerBands.length - 1].pb;
+
       if (pb > 1.2) {
-        const order = await trade(curPair, "sell", amount, apiKey, apiSecret);
+        //const order = await trade(curPair, "sell", amount, apiKey, apiSecret);
+        //console.log(order);
         console.log("Sell signal: Price is above upper band.");
-        console.log(order);
+        console.log("email: " + email);
         console.log(pb);
+        console.log("id: " + id);
+        console.log(" ");
       } else if (pb < 0.2) {
-        const order = await trade(curPair, "buy", amount, apiKey, apiSecret);
+        //const order = await trade(curPair, "buy", amount, apiKey, apiSecret);
+        //console.log(order);
         console.log("Buy signal: Price is below lower band.");
-        console.log(order);
+        console.log("email: " + email);
         console.log(pb);
+        console.log("id: " + id);
+        console.log(" ");
       } else {
         console.log("Hold signal: Price is between upper and lower bands.");
+        console.log("email: " + email);
         console.log(pb);
+        console.log("id: " + id);
+        console.log(" ");
       }
     };
     start();
-    setInterval(async () => {
-      start();
-    }, intervalMs);
+    //check if email exists in runningBollingerBands and if not create it
+    if (!runningBollingerBands[email]) {
+      console.log(email);
+      runningBollingerBands[email] = {};
+    }
+    runningBollingerBands[email] = {
+      ...runningBollingerBands[email],
+      [id]: setInterval(async () => {
+        start();
+      }, intervalMs),
+    };
+    console.log(" ");
+    console.log("runningBollingerBands: ");
+    console.log(runningBollingerBands);
+    console.log(" ");
 
-    return historicalBollingerBands;
+    return { runningBollingerBands, historicalBollingerBands };
   } catch (e) {
     console.log(e);
   }
 };
 
 module.exports = {
+  stopBollingerBands,
   startBollingerBands,
 };

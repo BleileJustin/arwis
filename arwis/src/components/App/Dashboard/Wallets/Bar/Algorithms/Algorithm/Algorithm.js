@@ -15,10 +15,7 @@ const Algorithm = (props) => {
   let algoVariables = [];
   console.log(activeState);
   const id = props.id;
-
-  const deleteAlgo = () => {
-    props.onDeleteAlgo(id);
-  };
+  console.log("algo id: " + id);
 
   const startAlgo = async (algoFormArr) => {
     console.log(algoFormArr);
@@ -31,6 +28,7 @@ const Algorithm = (props) => {
     serverArray.forEach((item) => {
       Object.assign(serverObj, item);
     });
+    console.log(serverObj);
     try {
       await fetch(`${authCtx.url}/api/algo/start/${algoFormArr[0].value}`, {
         method: "POST",
@@ -51,6 +49,29 @@ const Algorithm = (props) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const stopAlgo = async () => {
+    try {
+      await fetch(`${authCtx.url}/api/algo/stop/${props.algo.algo}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          index: id,
+          email: authCtx.email,
+          curPair: props.curPair,
+        }),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteAlgo = () => {
+    props.onDeleteAlgo(id);
+    stopAlgo();
   };
 
   const onAlgoSubmit = async (formArr) => {

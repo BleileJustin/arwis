@@ -3,7 +3,7 @@ const databaseApikeyManager = require("../../../modules/database_manager/databas
 const setBBAlgoDB = async (email, client, algoData) => {
   try {
     const collection = client.db("arwis").collection("users");
-    const curPair = algoData.curPair;
+
     algoData = { ...algoData, algo: "BBands" };
     //adds the new algo to the database
     await collection.updateOne(
@@ -15,7 +15,33 @@ const setBBAlgoDB = async (email, client, algoData) => {
       },
       { upsert: true }
     );
-    console.log("algoData", algoData);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const getDBAlgos = async (email, client) => {
+  try {
+    const collection = client.db("arwis").collection("users");
+    const user = await collection.find({ email: email }).toArray();
+    const algoData = user[0].algorithms;
+    return algoData;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const deleteDBAlgo = async (email, client, algoId) => {
+  try {
+    const collection = client.db("arwis").collection("users");
+    await collection.updateOne(
+      { email },
+      {
+        $pull: {
+          algorithms: { id: algoId },
+        },
+      }
+    );
   } catch (e) {
     console.log(e);
   }
@@ -23,4 +49,6 @@ const setBBAlgoDB = async (email, client, algoData) => {
 
 module.exports = {
   setBBAlgoDB,
+  getDBAlgos,
+  deleteDBAlgo,
 };

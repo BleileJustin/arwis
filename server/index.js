@@ -56,41 +56,6 @@ const generateKeyPair = () => {
   return keyPair;
 };
 
-const getDBAlgos = async (email, client) => {
-  try {
-    const collection = client.db("arwis").collection("users");
-    const user = await collection.find({ email: email }).toArray();
-    const algoData = user[0].algorithms;
-    return algoData;
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-const deleteDBAlgo = async (email, id, client) => {
-  try {
-    const collection = client.db("arwis").collection("users");
-    //delete algo object with id from algorithms array
-    console.log("id", id);
-
-    const algoData = await collection.updateOne(
-      { email },
-      {
-        $pull: {
-          algorithms: { id: id },
-        },
-      },
-
-      { upsert: true }
-    );
-
-    console.log("algoData", algoData);
-    return algoData;
-  } catch (e) {
-    console.log(e);
-  }
-};
-
 const clientKeyPair = generateKeyPair();
 const clientPublicKey = clientKeyPair.publicKey;
 const clientPrivateKey = clientKeyPair.privateKey;
@@ -98,14 +63,59 @@ const clientPrivateKey = clientKeyPair.privateKey;
 const dbPublicKey = process.env.DB_PUBLIC_KEY;
 const dbPrivateKey = process.env.DB_PRIVATE_KEY;
 // //////////////////////////////////////////
+const allUsersRunningAlgos = {};
+
+// //////////////////////////////////////////
+app.post("/api/tradelist/", express.json(), async (req, res) => {
+  const email = req.body.email;
+  const api = await databaseApikeyManager.getEncryptedApiKeyFromDBAndDecrypt(
+    email,
+    dbPrivateKey,
+    client
+  );
+
+  const authedBinance = new ccxt.binanceus({
+    apiKey: api.apiKey,
+    secret: api.apiSecret,
+  });
+  authedBinance.setSandboxMode(true);
+
+  const balances = await authedBinance.fetchBalance();
+  const totalBalances = Object.entries(balances.total);
+  const tradeArray = [];
+  try {
+    totalBalances.forEach(async (balance) => {
+      if (balance[0] === "USDT" || balance[0] === "BUSD") {
+        return;
+      }
+      const trades = await authedBinance.fetchMyTrades(
+        balance[0] + "/USDT",
+        undefined,
+        5
+      );
+      if (!!trades.length) {
+        await tradeArray.push(trades);
+      }
+    });
+  } catch (e) {
+    console.log(e);
+  }
+  res.send({ tradeArray });
+});
+// //////////////////////////////////////////
 // ALGORITHM ENDPOINTS
 const {
   startBollingerBands,
+  stopBollingerBands,
 } = require("./modules/algorithms/bollingerbands/start-bollinger-bands.js");
+
+const {
+  deleteDBAlgo,
+  getDBAlgos,
+} = require("./modules/algorithms/bollingerbands/bollinger-bands-database.js");
 
 app.post("/api/algo/get/", express.json(), async (req, res) => {
   const email = req.body.email;
-  const curPair = req.body.curPair;
   try {
     const algoData = await getDBAlgos(email, client);
     res.send({ algoData });
@@ -118,7 +128,11 @@ app.post("/api/algo/delete/", express.json(), async (req, res) => {
   const email = req.body.email;
   const id = req.body.id;
   try {
-    const algoData = await deleteDBAlgo(email, id, client);
+    const algoData = await deleteDBAlgo(email, client, id);
+    stopBollingerBands(id, email, client);
+    allUsersRunningAlgos[email][id]
+      ? (allUsersRunningAlgos[email][id] = null)
+      : null;
     res.send({ algoData });
   } catch (e) {
     console.log(e);
@@ -140,7 +154,7 @@ app.post("/api/algo/start/BBands/", express.json(), async (req, res) => {
     client
   );
   try {
-    const bollingerBands = await startBollingerBands(
+    const bollingerBandsData = await startBollingerBands(
       id,
       interval,
       curPair,
@@ -152,6 +166,25 @@ app.post("/api/algo/start/BBands/", express.json(), async (req, res) => {
       email,
       client
     );
+    const historicalBollingerBands =
+      bollingerBandsData.historicalBollingerBands;
+    const runningBollingerBands = bollingerBandsData.runningBollingerBands;
+    if (!allUsersRunningAlgos[email]) {
+      allUsersRunningAlgos[email] = {};
+    }
+    allUsersRunningAlgos[email][id] = runningBollingerBands[email][id];
+    res.send({ historicalBollingerBands });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+app.post("/api/algo/stop/BBands/", express.json(), async (req, res) => {
+  const index = req.body.index;
+  const email = req.body.email;
+
+  try {
+    const bollingerBands = await stopBollingerBands(index, email, client);
     res.send({ bollingerBands });
   } catch (e) {
     console.log(e);
@@ -164,7 +197,6 @@ const portfolio = require("./modules/portfolio/portfolio-analytics.js");
 const databaseApikeyManager = require("./modules/database_manager/database-apikey-manager.js");
 const databasePortfolioManager = require("./modules/portfolio/portfolio-database.js");
 const databaseWalletManager = require("./modules/wallets/wallets-database.js");
-const { appendFile } = require("fs");
 
 app.post("/api/set-wallet", express.json(), async (req, res) => {
   const wallet = req.body.wallet;

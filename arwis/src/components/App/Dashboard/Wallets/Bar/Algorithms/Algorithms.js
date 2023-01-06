@@ -4,6 +4,7 @@ import css from "./Algorithms.module.css";
 import Algorithm from "./Algorithm/Algorithm";
 import { useState, useContext, useEffect } from "react";
 import AuthContext from "../../../../../../store/auth-context";
+import { v4 as uuidv4 } from "uuid";
 
 const Algorithms = (props) => {
   const [algoList, setAlgoList] = useState([]);
@@ -43,7 +44,6 @@ const Algorithms = (props) => {
     });
   };
 
-  let previousAlgoIsComplete = {};
   let content = {};
 
   const sendAlgoListToChild = () => {
@@ -67,7 +67,6 @@ const Algorithms = (props) => {
       const updatedAlgos = prevAlgos.filter((algo) => algo.id !== algoId);
       return updatedAlgos;
     });
-
     await fetch(`${authCtx.url}/api/algo/delete/`, {
       method: "POST",
       headers: {
@@ -81,21 +80,37 @@ const Algorithms = (props) => {
   };
 
   const addAlgoHandler = () => {
-    if (previousAlgoIsComplete || algoList.length < 1) {
-      algoList
-        ? setAlgoList((prevAlgos) => {
-            const prev = [...prevAlgos];
-            prev.push({ id: Math.random() });
-            return [...prev];
-          })
-        : alert("Algo List Error");
-    } else {
-      alert("Please complete previous Algo");
+    algoList
+      ? setAlgoList((prevAlgos) => {
+          const prev = [...prevAlgos];
+          prev.push({ id: uuidv4() });
+          return [...prev];
+        })
+      : alert("Algo List Error");
+  };
+
+  const getTradeList = async () => {
+    try {
+      const tradeList = await fetch(`${authCtx.url}/api/tradelist/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: authCtx.email,
+        }),
+      });
+      const tradeListData = await tradeList.json();
+      console.log("tradeListData", tradeListData);
+      return tradeListData;
+    } catch (err) {
+      console.log(err);
     }
   };
 
   useEffect(() => {
     getAlgoDBData();
+    getTradeList();
   }, []);
   console.log("algoList", algoList);
 
