@@ -49,6 +49,7 @@ const getPortfolioDistributionFromBinance = async (apiKey, apiSecret) => {
 
     const portfolioValue = calculatePortfolioValue(balancesArray, prices);
     const portfolioDistribution = [];
+    console.log(balancesArray);
     for (const balance of balancesArray) {
       const free = balance.free;
       const locked = balance.locked;
@@ -62,7 +63,17 @@ const getPortfolioDistributionFromBinance = async (apiKey, apiSecret) => {
           percentage: assetPercentage,
         });
       }
+      if (balance.asset === "USDT") {
+        const assetValue =
+          parseFloat(balance.free) + parseFloat(balance.locked);
+        const assetPercentage = (assetValue / portfolioValue) * 100;
+        portfolioDistribution.push({
+          asset: balance.asset,
+          percentage: assetPercentage,
+        });
+      }
     }
+    console.log(portfolioDistribution);
     return portfolioDistribution;
   } catch (e) {
     console.log(e);

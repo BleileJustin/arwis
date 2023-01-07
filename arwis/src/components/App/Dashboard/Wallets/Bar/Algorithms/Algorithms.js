@@ -24,24 +24,26 @@ const Algorithms = (props) => {
     const algoData = await algoDBData.json();
     console.log(algoData);
 
-    algoData.algoData.forEach((algo) => {
-      const updatedAlgo = {
-        id: algo.id,
-        algo: algo.algo,
-        algoData: [
-          { value: algo.algo, label: "Algorithms:" },
-          { value: algo.interval, label: "Interval:" },
-          { value: algo.period, label: "Period:" },
-          { value: algo.standardDev, label: "StdDev:" },
-          { value: algo.amount, label: "% Amt:" },
-        ],
-      };
-      setAlgoList((prevAlgos) => {
-        const prev = [...prevAlgos];
-        prev.push(updatedAlgo);
-        return [...prev];
+    if (algoData.algoData) {
+      algoData.algoData.forEach((algo) => {
+        const updatedAlgo = {
+          id: algo.id,
+          algo: algo.algo,
+          algoData: [
+            { value: algo.algo, label: "Algorithms:" },
+            { value: algo.interval, label: "Interval:" },
+            { value: algo.period, label: "Period:" },
+            { value: algo.standardDev, label: "StdDev:" },
+            { value: algo.amount, label: "% Amt:" },
+          ],
+        };
+        setAlgoList((prevAlgos) => {
+          const prev = [...prevAlgos];
+          prev.push(updatedAlgo);
+          return [...prev];
+        });
       });
-    });
+    }
   };
 
   let content = {};
