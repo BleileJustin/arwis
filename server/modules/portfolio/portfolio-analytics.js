@@ -49,7 +49,7 @@ const getPortfolioDistributionFromBinance = async (apiKey, apiSecret) => {
 
     const portfolioValue = calculatePortfolioValue(balancesArray, prices);
     const portfolioDistribution = [];
-    console.log(balancesArray);
+
     for (const balance of balancesArray) {
       const free = balance.free;
       const locked = balance.locked;
@@ -73,7 +73,6 @@ const getPortfolioDistributionFromBinance = async (apiKey, apiSecret) => {
         });
       }
     }
-    console.log(portfolioDistribution);
     return portfolioDistribution;
   } catch (e) {
     console.log(e);
