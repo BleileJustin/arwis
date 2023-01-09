@@ -57,7 +57,7 @@ const Algorithm = (props) => {
     }
   };
 
-  const stopAlgo = async (algoFormArr) => {
+  const stopAlgo = async () => {
     try {
       await fetch(`${authCtx.url}/api/algo/stop/`, {
         method: "POST",
