@@ -1,6 +1,9 @@
 const { getBollingerBands } = require("./bollinger-bands");
 const { trade } = require("../../trade/trade");
-const { setBBAlgoDB } = require("./bollinger-bands-database");
+const {
+  setBBAlgoDB,
+  setBBAlgoActiveDB,
+} = require("./bollinger-bands-database");
 const ccxt = require("ccxt");
 //Bollinger Bands needs historical dataset then new datapoint is added every 5 minutes
 let runningBollingerBands = {};
@@ -8,8 +11,47 @@ let runningBollingerBands = {};
 const stopBollingerBands = async (id, email, client) => {
   console.log("Stopping Algo...");
   console.log(" ");
+  if (runningBollingerBands[email]) {
+    if (runningBollingerBands[email][id]) {
+      await setBBAlgoActiveDB(email, client, id, false);
+
+      clearInterval(runningBollingerBands[email][id]);
+    }
+  }
+  console.log(runningBollingerBands);
+};
+
+const restartBollingerBands = async (id, email, client, apiKey, apiSecret) => {
+  console.log("Restarting Algo...");
+  console.log(" ");
+  await setBBAlgoActiveDB(email, client, id, true);
+  const collection = client.db("arwis").collection("users");
+  const user = await collection.find({ email: email }).toArray();
+  const algoData = user[0].algorithms;
+  const algo = algoData.filter((algo) => algo.id === id)[0];
+  console.log(algo);
+  const { interval, curPair, period, standardDev, amount } = algo;
+  startBollingerBands(
+    id,
+    interval,
+    curPair,
+    period,
+    standardDev,
+    apiKey,
+    apiSecret,
+    amount,
+    email,
+    client,
+    (isRestart = true)
+  );
+};
+
+const deleteBollingerBands = async (id, email, client) => {
+  console.log("Deleting Algo...");
+  console.log(" ");
 
   const collection = client.db("arwis").collection("users");
+  //deletes the algo from the database
   await collection.updateOne(
     { email },
     {
@@ -18,8 +60,12 @@ const stopBollingerBands = async (id, email, client) => {
       },
     }
   );
-  clearInterval(runningBollingerBands[email][id]);
-  delete runningBollingerBands[email][id];
+  if (runningBollingerBands[email]) {
+    if (runningBollingerBands[email][id]) {
+      clearInterval(runningBollingerBands[email][id]);
+      delete runningBollingerBands[email][id];
+    }
+  }
   console.log(runningBollingerBands);
 };
 
@@ -33,7 +79,8 @@ const startBollingerBands = async (
   apiSecret,
   amount,
   email,
-  client
+  client,
+  isRestart
 ) => {
   const publicBinance = new ccxt.binanceus();
   try {
@@ -91,10 +138,12 @@ const startBollingerBands = async (
       period: period,
       standardDev: standardDev,
       amount: amount,
-      active: "true",
+      active: true,
     };
 
-    await setBBAlgoDB(email, client, algoData);
+    if (!isRestart) {
+      await setBBAlgoDB(email, client, algoData);
+    }
 
     const start = async () => {
       const newCandle = await publicBinance.fetchOHLCV(
@@ -126,7 +175,7 @@ const startBollingerBands = async (
         console.log("email: " + email);
         console.log(pb);
         console.log("id: " + id);
-        console.log(order);
+
         console.log(" ");
       } else if (pb < 0.2) {
         const order = await trade(curPair, "buy", amount, apiKey, apiSecret);
@@ -134,7 +183,7 @@ const startBollingerBands = async (
         console.log("email: " + email);
         console.log(pb);
         console.log("id: " + id);
-        console.log(order);
+
         console.log(" ");
       } else {
         console.log("Hold signal: Price is between upper and lower bands.");
@@ -170,4 +219,6 @@ const startBollingerBands = async (
 module.exports = {
   stopBollingerBands,
   startBollingerBands,
+  deleteBollingerBands,
+  restartBollingerBands,
 };

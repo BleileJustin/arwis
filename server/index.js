@@ -107,6 +107,8 @@ app.post("/api/tradelist/", express.json(), async (req, res) => {
 const {
   startBollingerBands,
   stopBollingerBands,
+  deleteBollingerBands,
+  restartBollingerBands,
 } = require("./modules/algorithms/bollingerbands/start-bollinger-bands.js");
 
 const {
@@ -129,7 +131,7 @@ app.post("/api/algo/delete/", express.json(), async (req, res) => {
   const id = req.body.id;
   try {
     const algoData = await deleteDBAlgo(email, client, id);
-    stopBollingerBands(id, email, client);
+    deleteBollingerBands(id, email, client);
     allUsersRunningAlgos[email][id]
       ? (allUsersRunningAlgos[email][id] = null)
       : null;
@@ -179,12 +181,28 @@ app.post("/api/algo/start/BBands/", express.json(), async (req, res) => {
   }
 });
 
-app.post("/api/algo/stop/BBands/", express.json(), async (req, res) => {
-  const index = req.body.index;
+app.post("/api/algo/restart/", express.json(), async (req, res) => {
+  const id = req.body.id;
+  const email = req.body.email;
+  const api = await databaseApikeyManager.getEncryptedApiKeyFromDBAndDecrypt(
+    req.body.email,
+    dbPrivateKey,
+    client
+  );
+  try {
+    await restartBollingerBands(id, email, client, api.apiKey, api.apiSecret);
+  } catch (e) {
+    console.log(e);
+  }
+  res.send({ message: "restarted" });
+});
+
+app.post("/api/algo/stop/", express.json(), async (req, res) => {
+  const id = req.body.id;
   const email = req.body.email;
 
   try {
-    const bollingerBands = await stopBollingerBands(index, email, client);
+    const bollingerBands = await stopBollingerBands(id, email, client);
     res.send({ bollingerBands });
   } catch (e) {
     console.log(e);
@@ -197,6 +215,7 @@ const portfolio = require("./modules/portfolio/portfolio-analytics.js");
 const databaseApikeyManager = require("./modules/database_manager/database-apikey-manager.js");
 const databasePortfolioManager = require("./modules/portfolio/portfolio-database.js");
 const databaseWalletManager = require("./modules/wallets/wallets-database.js");
+const { appendFile } = require("fs");
 
 app.post("/api/set-wallet", express.json(), async (req, res) => {
   const wallet = req.body.wallet;

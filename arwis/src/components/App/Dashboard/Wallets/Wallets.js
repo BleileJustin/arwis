@@ -58,19 +58,17 @@ const Wallets = () => {
       return updatedBars;
     });
   };
-
   // GET WALLETS FROM DB
-
   useEffect(() => {
     const getWallets = async () => {
       const response = await fetch(`${authCtx.url}/api/get-wallets/`, {
         method: "POST",
-        body: JSON.stringify({
-          email: authCtx.email,
-        }),
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          email: authCtx.email,
+        }),
       });
       const data = await response.json();
       if (!data.wallets) return;

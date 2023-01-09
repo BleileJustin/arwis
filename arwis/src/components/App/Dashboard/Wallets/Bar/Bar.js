@@ -20,7 +20,7 @@ const Bar = (props) => {
     curPairState: "",
     dropdwonIsEnabled: true,
   });
-  const [algoChartData, setAlgoChartData] = useState();
+  const [algoChartData] = useState();
   const isFirstRender = useRef(true);
 
   const authCtx = useContext(AuthContext);
@@ -32,12 +32,6 @@ const Bar = (props) => {
   const deleteBar = () => {
     props.onDeleteBar(id);
   };
-
-  //SEND ALGO DATA
-  const sendAlgoData = (data) => {
-    setAlgoChartData(data);
-  };
-
 
   //GET TICKER PRICE
   const getTickerData = async (ticker) => {
@@ -265,7 +259,7 @@ const Bar = (props) => {
           </div>
           <WalletChart algoData={algoChartData} data={candles}></WalletChart>
         </Graph>
-        <Algorithms sendAlgoData={sendAlgoData} curPair={props.curPair}></Algorithms>
+        <Algorithms curPair={props.curPair}></Algorithms>
       </Section>
     </>
   ) : (

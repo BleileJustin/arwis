@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import css from "./Algorithms.module.css";
 
 import Algorithm from "./Algorithm/Algorithm";
@@ -9,42 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 const Algorithms = (props) => {
   const [algoList, setAlgoList] = useState([]);
   const authCtx = useContext(AuthContext);
-  //LIFT STATE^ UP TO PERSIST IT
-  const getAlgoDBData = async () => {
-    const algoDBData = await fetch(`${authCtx.url}/api/algo/get/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: authCtx.email,
-      }),
-    });
-
-    const algoData = await algoDBData.json();
-    console.log(algoData);
-
-    if (algoData.algoData) {
-      algoData.algoData.forEach((algo) => {
-        const updatedAlgo = {
-          id: algo.id,
-          algo: algo.algo,
-          algoData: [
-            { value: algo.algo, label: "Algorithms:" },
-            { value: algo.interval, label: "Interval:" },
-            { value: algo.period, label: "Period:" },
-            { value: algo.standardDev, label: "StdDev:" },
-            { value: algo.amount, label: "% Amt:" },
-          ],
-        };
-        setAlgoList((prevAlgos) => {
-          const prev = [...prevAlgos];
-          prev.push(updatedAlgo);
-          return [...prev];
-        });
-      });
-    }
-  };
+  //  const dataArr = [];
 
   let content = {};
 
@@ -90,10 +54,10 @@ const Algorithms = (props) => {
         })
       : alert("Algo List Error");
   };
-
-  const getTradeList = async () => {
-    try {
-      const tradeList = await fetch(`${authCtx.url}/api/tradelist/`, {
+  // get algortihms from db
+  useEffect(() => {
+    const fetchAlgos = async () => {
+      const response = await fetch(`${authCtx.url}/api/algo/get/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -102,18 +66,45 @@ const Algorithms = (props) => {
           email: authCtx.email,
         }),
       });
-      const tradeListData = await tradeList.json();
-      console.log("tradeListData", tradeListData);
-      return tradeListData;
-    } catch (err) {
-      console.log(err);
-    }
-  };
+      const data = await response.json();
+      if (!data.algoData) return;
 
-  useEffect(() => {
-    getAlgoDBData();
-    getTradeList();
-  }, []);
+      const algos = data.algoData.map((algo) => {
+        console.log("JKL:");
+        console.log(algo.active);
+        return {
+          id: algo.id,
+          active: algo.active,
+          algoData: [
+            {
+              label: "Algorithm:",
+              value: algo.algo,
+            },
+            {
+              label: "Freq: ",
+              value: algo.interval,
+            },
+            {
+              label: "Period: ",
+              value: algo.period,
+            },
+            {
+              label: "StdDev: ",
+              value: algo.standardDev,
+            },
+            {
+              label: "% Amt: ",
+              value: algo.amount,
+            },
+          ],
+          isFromDB: true,
+        };
+      });
+      setAlgoList(algos);
+    };
+    fetchAlgos();
+  }, [authCtx.email, authCtx.url]);
+
   console.log("algoList", algoList);
 
   algoList
@@ -125,8 +116,9 @@ const Algorithms = (props) => {
           setAlgo={setAlgo}
           getAlgoList={sendAlgoListToChild}
           curPair={props.curPair}
-          sendAlgoData={props.sendAlgoData}
           algo={algo}
+          active={algo.active}
+          isFromDB={algo.isFromDB}
         ></Algorithm>
       )))
     : console.log("err");

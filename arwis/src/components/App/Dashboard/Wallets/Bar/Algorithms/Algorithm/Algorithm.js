@@ -1,13 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useLayoutEffect } from "react";
 import css from "./Algorithm.module.css";
 
 import AuthContext from "../../../../../../../store/auth-context";
 import AlgorithmForm from "./AlgorithmForm/AlgorithmForm";
 
 const Algorithm = (props) => {
+  let isFromDBActive;
+  if (props.active === false) {
+    isFromDBActive = false;
+  } else {
+    isFromDBActive = true;
+  }
+
   const [activeState, setActiveState] = useState({
-    active: false,
+    active: isFromDBActive,
   });
   const [algoDom, setAlgoDom] = useState();
   const authCtx = useContext(AuthContext);
@@ -18,6 +25,9 @@ const Algorithm = (props) => {
   console.log("algo id: " + id);
 
   const startAlgo = async (algoFormArr) => {
+    setActiveState({
+      active: true,
+    });
     console.log(algoFormArr);
     const serverArray = algoFormArr.map((item) => {
       return {
@@ -42,27 +52,48 @@ const Algorithm = (props) => {
           variables: serverObj,
         }),
       });
-
-      // Sends data all the way to the WalletChart component
-      // const data = await response.json();
-      // props.sendAlgoData(data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const stopAlgo = async () => {
+  const stopAlgo = async (algoFormArr) => {
     try {
-      await fetch(`${authCtx.url}/api/algo/stop/${props.algo.algo}`, {
+      await fetch(`${authCtx.url}/api/algo/stop/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          index: id,
+          id: id,
           email: authCtx.email,
-          curPair: props.curPair,
         }),
+      });
+      setActiveState({
+        active: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const restartAlgo = async (algoFormArr) => {
+    console.log("restart");
+    console.log(algoFormArr);
+    console.log("restart");
+    try {
+      await fetch(`${authCtx.url}/api/algo/restart/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id,
+          email: authCtx.email,
+        }),
+      });
+      setActiveState({
+        active: true,
       });
     } catch (error) {
       console.log(error);
@@ -71,53 +102,34 @@ const Algorithm = (props) => {
 
   const deleteAlgo = () => {
     props.onDeleteAlgo(id);
-    stopAlgo();
+    stopAlgo(props.algo.algoData);
   };
 
-  const onAlgoSubmit = async (formArr) => {
+  const onAlgoSubmit = async (formArr, isFromDB) => {
     console.log(formArr);
     if (props.algo.algoData || formArr) {
-      if (formArr) {
+      console.log("formArr");
+      if (!isFromDB) {
         await startAlgo(formArr);
-        props.setAlgo(formArr[0].value);
-        const remainingBoxes = 6 - formArr.length;
-        formArr.forEach((item) => {
-          algoVariables.push(
-            <div className={css.algo_form_item} key={item.label}>
-              <h4 className={css.algo_title}>{item.label}</h4>
-              <h4 className={css.algo_content}>{item.value}</h4>
-            </div>
-          );
-        });
-        for (let i = 0; i < remainingBoxes; i++) {
-          algoVariables.push(
-            <div className={css.algo_form_item} key={i}>
-              <div className={css.spacer_line}></div>
-            </div>
-          );
-        }
-        setActiveState((prevState) => ({
-          ...prevState,
-          active: true,
-        }));
-      } else if (props.algo.algoData) {
-        const remainingBoxes = 6 - props.algo.algoData.length;
-        props.algo.algoData.forEach((item) => {
-          console.log(item);
-          algoVariables.push(
-            <div className={css.algo_form_item} key={item.label}>
-              <h4 className={css.algo_title}>{item.label}</h4>
-              <h4 className={css.algo_content}>{item.value}</h4>
-            </div>
-          );
-        });
-        for (let i = 0; i < remainingBoxes; i++) {
-          algoVariables.push(
-            <div className={css.algo_form_item} key={i}>
-              <div className={css.spacer_line}></div>
-            </div>
-          );
-        }
+      }
+      props.setAlgo(formArr[0].value);
+      const remainingBoxes = 6 - formArr.length;
+
+      formArr.forEach((item) => {
+        algoVariables.push(
+          <div className={css.algo_form_item} key={item.label}>
+            <h4 className={css.algo_title}>{item.label}</h4>
+            <h4 className={css.algo_content}>{item.value}</h4>
+          </div>
+        );
+      });
+
+      for (let i = 0; i < remainingBoxes; i++) {
+        algoVariables.push(
+          <div className={css.algo_form_item} key={i}>
+            <div className={css.spacer_line}></div>
+          </div>
+        );
       }
 
       setAlgoDom(
@@ -132,12 +144,13 @@ const Algorithm = (props) => {
               <label className={css.switch}>
                 <input
                   type="checkbox"
-                  defaultChecked={true}
+                  defaultChecked={activeState.active}
                   onChange={(e) => {
-                    setActiveState((prevState) => ({
-                      ...prevState,
-                      active: !prevState.active,
-                    }));
+                    if (!e.target.checked) {
+                      stopAlgo(props.algo.algoData);
+                    } else {
+                      restartAlgo(props.algo.algoData);
+                    }
                   }}
                 ></input>
                 <span className={css.slider}></span>
@@ -151,11 +164,13 @@ const Algorithm = (props) => {
     }
   };
 
-  useEffect(() => {
-    if (props.algo.algoData) {
-      onAlgoSubmit();
+  useLayoutEffect(() => {
+    console.log(props.isFromDB);
+    if (props.isFromDB) {
+      console.log("isFromDB");
+      onAlgoSubmit(props.algo.algoData, true);
     }
-  }, [props.algo.algoData]);
+  }, [props.isFromDB]);
 
   return algoDom ? (
     algoDom

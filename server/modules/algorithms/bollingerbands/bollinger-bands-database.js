@@ -20,11 +20,31 @@ const setBBAlgoDB = async (email, client, algoData) => {
   }
 };
 
+const setBBAlgoActiveDB = async (email, client, algoId, active) => {
+  try {
+    const collection = client.db("arwis").collection("users");
+    await collection.updateOne(
+      { email },
+      {
+        $set: {
+          "algorithms.$[algo].active": active,
+        },
+      },
+      {
+        arrayFilters: [{ "algo.id": algoId }],
+      }
+    );
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const getDBAlgos = async (email, client) => {
   try {
     const collection = client.db("arwis").collection("users");
     const user = await collection.find({ email: email }).toArray();
     const algoData = user[0].algorithms;
+    console.log(algoData);
     return algoData;
   } catch (e) {
     console.log(e);
@@ -51,4 +71,5 @@ module.exports = {
   setBBAlgoDB,
   getDBAlgos,
   deleteDBAlgo,
+  setBBAlgoActiveDB,
 };

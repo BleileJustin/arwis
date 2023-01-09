@@ -58,8 +58,6 @@ const AlgorithmForm = (props) => {
             >
               <option value="select">Select</option>
               <option value="BBands">Bollinger Bands</option>
-              <option value="DCA">Dollar Cost Avg</option>
-              <option value="MACD">MACD</option>
             </select>
           </div>
           <div className={css.algo_form_item}></div>
