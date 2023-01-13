@@ -44,7 +44,6 @@ const getDBAlgos = async (email, client) => {
     const collection = client.db("arwis").collection("users");
     const user = await collection.find({ email: email }).toArray();
     const algoData = user[0].algorithms;
-    console.log(algoData);
     return algoData;
   } catch (e) {
     console.log(e);

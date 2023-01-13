@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useContext, useLayoutEffect, useRef } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 
 import css from "./Bar.module.css";
 import BarForm from "./BarForm/BarForm";
@@ -11,6 +11,11 @@ import Graph from "../../../../UI/Graph/Graph";
 
 import AuthContext from "../../../../../store/auth-context";
 
+// ////////////////////////
+// CURRENT ISSUE IS THAT WHEN I CONNECT A NEW BAR, OTHER BARS ALGOS ARE DELETED
+// FIX B
+// ////////////////////////
+
 const Bar = (props) => {
   const [barJSX, setBarJSX] = useState();
   const [barExpanded, setBarExpanded] = useState(false);
@@ -21,7 +26,9 @@ const Bar = (props) => {
     dropdwonIsEnabled: true,
   });
   const [algoChartData] = useState();
+
   const isFirstRender = useRef(true);
+  const algoRef = useRef();
 
   const authCtx = useContext(AuthContext);
   const url = authCtx.url;
@@ -29,8 +36,11 @@ const Bar = (props) => {
   const id = props.id;
 
   //DELETE BAR
-  const deleteBar = () => {
-    props.onDeleteBar(id);
+  const deleteBar = async () => {
+    if (algoRef.current) {
+      await algoRef.current.deleteAlgo();
+    }
+    await props.onDeleteBar(id);
   };
 
   //GET TICKER PRICE
@@ -174,7 +184,7 @@ const Bar = (props) => {
       });
     }
   };
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (props.isFromDB) {
       onConnect(props.curPair);
     }
@@ -259,7 +269,7 @@ const Bar = (props) => {
           </div>
           <WalletChart algoData={algoChartData} data={candles}></WalletChart>
         </Graph>
-        <Algorithms curPair={props.curPair}></Algorithms>
+        <Algorithms curPair={props.curPair} algoRef={algoRef}></Algorithms>
       </Section>
     </>
   ) : (

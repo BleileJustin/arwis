@@ -67,40 +67,59 @@ const allUsersRunningAlgos = {};
 
 // //////////////////////////////////////////
 app.post("/api/tradelist/", express.json(), async (req, res) => {
-  const email = req.body.email;
   const api = await databaseApikeyManager.getEncryptedApiKeyFromDBAndDecrypt(
-    email,
+    req.body.email,
     dbPrivateKey,
     client
   );
-
   const authedBinance = new ccxt.binanceus({
     apiKey: api.apiKey,
     secret: api.apiSecret,
   });
   authedBinance.setSandboxMode(true);
+  const getMarkets = await authedBinance.loadMarkets();
+  const marketSymbols = Object.keys(getMarkets).filter((symbol) => {
+    if (symbol.includes("USDT")) return symbol;
+  });
+  console.log(marketSymbols);
+  // get trades from all symbols
+  const balance = await authedBinance.fetchBalance();
+  const symbol = Object.keys(balance.total);
+  const symbols = symbol.map((symbol) => {
+    if (symbol === "USDT" || symbol === "BUSD") return;
+    return symbol + "/USDT";
+  });
 
-  const balances = await authedBinance.fetchBalance();
-  const totalBalances = Object.entries(balances.total);
-  const tradeArray = [];
-  try {
-    totalBalances.forEach(async (balance) => {
-      if (balance[0] === "USDT" || balance[0] === "BUSD") {
-        return;
-      }
-      const trades = await authedBinance.fetchMyTrades(
-        balance[0] + "/USDT",
-        undefined,
-        5
-      );
-      if (!!trades.length) {
-        await tradeArray.push(trades);
-      }
-    });
-  } catch (e) {
-    console.log(e);
+  const trades = [];
+  for (let i = 0; i < symbols.length; i++) {
+    if (symbols[i] === undefined) continue;
+    const symbol = symbols[i];
+    const tradesForSymbol = await authedBinance.fetchMyTrades(
+      symbol,
+      undefined,
+      5
+    );
+    if (tradesForSymbol.length === 0) continue;
+    trades.push({ [symbol]: tradesForSymbol });
   }
-  res.send({ tradeArray });
+  console.log(trades[0]["BNB/USDT"]);
+  const parsedTrades = trades.map((symbol) => {
+    //symbol is an object
+    symbol = Object.values(symbol)[0];
+
+    const symbolTrades = symbol.map((trade) => {
+      const { side, symbol, amount, timestamp } = trade;
+      return {
+        side,
+        symbol,
+        amount,
+        timestamp,
+      };
+    });
+
+    return { [symbol[0].symbol]: symbolTrades };
+  });
+  res.send({ parsedTrades });
 });
 // //////////////////////////////////////////
 // ALGORITHM ENDPOINTS
@@ -132,9 +151,11 @@ app.post("/api/algo/delete/", express.json(), async (req, res) => {
   try {
     const algoData = await deleteDBAlgo(email, client, id);
     deleteBollingerBands(id, email, client);
-    allUsersRunningAlgos[email][id]
-      ? (allUsersRunningAlgos[email][id] = null)
-      : null;
+    if (allUsersRunningAlgos[email][id]) {
+      allUsersRunningAlgos[email][id]
+        ? (allUsersRunningAlgos[email][id] = null)
+        : null;
+    }
     res.send({ algoData });
   } catch (e) {
     console.log(e);

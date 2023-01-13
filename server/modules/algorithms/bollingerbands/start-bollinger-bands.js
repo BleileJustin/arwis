@@ -168,9 +168,16 @@ const startBollingerBands = async (
         true
       );
       const pb = newBollingerBands[newBollingerBands.length - 1].pb;
-
+      const getMarkets = await publicBinance.loadMarkets();
       if (pb > 1.2) {
-        const order = await trade(curPair, "sell", amount, apiKey, apiSecret);
+        const order = await trade(
+          curPair,
+          "sell",
+          amount,
+          apiKey,
+          apiSecret,
+          getMarkets
+        );
         console.log("Sell signal: Price is above upper band.");
         console.log("email: " + email);
         console.log(pb);
@@ -178,7 +185,14 @@ const startBollingerBands = async (
 
         console.log(" ");
       } else if (pb < 0.2) {
-        const order = await trade(curPair, "buy", amount, apiKey, apiSecret);
+        const order = await trade(
+          curPair,
+          "buy",
+          amount,
+          apiKey,
+          apiSecret,
+          getMarkets
+        );
         console.log("Buy signal: Price is below lower band.");
         console.log("email: " + email);
         console.log(pb);

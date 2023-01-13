@@ -49,7 +49,7 @@ const Algorithms = (props) => {
     algoList
       ? setAlgoList((prevAlgos) => {
           const prev = [...prevAlgos];
-          prev.push({ id: uuidv4() });
+          prev.push({ id: uuidv4(), curPair: props.curPair });
           return [...prev];
         })
       : alert("Algo List Error");
@@ -75,6 +75,7 @@ const Algorithms = (props) => {
         return {
           id: algo.id,
           active: algo.active,
+          curPair: algo.curPair,
           algoData: [
             {
               label: "Algorithm:",
@@ -100,28 +101,31 @@ const Algorithms = (props) => {
           isFromDB: true,
         };
       });
+      algos.reverse();
       setAlgoList(algos);
     };
     fetchAlgos();
   }, [authCtx.email, authCtx.url]);
 
-  console.log("algoList", algoList);
-
-  algoList
-    ? (content = algoList.map((algo) => (
-        <Algorithm
-          key={algo.id}
-          id={algo.id}
-          onDeleteAlgo={deleteAlgoHandler}
-          setAlgo={setAlgo}
-          getAlgoList={sendAlgoListToChild}
-          curPair={props.curPair}
-          algo={algo}
-          active={algo.active}
-          isFromDB={algo.isFromDB}
-        ></Algorithm>
-      )))
-    : console.log("err");
+  if (algoList) {
+    content = algoList.map(
+      (algo) =>
+        props.curPair === algo.curPair && (
+          <Algorithm
+            key={algo.id}
+            id={algo.id}
+            onDeleteAlgo={deleteAlgoHandler}
+            setAlgo={setAlgo}
+            getAlgoList={sendAlgoListToChild}
+            curPair={props.curPair}
+            algo={algo}
+            active={algo.active}
+            isFromDB={algo.isFromDB}
+            ref={props.algoRef}
+          ></Algorithm>
+        )
+    );
+  }
 
   return (
     <div className={css.algorithms}>

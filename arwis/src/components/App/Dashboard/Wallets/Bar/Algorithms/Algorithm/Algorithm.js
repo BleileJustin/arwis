@@ -1,11 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useContext, useLayoutEffect } from "react";
+import {
+  useState,
+  useContext,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import css from "./Algorithm.module.css";
 
 import AuthContext from "../../../../../../../store/auth-context";
 import AlgorithmForm from "./AlgorithmForm/AlgorithmForm";
 
-const Algorithm = (props) => {
+const Algorithm = forwardRef((props, ref) => {
+  useImperativeHandle(ref, () => ({
+    deleteAlgo() {
+      deleteAlgo();
+    },
+  }));
+
   let isFromDBActive;
   if (props.active === false) {
     isFromDBActive = false;
@@ -16,6 +28,7 @@ const Algorithm = (props) => {
   const [activeState, setActiveState] = useState({
     active: isFromDBActive,
   });
+
   const [algoDom, setAlgoDom] = useState();
   const authCtx = useContext(AuthContext);
 
@@ -131,40 +144,37 @@ const Algorithm = (props) => {
           </div>
         );
       }
-
-      setAlgoDom(
-        <div className={css.algo_container}>
-          <div className={css.algorithm}>
-            <div className={css.algo_button}>
-              <button onClick={deleteAlgo} className={css.delete_algo}></button>
-            </div>
-            {algoVariables}
-            <div className={css.algo_form_item_active}>
-              <h4 className={css.algo_title}>Active:</h4>
-              <label className={css.switch}>
-                <input
-                  type="checkbox"
-                  defaultChecked={activeState.active}
-                  onChange={(e) => {
-                    if (!e.target.checked) {
-                      stopAlgo(props.algo.algoData);
-                    } else {
-                      restartAlgo(props.algo.algoData);
-                    }
-                  }}
-                ></input>
-                <span className={css.slider}></span>
-              </label>
-            </div>
+    }
+    setAlgoDom(
+      <div className={css.algo_container}>
+        <div className={css.algorithm}>
+          <div className={css.algo_button}>
+            <button onClick={deleteAlgo} className={css.delete_algo}></button>
+          </div>
+          {algoVariables}
+          <div className={css.algo_form_item_active}>
+            <h4 className={css.algo_title}>Active:</h4>
+            <label className={css.switch}>
+              <input
+                type="checkbox"
+                defaultChecked={activeState.active}
+                onChange={(e) => {
+                  if (!e.target.checked) {
+                    stopAlgo(props.algo.algoData);
+                  } else {
+                    restartAlgo(props.algo.algoData);
+                  }
+                }}
+              ></input>
+              <span className={css.slider}></span>
+            </label>
           </div>
         </div>
-      );
-    } else {
-      alert("Validation: please complete form before submiting");
-    }
+      </div>
+    );
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     console.log(props.isFromDB);
     if (props.isFromDB) {
       console.log("isFromDB");
@@ -183,5 +193,5 @@ const Algorithm = (props) => {
       ></AlgorithmForm>
     </div>
   );
-};
+});
 export default Algorithm;

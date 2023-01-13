@@ -12,14 +12,22 @@ const Wallets = () => {
 
   let content = {};
 
+  //  const setWalletCurPairAlgoDom = () => {};
+
   const setWalletCurPair = (curPair) => {
     const assignedCurPairWallet = {
       ...wallets[wallets.length - 1],
       curPair: curPair,
     };
-    const walletList = [...wallets];
-    walletList.splice([...wallets].length - 1, 1, assignedCurPairWallet);
-    setWallets(walletList);
+
+    setWallets((prevWallets) => {
+      [...prevWallets].splice(
+        [...prevWallets].length - 1,
+        1,
+        assignedCurPairWallet
+      );
+      return [...prevWallets];
+    });
   };
 
   const getWalletList = (curPair) => {
@@ -36,8 +44,6 @@ const Wallets = () => {
     } else {
       alert("Please connect prevbar");
     }
-    //Validation: "Please Connect before creating a new WalletBar"
-    // Onclick of + retrieve bar state
   };
 
   const deleteBarHandler = async (barId) => {

@@ -1,13 +1,16 @@
 const ccxt = require("ccxt");
 
-const trade = async (curPair, side, amountPerc, key, secret) => {
+const trade = async (curPair, side, amountPerc, key, secret, getMarkets) => {
+  
   const authedBinance = new ccxt.binance({
     apiKey: key,
     secret: secret,
   });
   authedBinance.setSandboxMode(true);
-  const getMarkets = await authedBinance.loadMarkets();
-
+  // find object with id in getMarkets array
+  const symbols = Object.keys(getMarkets).filter((symbol) =>
+    symbol.includes("USDT")
+  );
   const marketCurPair = curPair.replace("USDT", "/USDT");
   const min = getMarkets[marketCurPair].limits.amount.min;
   const currency = curPair.replace("USDT", "");
