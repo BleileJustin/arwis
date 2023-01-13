@@ -14,20 +14,31 @@ const Wallets = () => {
 
   //  const setWalletCurPairAlgoDom = () => {};
 
-  const setWalletCurPair = (curPair) => {
-    const assignedCurPairWallet = {
-      ...wallets[wallets.length - 1],
-      curPair: curPair,
-    };
+  const setWalletCurPair = (curPair, isFromDB) => {
+    console.log(isFromDB);
+    if (isFromDB) {
+      const assignedCurPairWallet = {
+        ...wallets[wallets.length - 1],
+        curPair: curPair,
+      };
 
-    setWallets((prevWallets) => {
-      [...prevWallets].splice(
-        [...prevWallets].length - 1,
-        1,
-        assignedCurPairWallet
-      );
-      return [...prevWallets];
-    });
+      setWallets((prevWallets) => {
+        [...prevWallets].splice(
+          [...prevWallets].length - 1,
+          1,
+          assignedCurPairWallet
+        );
+        return [...prevWallets];
+      });
+    } else {
+      const assignedCurPairWallet = {
+        ...wallets[wallets.length - 1],
+        curPair: curPair,
+      };
+      const walletsList = [...wallets];
+      walletsList.splice([...wallets].length - 1, 1, assignedCurPairWallet);
+      setWallets(walletsList);
+    }
   };
 
   const getWalletList = (curPair) => {
@@ -38,8 +49,8 @@ const Wallets = () => {
     if (!wallets.length || wallets[wallets.length - 1].curPair) {
       setWallets((prevBars) => {
         const prev = [...prevBars];
-        prev.unshift({ id: Math.random(), curPair: null });
-        return [...prev];
+        prev.push({ id: Math.random(), curPair: null });
+        return prev;
       });
     } else {
       alert("Please connect prevbar");

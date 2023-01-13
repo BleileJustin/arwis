@@ -26,10 +26,9 @@ const Portfolio = () => {
 
   useEffect(() => {
     getPortfolioChartData();
-    const interval = setInterval(() => {
+    setInterval(() => {
       getPortfolioChartData();
-    }, 1000 * 60 * 5); // 5 minutes
-    return () => clearInterval(interval);
+    }, 60000); // 1 minute
   }, []);
 
   return (

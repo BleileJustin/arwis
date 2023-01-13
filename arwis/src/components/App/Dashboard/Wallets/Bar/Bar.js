@@ -108,7 +108,8 @@ const Bar = (props) => {
           },
         });
       }
-      props.setWalletCurPair(curPair);
+      console.log(curPair);
+      props.setWalletCurPair(curPair, props.isFromDB);
       const ticker = await fetch(`${url}/api/binance/${curPair}/`, {
         method: "GET",
         headers: {
