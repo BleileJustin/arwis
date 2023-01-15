@@ -1,18 +1,21 @@
 
 .analytics {
   margin-right: 4px;
+  
 }
 
 .analytics_right_half_container {
     display: flex;
     justify-content: space-between;
-    width: 45%;
+    
+    width: 48%;
     
 }
 
 .analytics_left_half_container {
-    width: 45%;
+    width: 48%;
     height: 100%;
+    
     
 
 }
@@ -22,8 +25,9 @@
     align-items: flex-start;
     justify-content: center;
     width: 48%;
-    height: 100%;
-  
+    height: 95%;
+    margin-bottom: 5%
+
 }
 
 
@@ -32,12 +36,14 @@
     justify-content: space-between;
     width: 48%;
     height: 100%;
+    
 }
 
 .analytics_bar_left_half_container {
     display: flex;
     width: 48%;
     height: 100%;
+    
     
 }
 
@@ -48,6 +54,7 @@
     height: 100%;
     align-items: center;
     justify-content: center;
+    
   }
 
   .analytics_bar_quarter_container_right {
@@ -57,15 +64,16 @@
     height: 100%;
     align-items: center;
     justify-content: center;
+
   }
 
   .portfolio_value_heading {
     display: flex;
     align-items: center;
-    margin-left: 5%;
     padding-top: .2em;
     font-family: Aldrich;
     color: aliceblue;
+    
   } 
 
   .quarter_widget_heading {
@@ -74,4 +82,5 @@
     padding-top: .2em;
     font-family: Aldrich;
     color: aliceblue;
+    
   } 

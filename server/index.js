@@ -100,26 +100,32 @@ app.post("/api/tradelist/", express.json(), async (req, res) => {
       5
     );
     if (tradesForSymbol.length === 0) continue;
-    trades.push({ [symbol]: tradesForSymbol });
-  }
-  console.log(trades[0]["BNB/USDT"]);
-  const parsedTrades = trades.map((symbol) => {
-    //symbol is an object
-    symbol = Object.values(symbol)[0];
-
-    const symbolTrades = symbol.map((trade) => {
-      const { side, symbol, amount, timestamp } = trade;
-      return {
-        side,
-        symbol,
-        amount,
-        timestamp,
-      };
+    tradesForSymbol.forEach((trade) => {
+      trades.push(trade);
     });
+  }
+  console.log(trades);
 
-    return { [symbol[0].symbol]: symbolTrades };
+  const parsedTrades = trades.map((trade) => {
+    let { side, symbol, amount, timestamp } = trade;
+
+    amount = amount.toFixed(3);
+    return {
+      side,
+      symbol,
+      amount,
+      timestamp,
+    };
   });
-  res.send({ parsedTrades });
+  const tradesSortedByDate = parsedTrades.sort((a, b) => {
+    return new Date(b.timestamp) - new Date(a.timestamp);
+  });
+
+  tradesSortedByDate.splice(
+    tradesSortedByDate.length - 9,
+    tradesSortedByDate.length - 1
+  );
+  res.send(tradesSortedByDate);
 });
 // //////////////////////////////////////////
 // ALGORITHM ENDPOINTS

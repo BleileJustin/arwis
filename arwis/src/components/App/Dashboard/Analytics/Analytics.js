@@ -71,7 +71,9 @@ const Analytics = () => {
               getPortfolioDistribution={getPortfolioDistribution}
             ></Distribution>
           </div>
-          <div className={css.analytics_quarter_container}>
+          <div
+            className={css.analytics_quarter_container}
+          >
             <TradeList></TradeList>
           </div>
         </div>
