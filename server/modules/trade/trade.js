@@ -11,7 +11,6 @@ const trade = async (curPair, side, amountPerc, key, secret, getMarkets) => {
     symbol.includes("USDT")
   );
   const marketCurPair = curPair.replace("USDT", "/USDT");
-  const min = getMarkets[marketCurPair].limits.cost.min;
   const currency = curPair.replace("USDT", "");
   const allBalances = await authedBinance.fetchBalance();
   let amount = "";
@@ -29,16 +28,10 @@ const trade = async (curPair, side, amountPerc, key, secret, getMarkets) => {
     let amountInt = parseFloat(amount);
 
     // get amount to lots
-    const lotSize = getMarkets[marketCurPair].limits.cost.min;
+    const lotSize = getMarkets[marketCurPair].limits.amount.min;
     const precSize = authedBinance.amountToPrecision(curPair, amountInt);
     console.log("precSize: " + precSize);
     amountInt = Math.floor(amountInt / lotSize) * lotSize;
-
-    console.log(amountInt);
-    if (amountInt < min) {
-      console.log("Amount is too small");
-      return;
-    }
     const order = await authedBinance.createOrder(
       curPair,
       "market",
