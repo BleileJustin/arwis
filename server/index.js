@@ -78,14 +78,13 @@ app.post("/api/tradelist/", express.json(), async (req, res) => {
   });
   authedBinance.setSandboxMode(true);
   const getMarkets = await authedBinance.loadMarkets();
-  const marketSymbols = Object.keys(getMarkets).filter((symbol) => {
+  Object.keys(getMarkets).filter((symbol) => {
     if (symbol.includes("USDT")) return symbol;
   });
-  console.log(marketSymbols);
   // get trades from all symbols
   const balance = await authedBinance.fetchBalance();
-  const symbol = Object.keys(balance.total);
-  const symbols = symbol.map((symbol) => {
+  const symbolObj = Object.keys(balance.total);
+  const symbols = symbolObj.map((symbol) => {
     if (symbol === "USDT" || symbol === "BUSD") return;
     return symbol + "/USDT";
   });
@@ -94,7 +93,8 @@ app.post("/api/tradelist/", express.json(), async (req, res) => {
   for (let i = 0; i < symbols.length; i++) {
     if (symbols[i] === undefined) continue;
     const symbol = symbols[i];
-    const tradesForSymbol = await authedBinance.fetchMyTrades(
+
+    const tradesForSymbol = await authedBinance.fetchOrders(
       symbol,
       undefined,
       5
@@ -104,12 +104,11 @@ app.post("/api/tradelist/", express.json(), async (req, res) => {
       trades.push(trade);
     });
   }
-  console.log(trades);
 
   const parsedTrades = trades.map((trade) => {
     let { side, symbol, amount, timestamp } = trade;
 
-    amount = amount.toFixed(3);
+    amount = amount.toFixed(2);
     return {
       side,
       symbol,
@@ -157,7 +156,7 @@ app.post("/api/algo/delete/", express.json(), async (req, res) => {
   try {
     const algoData = await deleteDBAlgo(email, client, id);
     deleteBollingerBands(id, email, client);
-    if (allUsersRunningAlgos[email][id]) {
+    if (allUsersRunningAlgos[email]) {
       allUsersRunningAlgos[email][id]
         ? (allUsersRunningAlgos[email][id] = null)
         : null;

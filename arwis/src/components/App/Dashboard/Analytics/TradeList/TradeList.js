@@ -28,7 +28,7 @@ const TradeList = () => {
         }
       };
       const fetchedTrades = await fetchTrades();
-      console.log(fetchedTrades);
+      setTrades([]);
       fetchedTrades.forEach((trade) => {
         ////// Time Formatting //////
         let time = new Date(trade.timestamp);
@@ -46,17 +46,16 @@ const TradeList = () => {
         } else {
           time = `${time} AM`;
         }
-        console.log(time);
 
         trade.time = time;
         ////// Color Formatting //////
         let color;
         if (trade.side === "buy") {
           trade.side = "Buy";
-          color = "green";
+          color = "rgb(5, 255, 0)";
         } else {
           trade.side = "Sell";
-          color = "red";
+          color = "rgb(225, 50, 85)";
         }
         ////// Symbol Formatting //////
 
@@ -64,14 +63,27 @@ const TradeList = () => {
 
         const tradeDom = (
           <div
-            key={trade.timestamp}
+            key={trade.timestamp + Math.random()}
             className={css.trade}
             style={{ color: [color] }}
           >
             <h3 className={css.item}>{trade.side}</h3>
-            <h3 className={css.item}>{trade.symbol}</h3>
-            <h3 className={css.item}>{trade.amount + " " + trade.symbol}</h3>
-            <h3 className={css.item} style={{ width: "28%" }}>
+            <h3
+              className={css.item}
+              style={{ width: "15%", textAlign: "right" }}
+            >
+              {trade.symbol}
+            </h3>
+            <h3
+              className={css.item}
+              style={{ width: "35%", textAlign: "right" }}
+            >
+              {trade.amount + " " + trade.symbol}
+            </h3>
+            <h3
+              className={css.item}
+              style={{ width: "30%", textAlign: "right", paddingRight: "1rem" }}
+            >
               {trade.time}
             </h3>
           </div>
@@ -83,9 +95,16 @@ const TradeList = () => {
     };
 
     tradeDomHandler();
+    setInterval(() => {
+      tradeDomHandler();
+    }, 15000); // 10 seconds
   }, [authCtx.email, authCtx.url]);
 
-  return <div className={css.tradesList}>{trades}</div>;
+  return (
+    <div className={css.tradeListContainer}>
+      <div className={css.tradesList}>{trades}</div>;
+    </div>
+  );
 };
 
 export default TradeList;

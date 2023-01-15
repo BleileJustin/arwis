@@ -15,7 +15,6 @@ const Wallets = () => {
   //  const setWalletCurPairAlgoDom = () => {};
 
   const setWalletCurPair = (curPair, isFromDB) => {
-    console.log(isFromDB);
     if (isFromDB) {
       const assignedCurPairWallet = {
         ...wallets[wallets.length - 1],
@@ -88,7 +87,6 @@ const Wallets = () => {
         }),
       });
       const data = await response.json();
-      console.log(data);
       if (!data.wallets) return;
       const walletList = data.wallets.map((wallet) => {
         return { id: Math.random(), curPair: wallet.curPair, isFromDB: true };

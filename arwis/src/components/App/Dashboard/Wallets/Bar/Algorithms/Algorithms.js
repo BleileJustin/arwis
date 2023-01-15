@@ -28,7 +28,6 @@ const Algorithms = (props) => {
   };
 
   const deleteAlgoHandler = async (algoId) => {
-    console.log("algoId", algoId);
     setAlgoList((prevAlgos) => {
       const updatedAlgos = prevAlgos.filter((algo) => algo.id !== algoId);
       return updatedAlgos;
@@ -70,8 +69,6 @@ const Algorithms = (props) => {
       if (!data.algoData) return;
 
       const algos = data.algoData.map((algo) => {
-        console.log("JKL:");
-        console.log(algo.active);
         return {
           id: algo.id,
           active: algo.active,

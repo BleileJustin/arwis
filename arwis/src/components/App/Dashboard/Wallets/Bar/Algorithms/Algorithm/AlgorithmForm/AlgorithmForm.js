@@ -13,7 +13,6 @@ const AlgorithmForm = (props) => {
     event.preventDefault();
     const targetArr = [];
     for (let i = 1; i < event.target.length - 1; i++) {
-      console.log(event.target[i].parentNode.childNodes[0].textContent);
       targetArr.push({
         value: event.target[i].value,
         label: event.target[i].parentNode.childNodes[0].textContent,

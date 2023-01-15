@@ -1,7 +1,6 @@
 const ccxt = require("ccxt");
 
 const trade = async (curPair, side, amountPerc, key, secret, getMarkets) => {
-  
   const authedBinance = new ccxt.binance({
     apiKey: key,
     secret: secret,
@@ -12,7 +11,7 @@ const trade = async (curPair, side, amountPerc, key, secret, getMarkets) => {
     symbol.includes("USDT")
   );
   const marketCurPair = curPair.replace("USDT", "/USDT");
-  const min = getMarkets[marketCurPair].limits.amount.min;
+  const min = getMarkets[marketCurPair].limits.cost.min;
   const currency = curPair.replace("USDT", "");
   const allBalances = await authedBinance.fetchBalance();
   let amount = "";
@@ -27,11 +26,19 @@ const trade = async (curPair, side, amountPerc, key, secret, getMarkets) => {
   }
 
   try {
-    const amountDigits = min.toString().split(".")[1].length;
-    const amountToFloat = parseFloat(amount).toFixed(amountDigits);
-    const amountInt = parseFloat(amountToFloat);
+    let amountInt = parseFloat(amount);
+
+    // get amount to lots
+    const lotSize = getMarkets[marketCurPair].limits.cost.min;
+    const precSize = authedBinance.amountToPrecision(curPair, amountInt);
+    console.log("precSize: " + precSize);
+    amountInt = Math.floor(amountInt / lotSize) * lotSize;
 
     console.log(amountInt);
+    if (amountInt < min) {
+      console.log("Amount is too small");
+      return;
+    }
     const order = await authedBinance.createOrder(
       curPair,
       "market",

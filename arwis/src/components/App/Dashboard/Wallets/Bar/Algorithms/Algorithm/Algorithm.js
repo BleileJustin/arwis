@@ -28,20 +28,16 @@ const Algorithm = forwardRef((props, ref) => {
   const [activeState, setActiveState] = useState({
     active: isFromDBActive,
   });
-
   const [algoDom, setAlgoDom] = useState();
   const authCtx = useContext(AuthContext);
 
   let algoVariables = [];
-  console.log(activeState);
   const id = props.id;
-  console.log("algo id: " + id);
 
   const startAlgo = async (algoFormArr) => {
     setActiveState({
       active: true,
     });
-    console.log(algoFormArr);
     const serverArray = algoFormArr.map((item) => {
       return {
         [item.label]: item.value,
@@ -51,7 +47,6 @@ const Algorithm = forwardRef((props, ref) => {
     serverArray.forEach((item) => {
       Object.assign(serverObj, item);
     });
-    console.log(serverObj);
     try {
       await fetch(`${authCtx.url}/api/algo/start/${algoFormArr[0].value}`, {
         method: "POST",
@@ -119,9 +114,7 @@ const Algorithm = forwardRef((props, ref) => {
   };
 
   const onAlgoSubmit = async (formArr, isFromDB) => {
-    console.log(formArr);
     if (props.algo.algoData || formArr) {
-      console.log("formArr");
       if (!isFromDB) {
         await startAlgo(formArr);
       }
@@ -175,9 +168,7 @@ const Algorithm = forwardRef((props, ref) => {
   };
 
   useEffect(() => {
-    console.log(props.isFromDB);
     if (props.isFromDB) {
-      console.log("isFromDB");
       onAlgoSubmit(props.algo.algoData, true);
     }
   }, [props.isFromDB]);
