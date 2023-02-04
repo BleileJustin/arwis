@@ -2,7 +2,7 @@
 
 ## React, Express, Node, and MongoDB, with Firebase for authentication.
 ### Visit the current deployment at:
-####[Arwis | Automated Crypto Trading and Portfolio Analytics](arwis.up.railway.app)
+#### [Arwis | Automated Crypto Trading and Portfolio Analytics](arwis.up.railway.app)
 <br/>Login and check it out with the demo email and password below or create your own account!
 <br/> &nbsp;Demo Email: arwisdemo@gmail.com
 <br/> &nbsp;Demo Password: password
