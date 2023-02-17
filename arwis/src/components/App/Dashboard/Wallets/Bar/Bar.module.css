@@ -19,6 +19,7 @@
     height: 3.5vh;
     width: 3.5vh;
     cursor: pointer;
+    margin-left: 3.5vh;
 }
 
 .delete_bar {
@@ -34,7 +35,7 @@
 
 .cur_pair_container, .wallet_value_container{
     display: flex;
-    width: 40%;
+    width: 80%;
     justify-content: space-between;
     padding-left: 2vh;
     padding-right: 2vh;

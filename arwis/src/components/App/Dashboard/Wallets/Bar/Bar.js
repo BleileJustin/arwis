@@ -143,38 +143,53 @@ const Bar = (props) => {
 
       setBarJSX(
         <BarContainer isWalletBar={true}>
-          <button className={css.delete_bar} onClick={deleteBar}></button>
+          <div style={{ width: "48%", display: "flex", flexDirection: "row" }}>
+            <button className={css.delete_bar} onClick={deleteBar}></button>
 
-          <div className={css.cur_pair_container}>
-            <h2 className={css.cur_pair}>{curPair.replace("USDT", "/USDT")}</h2>
-            <div className={css.cur_pair_value_container}>
-              <h3 className={css.cur_pair_value_crypto}>{`$${priceString}`}</h3>
-              <h4
-                className={css.cur_pair_value_fiat}
-                style={{ color: percentColor }}
-              >
-                {`${lastPercent} %`}
-              </h4>
+            <div className={css.cur_pair_container}>
+              <h2 className={css.cur_pair}>
+                {curPair.replace("USDT", "/USDT")}
+              </h2>
+              <div className={css.cur_pair_value_container}>
+                <h3
+                  className={css.cur_pair_value_crypto}
+                >{`$${priceString}`}</h3>
+                <h4
+                  className={css.cur_pair_value_fiat}
+                  style={{ color: percentColor }}
+                >
+                  {`${lastPercent} %`}
+                </h4>
+              </div>
             </div>
           </div>
 
-          <div className={css.wallet_value_container}>
-            <h3 className={css.wallet_value_title}>Wallet Value:</h3>
-            <div className={css.wallet_value_curpair_container}>
-              <h3 className={css.wallet_value_crypto}>
-                {balance} {currency}
-              </h3>
-              <h4 className={css.wallet_value_fiat}>
-                {balanceToUsd} {"USD"}
-              </h4>
-            </div>
-          </div>
-          <button
-            className={css.expand_bar}
-            onClick={() => {
-              setBarExpanded((barExpanded) => !barExpanded);
+          <div
+            style={{
+              width: "48%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-end",
             }}
-          ></button>
+          >
+            <div className={css.wallet_value_container}>
+              <h3 className={css.wallet_value_title}>Wallet Value:</h3>
+              <div className={css.wallet_value_curpair_container}>
+                <h3 className={css.wallet_value_crypto}>
+                  {balance} {currency}
+                </h3>
+                <h4 className={css.wallet_value_fiat}>
+                  {balanceToUsd} {"USD"}
+                </h4>
+              </div>
+            </div>
+            <button
+              className={css.expand_bar}
+              onClick={() => {
+                setBarExpanded((barExpanded) => !barExpanded);
+              }}
+            ></button>
+          </div>
         </BarContainer>
       );
     } else {

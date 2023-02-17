@@ -3,7 +3,8 @@
     flex-direction: column;
     align-items: center;
     height: 88%;
-    width: 45%;
+    width: 46%;
+    margin-left: 2%;
     overflow-y: scroll;
 }
 
