@@ -33,3 +33,6 @@ yarn-error.log*
 /arwis/build
 /arwis/node_modules
 /arwis/.env
+
+
+/binance-api-key.txt

@@ -290,7 +290,9 @@ const Bar = (props) => {
     </>
   ) : (
     <BarContainer isWalletBar={true}>
-      <button className={css.delete_bar} onClick={deleteBar}></button>
+      <div style={{ marginLeft: "1.3vh" }}>
+        <button className={css.delete_bar} onClick={deleteBar}></button>
+      </div>
       <BarForm
         onConnect={onConnect}
         dropdownIsEnabled={intervalAndCurPairState.dropdwonIsEnabled}

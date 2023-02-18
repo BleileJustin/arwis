@@ -40,6 +40,7 @@ const PortfolioChart = (props) => {
 
       // Get the current users primary locale
       const currentLocale = window.navigator.languages[0];
+      console.log("CURRENT LOCALE: ", currentLocale);
       // Create a number format using Intl.NumberFormat
 
       const myPriceFormatter = Intl.NumberFormat(currentLocale, {

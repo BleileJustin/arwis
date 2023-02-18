@@ -19,7 +19,8 @@
     height: 3.5vh;
     width: 3.5vh;
     cursor: pointer;
-    margin-left: 3.5vh;
+    margin-top: .5vh;
+    margin-left: .2vh;
 }
 
 .delete_bar {
@@ -27,6 +28,8 @@
     background-size: 3.5vh;
     height: 3.5vh;
     width: 3.5vh;
+    margin-top: .5vh;
+    margin-right: .2vh;
     cursor: pointer;
     
 }
