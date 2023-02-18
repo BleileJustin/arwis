@@ -38,11 +38,14 @@
 
 .cur_pair_container, .wallet_value_container{
     display: flex;
-    width: 80%;
+    width: 85%;
     justify-content: space-between;
-    padding-left: 2vh;
     padding-right: 2vh;
 
+}
+
+.cur_pair_container {
+    padding-left: 2vh;
 }
 
 
