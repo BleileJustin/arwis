@@ -4,7 +4,7 @@
     flex-direction: column;
     color: white;
     text-align: center;
-    width: 50%;
+    width: 75%;
 }
 
 .auth_form_container {
@@ -31,6 +31,7 @@
     width: 100%;
     margin: 5px;
     padding-top: 2%;
+    font-size: .8em;
 }
 
 .submit_button {

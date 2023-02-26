@@ -26,6 +26,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
+    "react-socks": "^2.2.0",
     "stream": "npm:stream-browserify",
     "technicalindicators": "^3.1.0",
     "watch": "^1.0.2",
@@ -37,7 +38,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "fire": "npm run build && firebase deploy",
     "client": "npm run build && firebase deploy --only hosting"
   },
   "eslintConfig": {
