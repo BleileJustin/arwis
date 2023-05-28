@@ -1,4 +1,5 @@
 // API
+
 // //////////////////////////////////////////
 
 const origin = "https://arwis.up.railway.app";
@@ -463,6 +464,8 @@ app.post("/api/encrypt-api-key", express.json(), async (req, res) => {
     console.log(e);
   }
 });
+
+// START SERVER LISTENER
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
