@@ -25,7 +25,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 // //////////////////////////////////////////
 // FUNCTIONS TESTER
-
+ 
 // //////////////////////////////////////////
 // MONGODB DATABASE INITIALIZATION
 
@@ -121,10 +121,6 @@ app.post("/api/tradelist/", express.json(), async (req, res) => {
     return new Date(b.timestamp) - new Date(a.timestamp);
   });
 
-  tradesSortedByDate.splice(
-    tradesSortedByDate.length - 9,
-    tradesSortedByDate.length - 1
-  );
   res.send(tradesSortedByDate);
 });
 // //////////////////////////////////////////
