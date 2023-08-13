@@ -18,7 +18,7 @@ const getPortfolioValueRecordsFromDB = async (email, client) => {
 };
 
 // SET PORTFOLIO VALUE IN DATABASE
-const setPortfolioValueInDB = async (email, client, dbPrivateKey) => {
+const startSetPortfolioValueInDB = async (email, client, dbPrivateKey) => {
   try {
     const api = await databaseApikeyManager.getEncryptedApiKeyFromDBAndDecrypt(
       email,
@@ -44,13 +44,30 @@ const setPortfolioValueInDB = async (email, client, dbPrivateKey) => {
         { $push: { portfolioValueRecord: portfolioValueRecord } },
         { upsert: true }
       );
-    }, 1000 * 60 * 15); // 15 minutes
+    }, 1000 * 60 * 15); // 1 minutes
   } catch (e) {
     console.log(e);
   }
 };
 
+const startSetPortfolioValueInDBforEachUser = async (client, dbPrivateKey) => {
+  //need to get list of users
+  //access db
+  const collection = client.db("arwis").collection("users");
+  const findResult = await collection.find({}).toArray();
+  const emailArr = [];
+  findResult.forEach((result) => {
+    emailArr.push(result.email);
+  });
+  emailArr.forEach((email) => {
+    startSetPortfolioValueInDB(email, client, dbPrivateKey);
+  });
+
+  // run startSetPortfolioValueInDB for each user
+};
+
 module.exports = {
   getPortfolioValueRecordsFromDB,
-  setPortfolioValueInDB,
+  startSetPortfolioValueInDB,
+  startSetPortfolioValueInDBforEachUser,
 };

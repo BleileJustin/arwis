@@ -25,7 +25,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 // //////////////////////////////////////////
 // FUNCTIONS TESTER
- 
+
 // //////////////////////////////////////////
 // MONGODB DATABASE INITIALIZATION
 
@@ -65,7 +65,6 @@ const dbPublicKey = process.env.DB_PUBLIC_KEY;
 const dbPrivateKey = process.env.DB_PRIVATE_KEY;
 // //////////////////////////////////////////
 const allUsersRunningAlgos = {};
-
 // //////////////////////////////////////////
 app.post("/api/tradelist/", express.json(), async (req, res) => {
   const api = await databaseApikeyManager.getEncryptedApiKeyFromDBAndDecrypt(
@@ -240,6 +239,11 @@ const databasePortfolioManager = require("./modules/portfolio/portfolio-database
 const databaseWalletManager = require("./modules/wallets/wallets-database.js");
 const { appendFile } = require("fs");
 
+databasePortfolioManager.startSetPortfolioValueInDBforEachUser(
+  client,
+  dbPrivateKey
+);
+
 app.post("/api/set-wallet", express.json(), async (req, res) => {
   const wallet = req.body.wallet;
   const email = req.body.email;
@@ -342,7 +346,7 @@ app.post("/api/portfolio-value", express.json(), async (req, res) => {
 app.post("/api/set-portfolio-value", express.json(), async (req, res) => {
   try {
     const email = req.body.email;
-    await databasePortfolioManager.setPortfolioValueInDB(
+    await databasePortfolioManager.startSetPortfolioValueInDB(
       email,
       client,
       dbPrivateKey
