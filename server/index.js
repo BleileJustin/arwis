@@ -97,7 +97,7 @@ app.post("/api/tradelist/", express.json(), async (req, res) => {
     const tradesForSymbol = await authedBinance.fetchOrders(
       symbol,
       undefined,
-      5
+      15
     );
     if (tradesForSymbol.length === 0) continue;
     tradesForSymbol.forEach((trade) => {
