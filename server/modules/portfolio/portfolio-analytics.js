@@ -9,11 +9,10 @@ const getPortfolioValueFromBinance = async (apiKey, apiSecret) => {
   });
   authedBinance.setSandboxMode(true);
   try {
-    const balances = await authedBinance.fetchBalance();
+    const balancesArray = await authedBinance.fetchBalance();
     const prices = await publicBinance.fetchTickers();
-    const balancesArray = balances.info.balances;
-
-    const portfolioValue = calculatePortfolioValue(balancesArray, prices);
+    const balances = balancesArray.info.balances;
+    const portfolioValue = calculatePortfolioValue(balances, prices);
     return portfolioValue;
   } catch (e) {
     console.log(e);
@@ -23,13 +22,17 @@ const getPortfolioValueFromBinance = async (apiKey, apiSecret) => {
 const calculatePortfolioValue = (balances, prices) => {
   let portfolioValue = 0;
   for (const balance of balances) {
+    //Only for USDT Value
     if (balance.asset === "USDT") {
       portfolioValue += parseFloat(balance.free) + parseFloat(balance.locked);
     } else {
+      //All other assets
       const total = parseFloat(balance.free) + parseFloat(balance.locked);
+      // console.log("prices", prices);
       const price = prices[balance.asset + "/USDT"];
-      if (total > 0 && price) {
-        portfolioValue += total * parseFloat(price.last);
+      if (parseFloat(total) > 0 && price !== undefined) {
+        console.log([portfolioValue, total, price.info.lastPrice]);
+        portfolioValue += parseFloat(total) * parseFloat(price.info.lastPrice);
       }
     }
   }
@@ -56,7 +59,7 @@ const getPortfolioDistributionFromBinance = async (apiKey, apiSecret) => {
       const total = parseFloat(free) + parseFloat(locked);
       const price = prices[balance.asset + "/USDT"];
       if (total > 0 && price) {
-        const assetValue = total * parseFloat(price.last);
+        const assetValue = total * parseFloat(price.info.lastPrice);
         const assetPercentage = (assetValue / portfolioValue) * 100;
         portfolioDistribution.push({
           asset: balance.asset,

@@ -11,6 +11,7 @@ const express = require("express");
 const cors = require("cors");
 // Exchange packages
 const ccxt = require("ccxt");
+
 const publicBinance = new ccxt.binanceus();
 // Encryption packages
 const crypto = require("crypto");
@@ -24,7 +25,15 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 // //////////////////////////////////////////
-// FUNCTIONS TESTER
+
+// Filtered symbols Binance.com supports but not Binance.US
+const supportedSymbols = [
+  "BTC/USDT",
+  "ETH/USDT",
+  "BNB/USDT",
+  "LTC/USDT",
+  "ADA/USDT",
+];
 
 // //////////////////////////////////////////
 // MONGODB DATABASE INITIALIZATION
@@ -88,21 +97,22 @@ app.post("/api/tradelist/", express.json(), async (req, res) => {
     if (symbol === "USDT" || symbol === "BUSD") return;
     return symbol + "/USDT";
   });
-
   const trades = [];
   for (let i = 0; i < symbols.length; i++) {
-    if (symbols[i] === undefined) continue;
+    if (symbols[i] === undefined || !supportedSymbols.includes(symbols[i]))
+      continue;
     const symbol = symbols[i];
-
     const tradesForSymbol = await authedBinance.fetchOrders(
       symbol,
       undefined,
-      15
+      1
     );
+
     if (tradesForSymbol.length === 0) continue;
     tradesForSymbol.forEach((trade) => {
       trades.push(trade);
     });
+    console.log(trades);
   }
 
   const parsedTrades = trades.map((trade) => {
@@ -336,6 +346,8 @@ app.post("/api/portfolio-value", express.json(), async (req, res) => {
       apiKey,
       apiSecret
     );
+    console.log("portfolioValue");
+    console.log(portfolioValue);
     res.send({ portfolioValue });
   } catch (e) {
     console.log(e);

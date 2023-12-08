@@ -16,6 +16,7 @@ const Distribution = (props) => {
 
   const portfolioDistributionHandler = async () => {
     const recievedData = await props.getPortfolioDistribution();
+    console.log(recievedData);
     return recievedData;
   };
 
@@ -34,6 +35,7 @@ const Distribution = (props) => {
   const setDistributionData = async () => {
     const recievedData = await portfolioDistributionHandler();
     recievedData.forEach((item) => {
+      console.log(item);
       items.push([item.asset, item.percentage.toFixed(0)]);
     });
     //sort percentages in descending order
