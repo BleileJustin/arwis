@@ -28,10 +28,8 @@ const calculatePortfolioValue = (balances, prices) => {
     } else {
       //All other assets
       const total = parseFloat(balance.free) + parseFloat(balance.locked);
-      // console.log("prices", prices);
       const price = prices[balance.asset + "/USDT"];
       if (parseFloat(total) > 0 && price !== undefined) {
-        console.log([portfolioValue, total, price.info.lastPrice]);
         portfolioValue += parseFloat(total) * parseFloat(price.info.lastPrice);
       }
     }
