@@ -1,4 +1,4 @@
-# Arwis |  A Cryptocurrency Trading Bot
+# Arwis |  Asset Trading Automated
 
 ## React, Express, Node, and MongoDB, with Firebase for authentication.
 ### Visit the current deployment at:
