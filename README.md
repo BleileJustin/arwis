@@ -25,12 +25,3 @@
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8. Click the plus in the newly connected Wallet Bar to expand it and view candlestick chart analytics and create and start trading algorithms for that currency pair.
 <br/>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9. Look at the trade list in the top right and watch for when your algorithm makes trades!
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-### IN DEVELOPMENT
-Implement responsiveness on mobile devices
-<br>Trades on more than only the Binance.US Testnet exchange
-<br>Add stock trading
