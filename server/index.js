@@ -86,7 +86,7 @@ app.post("/api/tradelist/", express.json(), async (req, res) => {
     secret: api.apiSecret,
   });
   authedBinance.setSandboxMode(true);
-  const getMarkets = {};
+  let getMarkets = {};
   try {
     getMarkets = await authedBinance.loadMarkets();
   } catch (e) {
