@@ -36,7 +36,7 @@ const startSetPortfolioValueInDB = async (email, client, dbPrivateKey) => {
         portfolioValue: portfolioValue,
         timestamp: Date.now(),
       };
-      if (portfolioValueRecord.portfolioValue !== undefined) {
+      if (portfolioValueRecord.portfolioValue !== null) {
         console.log("SETTING PORTFOLIO VALUE IN DB");
         console.log(email);
         console.log(portfolioValueRecord);
