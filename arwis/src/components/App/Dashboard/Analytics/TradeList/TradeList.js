@@ -102,7 +102,7 @@ const TradeList = () => {
 
   return (
     <div className={css.tradeListContainer}>
-      <div className={css.tradesList}>{trades}</div>;
+      <div className={css.tradesList}>{trades}</div>
     </div>
   );
 };
