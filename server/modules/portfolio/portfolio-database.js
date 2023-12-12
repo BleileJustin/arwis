@@ -36,7 +36,7 @@ const startSetPortfolioValueInDB = async (email, client, dbPrivateKey) => {
         portfolioValue: portfolioValue,
         timestamp: Date.now(),
       };
-      if (portfolioValueRecord.portfolioValue !== null) {
+      if (portfolioValueRecord.portfolioValue) {
         console.log("SETTING PORTFOLIO VALUE IN DB");
         console.log(email);
         console.log(portfolioValueRecord);
@@ -46,8 +46,13 @@ const startSetPortfolioValueInDB = async (email, client, dbPrivateKey) => {
           { $push: { portfolioValueRecord: portfolioValueRecord } },
           { upsert: true }
         );
+      } else {
+        console.log("ERROR SETTING PORTFOLIO VALUE IN DB");
+        console.log(email);
+        console.log(portfolioValueRecord);
+        console.log(" ");
       }
-    }, 1000 * 60 * 15); // 15 minutes
+    }, 1000 * 60 * 10); // 10 minutes
   } catch (e) {
     console.log(e);
   }

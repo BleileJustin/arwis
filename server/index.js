@@ -26,7 +26,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 // //////////////////////////////////////////
 
-// Filtered symbols Binance.com supports but not Binance.US
+// Filtered symbols Binance.US supports
 const supportedSymbols = [
   "BTC/USDT",
   "ETH/USDT",
