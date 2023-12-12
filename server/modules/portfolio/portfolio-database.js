@@ -36,14 +36,17 @@ const startSetPortfolioValueInDB = async (email, client, dbPrivateKey) => {
         portfolioValue: portfolioValue,
         timestamp: Date.now(),
       };
-      console.log("SETTING PORTFOLIO VALUE IN DB");
-      console.log(email);
-      console.log(" ");
-      await collection.updateOne(
-        { email: email },
-        { $push: { portfolioValueRecord: portfolioValueRecord } },
-        { upsert: true }
-      );
+      if (portfolioValueRecord.portfolioValue !== undefined) {
+        console.log("SETTING PORTFOLIO VALUE IN DB");
+        console.log(email);
+        console.log(portfolioValueRecord);
+        console.log(" ");
+        await collection.updateOne(
+          { email: email },
+          { $push: { portfolioValueRecord: portfolioValueRecord } },
+          { upsert: true }
+        );
+      }
     }, 1000 * 60 * 15); // 15 minutes
   } catch (e) {
     console.log(e);

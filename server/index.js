@@ -112,7 +112,6 @@ app.post("/api/tradelist/", express.json(), async (req, res) => {
     tradesForSymbol.forEach((trade) => {
       trades.push(trade);
     });
-    console.log(trades);
   }
 
   const parsedTrades = trades.map((trade) => {
@@ -346,8 +345,6 @@ app.post("/api/portfolio-value", express.json(), async (req, res) => {
       apiKey,
       apiSecret
     );
-    console.log("portfolioValue");
-    console.log(portfolioValue);
     res.send({ portfolioValue });
   } catch (e) {
     console.log(e);
