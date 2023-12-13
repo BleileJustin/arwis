@@ -89,7 +89,7 @@ app.post("/api/tradelist/", express.json(), async (req, res) => {
     secret: api.apiSecret,
   });
   authedBinance.setSandboxMode(true);
-  const getMarkets = await authedBinance.loadMarkets();
+  const getMarkets = await authedBinance.loadMarkets(true);
 
   Object.keys(getMarkets).filter((symbol) => {
     if (symbol.includes("USDT")) return symbol;
