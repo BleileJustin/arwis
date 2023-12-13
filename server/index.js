@@ -150,6 +150,10 @@ const {
   getDBAlgos,
 } = require("./modules/algorithms/bollingerbands/bollinger-bands-database.js");
 
+app.on("uncaughtException", function (err) {
+  console.log(err);
+});
+
 app.post("/api/algo/get/", express.json(), async (req, res) => {
   const email = req.body.email;
   try {
