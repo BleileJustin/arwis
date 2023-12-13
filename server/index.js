@@ -2,8 +2,8 @@
 
 // //////////////////////////////////////////
 
-const origin = "https://arwis.up.railway.app";
-// const origin = "http://localhost:3000";
+// const origin = "https://arwis.up.railway.app";
+const origin = "http://localhost:3000";
 
 // Server and Database Packages
 require("dotenv").config();
@@ -24,6 +24,9 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
+app.on("uncaughtException", function (err) {
+  console.log(err);
+});
 // //////////////////////////////////////////
 
 // Filtered symbols Binance.US supports
@@ -86,12 +89,8 @@ app.post("/api/tradelist/", express.json(), async (req, res) => {
     secret: api.apiSecret,
   });
   authedBinance.setSandboxMode(true);
-  let getMarkets = {};
-  try {
-    getMarkets = await authedBinance.loadMarkets();
-  } catch (e) {
-    console.log(e);
-  }
+  const getMarkets = await authedBinance.loadMarkets();
+
   Object.keys(getMarkets).filter((symbol) => {
     if (symbol.includes("USDT")) return symbol;
   });
@@ -149,10 +148,6 @@ const {
   deleteDBAlgo,
   getDBAlgos,
 } = require("./modules/algorithms/bollingerbands/bollinger-bands-database.js");
-
-app.on("uncaughtException", function (err) {
-  console.log(err);
-});
 
 app.post("/api/algo/get/", express.json(), async (req, res) => {
   const email = req.body.email;
