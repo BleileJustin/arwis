@@ -2,8 +2,8 @@
 
 // //////////////////////////////////////////
 
-// const origin = "https://arwis.up.railway.app";
-const origin = "http://localhost:3000";
+const origin = "https://arwis.up.railway.app";
+// const origin = "http://localhost:3000";
 
 // Server and Database Packages
 require("dotenv").config();
