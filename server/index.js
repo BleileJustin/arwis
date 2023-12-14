@@ -96,9 +96,10 @@ app.post("/api/tradelist/", express.json(), async (req, res) => {
   });
   // get trades from all symbols
   let tryAgain = true;
+  let balance = {};
   do {
     try {
-      const balance = await authedBinance.fetchBalance();
+      balance = await authedBinance.fetchBalance();
       tryAgain = false;
     } catch (e) {
       console.log(e);
