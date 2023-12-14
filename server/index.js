@@ -89,9 +89,9 @@ app.post("/api/tradelist/", express.json(), async (req, res) => {
     secret: api.apiSecret,
   });
   authedBinance.setSandboxMode(true);
-  await authedBinance.loadMarkets(true);
+  await publicBinance.loadMarkets(true);
 
-  Object.keys(authedBinance.markets).filter((symbol) => {
+  Object.keys(publicBinance.markets).filter((symbol) => {
     if (symbol.includes("USDT")) return symbol;
   });
   // get trades from all symbols

@@ -52,7 +52,7 @@ const startSetPortfolioValueInDB = async (email, client, dbPrivateKey) => {
         console.log(portfolioValueRecord);
         console.log(" ");
       }
-    }, 1000 * 60 * 10); // 10 minutes
+    }, 1000 * 60 * 15); // 10 minutes
   } catch (e) {
     console.log(e);
   }
