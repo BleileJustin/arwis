@@ -95,18 +95,7 @@ app.post("/api/tradelist/", express.json(), async (req, res) => {
     if (symbol.includes("USDT")) return symbol;
   });
   // get trades from all symbols
-  let tryAgain;
-  let balance = {};
-  do {
-    try {
-      balance = await authedBinance.fetchBalance();
-      tryAgain = false;
-    } catch (e) {
-      console.log(e);
-      tryAgain = true;
-    }
-  } while (tryAgain);
-
+  const balance = await authedBinance.fetchBalance();
   const symbolObj = Object.keys(balance.total);
   const symbols = symbolObj.map((symbol) => {
     if (symbol === "USDT" || symbol === "BUSD") return;
