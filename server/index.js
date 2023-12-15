@@ -95,7 +95,7 @@ app.post("/api/tradelist/", express.json(), async (req, res) => {
     if (symbol.includes("USDT")) return symbol;
   });
   // get trades from all symbols
-  let tryAgain = true;
+  let tryAgain;
   let balance = {};
   do {
     try {
